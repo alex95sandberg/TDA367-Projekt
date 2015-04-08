@@ -2,8 +2,11 @@ package edu.gu.hajo.jmonkeysample;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.input.KeyInput;
+import com.jme3.input.MouseInput;
 import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
+import com.jme3.input.controls.MouseAxisTrigger;
+import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.material.Material;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
@@ -18,7 +21,7 @@ import com.jme3.scene.control.CameraControl.ControlDirection;
  * a blue 3D cube and view from all sides by moving the mouse and pressing the
  * WASD keys.
  */
-public class MosquitoSimulator extends SimpleApplication {
+public class MosquitoSimulator extends SimpleApplication implements AnalogListener {
     
     public static void main(String[] args) {
         MosquitoSimulator app = new MosquitoSimulator();
@@ -28,9 +31,12 @@ public class MosquitoSimulator extends SimpleApplication {
     CameraNode camNode;
     Node targetNode = new Node();
     Geometry geom2;
+    Vector3f direction = new Vector3f();
+    boolean rotate = false;
+    
     
     @Override
-    public void simpleInitApp() {
+    public void simpleInitApp(){
         initKeys();
         
         Box b = new Box(1, 1, 1); // create cube shape
@@ -59,8 +65,10 @@ public class MosquitoSimulator extends SimpleApplication {
         rootNode.attachChild(targetNode);
         rootNode.attachChild(geom);              // make the cube appear in the scene
         
+        
         // Disable the default flyby cam
         flyCam.setEnabled(false);
+        
         //create the camera Node
         camNode = new CameraNode("Camera Node", cam);
         //This mode means that camera copies the movements of the targetNode:
@@ -68,7 +76,7 @@ public class MosquitoSimulator extends SimpleApplication {
         //Attach the camNode to the targetNode:
         targetNode.attachChild(camNode);
         //Move camNode, e.g. behind and above the targetNode:
-        camNode.setLocalTranslation(new Vector3f(0, 5, -5));
+        camNode.setLocalTranslation(new Vector3f(0, 0, -10));
         //Rotate the camNode to look at the targetNode:
         camNode.lookAt(targetNode.getLocalTranslation(), Vector3f.UNIT_Y);
         
@@ -76,45 +84,84 @@ public class MosquitoSimulator extends SimpleApplication {
         
     }
     
-    private AnalogListener analogListener = new AnalogListener(){
 
         @Override
         public void onAnalog(String name, float value, float tpf) {
             
+            direction.set(cam.getDirection()).normalizeLocal();
             
-            if(name.equals("Forward")){
-                Vector3f myVector = targetNode.getLocalTranslation();
-                targetNode.setLocalTranslation(myVector.x, myVector.y, myVector.z + value*4);
-            } else if(name.equals("Right")){
-                Vector3f myVector = targetNode.getLocalTranslation();
-                targetNode.setLocalTranslation(myVector.x  - value*4, myVector.y, myVector.z);
-            } else if(name.equals("Left")){
-                Vector3f myVector = targetNode.getLocalTranslation();
-                targetNode.setLocalTranslation(myVector.x  + value*4, myVector.y, myVector.z);
-            } else if(name.equals("Backwards")){
-                Vector3f myVector = targetNode.getLocalTranslation();
-                targetNode.setLocalTranslation(myVector.x, myVector.y, myVector.z - value*4);
-            } else if(name.equals("Up")){
-                Vector3f myVector = targetNode.getLocalTranslation();
-                targetNode.setLocalTranslation(myVector.x, myVector.y - value*4, myVector.z);
-            } else if(name.equals("Down")){
-                Vector3f myVector = targetNode.getLocalTranslation();
-                targetNode.setLocalTranslation(myVector.x, myVector.y + value*4, myVector.z);
+            if (name.equals("Forward")) {
+              direction.multLocal(5*tpf);
+              targetNode.move(direction);
             }
+            if (name.equals("Backward")) {
+              direction.multLocal(-5 * tpf);
+              targetNode.move(direction);
+            }
+            if (name.equals("Right")) {
+              direction.crossLocal(Vector3f.UNIT_Y).multLocal(5 * tpf);
+              targetNode.move(direction);
+              
+            }
+            if (name.equals("Left")) {
+              direction.crossLocal(Vector3f.UNIT_Y).multLocal(-5 * tpf);
+              targetNode.move(direction);
+            }
+            
+            if(name.equals("Up")){
+                //Vector3f myVector = box.getLocalTranslation();
+                //box.setLocalTranslation(myVector.x, myVector.y + value*4, myVector.z);
+            } 
+            if(name.equals("Down")){
+                //Vector3f myVector = box.getLocalTranslation();
+                //box.setLocalTranslation(myVector.x, myVector.y - value*4, myVector.z);
+            }
+            if (name.equals("rotateRight")) {
+              targetNode.rotate(0, 5 * tpf, 0);
+            }
+            if (name.equals("rotateLeft")) {
+              targetNode.rotate(0, -5 * tpf, 0);
+            }
+//            if(name.equals("rotateUp")){
+//                targetNode.rotate(+5 * tpf, 0, 0);
+//            }
+//            if(name.equals("rotateDown")){
+//                targetNode.rotate(-5 * tpf, 0, 0);
+//            }
+            
         }
         
+//         public void onAction(String name, boolean keyPressed, float tpf) {
+//            //toggling rotation on or off
+//            if (name.equals("toggleRotate") && keyPressed) {
+//              rotate = true;
+//              inputManager.setCursorVisible(false);
+//            }
+//            if (name.equals("toggleRotate") && !keyPressed) {
+//              rotate = false;
+//              inputManager.setCursorVisible(true);
+//            }
+//
+//        }
         
-    };
+        
     
     private void initKeys(){
         inputManager.addMapping("Forward", new KeyTrigger(KeyInput.KEY_W));
         inputManager.addMapping("Right", new KeyTrigger(KeyInput.KEY_D));
         inputManager.addMapping("Left", new KeyTrigger(KeyInput.KEY_A));
-        inputManager.addMapping("Backwards", new KeyTrigger(KeyInput.KEY_S));
+        inputManager.addMapping("Backward", new KeyTrigger(KeyInput.KEY_S));
         inputManager.addMapping("Up", new KeyTrigger(KeyInput.KEY_LCONTROL));
         inputManager.addMapping("Down", new KeyTrigger(KeyInput.KEY_SPACE));
+        inputManager.addMapping("toggleRotate", new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
+        inputManager.addMapping("rotateRight", new MouseAxisTrigger(MouseInput.AXIS_X, true));
+        inputManager.addMapping("rotateLeft", new MouseAxisTrigger(MouseInput.AXIS_X, false));
+        inputManager.addMapping("rotateUp", new MouseAxisTrigger(MouseInput.AXIS_Y, true));
+        inputManager.addMapping("rotateDown", new MouseAxisTrigger(MouseInput.AXIS_Y, false));
         
-        inputManager.addListener(analogListener, "Left", "Forward", "Right", "Backwards", "Up", "Down");
+        inputManager.addListener(this, "Left", "Forward", "Right", "Backward", "Up", "Down");
+        inputManager.addListener(this, "rotateRight", "rotateLeft","rotateUp", "rotateDown", "toggleRotate");
+       
     }
 }
 
