@@ -113,7 +113,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
               targetNode.move(direction);
             } 
             if(name.equals("Down")){
-              direction.crossLocal(Vector3f.UNIT_X).multLocal(-5 * tpf);
+              direction.crossLocal(Vector3f.UNIT_X).multLocal(5 * tpf);
               targetNode.move(direction);
             }
             if (name.equals("rotateRight")) {
