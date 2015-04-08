@@ -11,10 +11,10 @@ import com.jme3.math.ColorRGBA;
  * a blue 3D cube and view from all sides by moving the mouse and pressing the
  * WASD keys.
  */
-public class HelloJME3 extends SimpleApplication {
+public class MosquitoSimulator extends SimpleApplication {
 
     public static void main(String[] args) {
-        HelloJME3 app = new HelloJME3();
+        MosquitoSimulator app = new MosquitoSimulator();
         app.start(); // start the game
     }
 
