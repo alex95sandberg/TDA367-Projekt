@@ -50,6 +50,18 @@ public class Player {
           // make the cube appear in the scene
     }
     
+    public void movePlayerNode(Vector3f direction){
+        
+        playerNode.move(direction);
+        
+    }
+    
+    public void rotatePlayerNode(float x, float y, float z){
+        
+        playerNode.rotate(x, y, z);
+        
+    }
+    
     public Node getPlayerNode(){
         return playerNode;
     }

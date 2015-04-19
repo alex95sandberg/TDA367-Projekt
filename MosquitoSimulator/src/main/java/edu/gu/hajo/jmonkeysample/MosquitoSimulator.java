@@ -68,35 +68,35 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             
             if (name.equals("Forward")) {
               direction.multLocal(5*tpf);
-              player.getPlayerNode().move(direction);
+              player.movePlayerNode(direction);
             }
             if (name.equals("Backward")) {
               direction.multLocal(-5 * tpf);
-              player.getPlayerNode().move(direction);
+              player.movePlayerNode(direction);
             }
             if (name.equals("Right")) {
               direction.crossLocal(Vector3f.UNIT_Y).multLocal(5 * tpf);
-              player.getPlayerNode().move(direction);
+              player.movePlayerNode(direction);
               
             }
             if (name.equals("Left")) {
               direction.crossLocal(Vector3f.UNIT_Y).multLocal(-5 * tpf);
-              player.getPlayerNode().move(direction);
+              player.movePlayerNode(direction);
             }
             
             if(name.equals("Up")){
               direction.crossLocal(Vector3f.UNIT_X).multLocal(-5 * tpf);
-              player.getPlayerNode().move(direction);
+              player.movePlayerNode(direction);
             } 
             if(name.equals("Down")){
               direction.crossLocal(Vector3f.UNIT_X).multLocal(5 * tpf);
-              player.getPlayerNode().move(direction);
+              player.movePlayerNode(direction);
             }
             if (name.equals("rotateRight")) {
-              player.getPlayerNode().rotate(0, 5 * tpf, 0);
+              player.rotatePlayerNode(0, 5 * tpf, 0);
             }
             if (name.equals("rotateLeft")) {
-              player.getPlayerNode().rotate(0, -5 * tpf, 0);
+              player.rotatePlayerNode(0, -5 * tpf, 0);
             }
 //            if(name.equals("rotateUp")){
 //                targetNode.rotate(+5 * tpf, 0, 0);
