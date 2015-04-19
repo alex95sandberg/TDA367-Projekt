@@ -29,32 +29,17 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     Vector3f direction = new Vector3f();
     boolean rotate = false;
     Player player;
+    World world;
     
     
     @Override
     public void simpleInitApp(){
         initKeys();
         player = new Player(cam, assetManager);
+        world = new World(assetManager);
         
-        Box b = new Box(1, 1, 1); // create cube shape
-        Geometry geom = new Geometry("Box", b);  // create cube geometry from the shape
-        Material mat = new Material(assetManager,
-                "Common/MatDefs/Misc/Unshaded.j3md");  // create a simple material
-        mat.setColor("Color", ColorRGBA.Blue);   // set color of material to blue
-        geom.setMaterial(mat);                   // set the cube's material
-        
-        
-        Geometry geom3 = new Geometry("Box3", b);  
-        Material mat3 = new Material(assetManager,
-                "Common/MatDefs/Misc/Unshaded.j3md");  
-        mat3.setColor("Color", ColorRGBA.Green);   
-        geom3.setMaterial(mat3);                   
-        geom3.setLocalTranslation(2, 0, 2);
-        
-        rootNode.attachChild(geom3);
+        rootNode.attachChild(world.getWorldNode());
         rootNode.attachChild(player.getPlayerNode());
-        rootNode.attachChild(geom);              // make the cube appear in the scene
-        
         
         // Disable the default flyby cam
         flyCam.setEnabled(false);
