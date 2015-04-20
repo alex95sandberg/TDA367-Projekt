@@ -25,6 +25,8 @@ public class Player {
     private Node playerNode = new Node();
     
     public Player(Camera cam, AssetManager assetManager){
+        
+        Mosquito mosquito = new Mosquito(assetManager);
         //create the camera Node
         camNode = new CameraNode("Camera Node", cam);
         //This mode means that camera copies the movements of the targetNode:
@@ -46,7 +48,7 @@ public class Player {
         
         
         playerNode.setLocalTranslation(-2, 0, -2);
-        playerNode.attachChild(geom);
+        playerNode.attachChild(mosquito.getSpatial());
           // make the cube appear in the scene
     }
     
