@@ -36,6 +36,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     
     @Override
     public void simpleInitApp(){
+        // Disable the default flyby cam
+        flyCam.setEnabled(false);
         initKeys();
         player = new Player(cam, assetManager);
         world = new World(assetManager);
@@ -43,13 +45,14 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         rootNode.attachChild(world.getWorldNode());
         rootNode.attachChild(player.getPlayerNode());
         
-        // Disable the default flyby cam
-        flyCam.setEnabled(false);
     }
     
 
         @Override
         public void onAnalog(String name, float value, float tpf) {
+            
+            if(inputManager.isCursorVisible())
+                inputManager.setCursorVisible(false);
             
             directionForward.set(cam.getDirection()).normalizeLocal();
             directionLeft.set(cam.getLeft()).normalizeLocal();
@@ -87,7 +90,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             if (name.equals("rotateLeft")) {
                 player.rotatePlayerNode(0, -5 * tpf, 0);
             }
-            if(name.equals("rotateUp")){
+            if(name.equals("rotateUp")){               
                 player.rotatePlayerNode(+5 * tpf, 0, 0);
             }
             if(name.equals("rotateDown")){
