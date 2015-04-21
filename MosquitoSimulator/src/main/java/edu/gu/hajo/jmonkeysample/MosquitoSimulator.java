@@ -26,7 +26,9 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         app.start(); // start the game
     }
     
-    Vector3f direction = new Vector3f();
+    Vector3f directionForward = new Vector3f();
+    Vector3f directionLeft = new Vector3f();
+    Vector3f directionUp = new Vector3f();
     boolean rotate = false;
     Player player;
     World world;
@@ -49,46 +51,48 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         @Override
         public void onAnalog(String name, float value, float tpf) {
             
-            direction.set(cam.getDirection()).normalizeLocal();
+            directionForward.set(cam.getDirection()).normalizeLocal();
+            directionLeft.set(cam.getLeft()).normalizeLocal();
+            directionUp.set(directionLeft).crossLocal(directionForward).normalizeLocal();
             
             if (name.equals("Forward")) {
-              direction.multLocal(5*tpf);
-              player.movePlayerNode(direction);
+                directionForward.multLocal(5*tpf);
+                player.movePlayerNode(directionForward);
             }
             if (name.equals("Backward")) {
-              direction.multLocal(-5 * tpf);
-              player.movePlayerNode(direction);
+                directionForward.multLocal(-5 * tpf);
+                player.movePlayerNode(directionForward);
             }
             if (name.equals("Right")) {
-              direction.crossLocal(Vector3f.UNIT_Y).multLocal(5 * tpf);
-              player.movePlayerNode(direction);
+                directionLeft.multLocal(-5*tpf);
+                player.movePlayerNode(directionLeft);
               
             }
             if (name.equals("Left")) {
-              direction.crossLocal(Vector3f.UNIT_Y).multLocal(-5 * tpf);
-              player.movePlayerNode(direction);
+                directionLeft.multLocal(5*tpf);
+                player.movePlayerNode(directionLeft);
             }
             
             if(name.equals("Up")){
-              direction.crossLocal(Vector3f.UNIT_X).multLocal(-5 * tpf);
-              player.movePlayerNode(direction);
+                directionUp.multLocal(5 * tpf);
+                player.movePlayerNode(directionUp);
             } 
             if(name.equals("Down")){
-              direction.crossLocal(Vector3f.UNIT_X).multLocal(5 * tpf);
-              player.movePlayerNode(direction);
+                directionUp.multLocal(-5 * tpf);
+                player.movePlayerNode(directionUp);
             }
             if (name.equals("rotateRight")) {
-              player.rotatePlayerNode(0, 5 * tpf, 0);
+                player.rotatePlayerNode(0, 5 * tpf, 0);
             }
             if (name.equals("rotateLeft")) {
-              player.rotatePlayerNode(0, -5 * tpf, 0);
+                player.rotatePlayerNode(0, -5 * tpf, 0);
             }
-//            if(name.equals("rotateUp")){
-//                targetNode.rotate(+5 * tpf, 0, 0);
-//            }
-//            if(name.equals("rotateDown")){
-//                targetNode.rotate(-5 * tpf, 0, 0);
-//            }
+            if(name.equals("rotateUp")){
+                player.rotatePlayerNode(+5 * tpf, 0, 0);
+            }
+            if(name.equals("rotateDown")){
+                player.rotatePlayerNode(-5 * tpf, 0, 0);
+            }
             
         }
         
