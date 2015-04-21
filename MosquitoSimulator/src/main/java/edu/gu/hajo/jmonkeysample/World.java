@@ -33,14 +33,13 @@ public class World {
         geom1.setMaterial(mat1);                   // set the cube's material
         
         
-        Box b2 = new Box(2, 2, 1); // create cube shape
+        Box b2 = new Box(2, 2, 1);
         Material mat2 = new Material(assetManager,
-                "Common/MatDefs/Misc/Unshaded.j3md");  // create a simple material
+                "Common/MatDefs/Misc/Unshaded.j3md");
         
-        Geometry geom2 = new Geometry("Box2", b2);  // create cube geometry from the shape
+        Geometry geom2 = new Geometry("Box2", b2);
 
-        mat2.setColor("Color", ColorRGBA.Gray);   // set color of material to blue
-        mat2.getAdditionalRenderState().setWireframe(true);
+        mat2.setColor("Color", ColorRGBA.Gray);
         geom2.setMaterial(mat2); 
         geom2.setLocalTranslation(4, 0, 6);
         
