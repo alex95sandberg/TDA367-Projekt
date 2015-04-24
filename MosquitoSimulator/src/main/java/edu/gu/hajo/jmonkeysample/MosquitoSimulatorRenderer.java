@@ -18,11 +18,12 @@ public class MosquitoSimulatorRenderer {
     
     public MosquitoSimulatorRenderer(AssetManager assetManager){
         this.assetManager = assetManager;
+        this.renderMosquito();
     }
     private AssetManager assetManager;
     private Spatial mosquito;
     
-    public void renderMosquito(){
+    private void renderMosquito(){
         assetManager.registerLocator("assets.zip", ZipLocator.class);
         mosquito = assetManager.loadModel("assets/mosquito.j3o");
         mosquito.rotate(0f, (float)Math.PI/2, 0f);
