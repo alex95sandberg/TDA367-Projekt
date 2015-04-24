@@ -32,6 +32,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     boolean rotate = false;
     Player player;
     World world;
+    MosquitoSimulatorRenderer msr;
     
     
     @Override
@@ -39,8 +40,10 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         // Disable the default flyby cam
         flyCam.setEnabled(false);
         initKeys();
-        player = new Player(cam, assetManager);
+        player = new Player(cam);
         world = new World(assetManager);
+        msr = new MosquitoSimulatorRenderer(assetManager);
+        player.getPlayerNode().attachChild(msr.getMosquito());
         
         rootNode.attachChild(world.getWorldNode());
         rootNode.attachChild(player.getPlayerNode());
