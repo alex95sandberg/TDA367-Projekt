@@ -1,18 +1,15 @@
 package edu.gu.hajo.jmonkeysample;
 
 import com.jme3.app.SimpleApplication;
+import com.jme3.bullet.BulletAppState;
+import com.jme3.bullet.PhysicsSpace;
 import com.jme3.input.KeyInput;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
-import com.jme3.material.Material;
-import com.jme3.scene.Geometry;
-import com.jme3.scene.shape.Box;
-import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
-import com.jme3.scene.Node;
 
 /**
  * Sample 1 - how to get started with the most simple JME 3 application. Display
@@ -26,22 +23,26 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         app.start(); // start the game
     }
     
-    Vector3f directionForward = new Vector3f();
-    Vector3f directionLeft = new Vector3f();
-    Vector3f directionUp = new Vector3f();
-    boolean rotate = false;
-    Player player;
-    World world;
-    MosquitoSimulatorRenderer msr;
+    private BulletAppState bulletAppState;
+    private Vector3f directionForward = new Vector3f();
+    private Vector3f directionLeft = new Vector3f();
+    private Vector3f directionUp = new Vector3f();
+    private boolean rotate = false;
+    private Player player;
+    private World world;
+    private MosquitoSimulatorRenderer msr;
     
     
     @Override
     public void simpleInitApp(){
+        bulletAppState = new BulletAppState();
+        stateManager.attach(bulletAppState);
+        
         // Disable the default flyby cam
         flyCam.setEnabled(false);
         initKeys();
         player = new Player(cam);
-        world = new World(assetManager);
+        world = new World(assetManager, getPhysicsSpace());
         msr = new MosquitoSimulatorRenderer(assetManager);
         player.getPlayerNode().attachChild(msr.getMosquito());
         
@@ -50,6 +51,11 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         
     }
     
+    public PhysicsSpace getPhysicsSpace(){
+        
+        return bulletAppState.getPhysicsSpace();
+        
+    }
 
         @Override
         public void onAnalog(String name, float value, float tpf) {

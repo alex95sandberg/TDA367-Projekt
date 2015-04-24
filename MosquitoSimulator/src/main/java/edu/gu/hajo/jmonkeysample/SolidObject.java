@@ -9,5 +9,5 @@ package edu.gu.hajo.jmonkeysample;
  * @author Alexander
  */
 public class SolidObject {
-    
+ 
 }
