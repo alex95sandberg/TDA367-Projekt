@@ -14,6 +14,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
+import java.util.List;
 
 /**
  *
@@ -22,18 +23,10 @@ import com.jme3.scene.shape.Box;
 public class World {
     
     private Node worldNode = new Node();
-    private GhostControl ghost1;
-    private Node humanNode1;
-    
+    private List<SolidObject> worldObjects;
     
     public World(AssetManager assetManager, PhysicsSpace physicsSpace){
-        
-        //Så här lär det se ut.
-        humanNode1 = new Node("Human1"); 
-        ghost1 = new GhostControl(new BoxCollisionShape(new Vector3f(2,2,2)));
-        humanNode1.addControl(ghost1);
-        physicsSpace.add(ghost1);
-        
+           
         Box b = new Box(1, 1, 1); // create cube shape
         Material mat1 = new Material(assetManager,
                 "Common/MatDefs/Misc/Unshaded.j3md");  // create a simple material
@@ -63,7 +56,6 @@ public class World {
         geom3.setMaterial(mat3);                   
         geom3.setLocalTranslation(2, 0, 2);
         
-        worldNode.attachChild(humanNode1);
         worldNode.attachChild(geom1);
         worldNode.attachChild(geom2);
         worldNode.attachChild(geom3);
