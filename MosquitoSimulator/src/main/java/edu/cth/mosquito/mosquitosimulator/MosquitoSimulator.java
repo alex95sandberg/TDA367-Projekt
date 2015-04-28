@@ -1,4 +1,4 @@
-package edu.gu.hajo.jmonkeysample;
+package edu.cth.mosquito.mosquitosimulator;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.bullet.BulletAppState;

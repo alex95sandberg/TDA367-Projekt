@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.gu.hajo.jmonkeysample;
+package edu.cth.mosquito.mosquitosimulator;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.asset.plugins.ZipLocator;

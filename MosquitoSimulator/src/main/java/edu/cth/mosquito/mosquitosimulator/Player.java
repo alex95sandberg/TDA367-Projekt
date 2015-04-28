@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.gu.hajo.jmonkeysample;
+package edu.cth.mosquito.mosquitosimulator;
 
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
