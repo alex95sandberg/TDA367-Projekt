@@ -2,23 +2,23 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.cth.mosquito.mosquitosimulator;
+package edu.cth.mosquito.core;
 
 /**
  *
  * @author Alexander
  */
-public class newPlayer {
+public class Player {
     private Position3D pos;
     private float energy;
     private float score;
     
-    public newPlayer(){
+    public Player(){
         energy = 100;
         pos = new Position3D();
     }
     
-    public newPlayer(Position3D position){
+    public Player(Position3D position){
         energy = 100;
         pos = new Position3D(position);
     }

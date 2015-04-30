@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.cth.mosquito.mosquitosimulator;
+package edu.cth.mosquito.core;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.PhysicsSpace;
@@ -20,12 +20,12 @@ import java.util.List;
  *
  * @author Alexander
  */
-public class World {
+public class OldWorld {
     
     private Node worldNode = new Node();
-    private List<SolidObject> worldObjects;
+    private List<OldSolidObject> worldObjects;
     
-    public World(AssetManager assetManager, PhysicsSpace physicsSpace){
+    public OldWorld(AssetManager assetManager, PhysicsSpace physicsSpace){
            
         Box b = new Box(1, 1, 1); // create cube shape
         Material mat1 = new Material(assetManager,

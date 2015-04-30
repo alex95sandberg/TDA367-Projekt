@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.cth.mosquito.mosquitosimulator;
+package edu.cth.mosquito.core;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +12,11 @@ import java.util.List;
  * @author Johan
  */
 
-public class newWorld {
+public class World {
     
-    private List<newSolidObject> objects = new ArrayList<>();
+    private List<SolidObject> objects = new ArrayList<>();
     
-    public newWorld(){
+    public World(){
         
     }
     

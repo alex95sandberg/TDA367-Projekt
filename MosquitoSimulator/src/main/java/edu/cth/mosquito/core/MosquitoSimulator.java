@@ -1,4 +1,4 @@
-package edu.cth.mosquito.mosquitosimulator;
+package edu.cth.mosquito.core;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.bullet.BulletAppState;
@@ -29,8 +29,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     private Vector3f directionLeft = new Vector3f();
     private Vector3f directionUp = new Vector3f();
     private boolean rotate = false;
-    private Player player;
-    private World world;
+    private OldPlayer player;
+    private OldWorld world;
     private MosquitoSimulatorRenderer msr;
     
     @Override
@@ -42,8 +42,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         // Disable the default flyby cam
         flyCam.setEnabled(false);
         initKeys();
-        player = new Player(cam);
-        world = new World(assetManager, getPhysicsSpace());
+        player = new OldPlayer(cam);
+        world = new OldWorld(assetManager, getPhysicsSpace());
         msr = new MosquitoSimulatorRenderer(assetManager);
         player.getPlayerNode().attachChild(msr.getMosquito());
         

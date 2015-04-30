@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.cth.mosquito.mosquitosimulator;
+package edu.cth.mosquito.core;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.asset.plugins.ZipLocator;
@@ -38,5 +38,9 @@ public class MosquitoSimulatorRenderer {
     
     public Spatial getMosquito(){
             return mosquito;
+    }
+    
+    public void renderEnergybar(){
+        
     }
 }

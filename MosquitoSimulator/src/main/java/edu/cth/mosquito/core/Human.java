@@ -2,13 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.cth.mosquito.mosquitosimulator;
+package edu.cth.mosquito.core;
 
 /**
  *
  * @author Alexander
  */
-public class Human extends newSolidObject{
+public class Human extends SolidObject{
     private float blood;
     
     public Human(){

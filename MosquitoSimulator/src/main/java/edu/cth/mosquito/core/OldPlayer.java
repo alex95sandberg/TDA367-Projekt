@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.cth.mosquito.mosquitosimulator;
+package edu.cth.mosquito.core;
 
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
@@ -14,12 +14,12 @@ import com.jme3.scene.control.CameraControl;
  *
  * @author Alexander
  */
-public class Player {
+public class OldPlayer {
     
     private CameraNode camNode;
     private Node playerNode = new Node();
     
-    public Player(Camera cam){
+    public OldPlayer(Camera cam){
         
         camNode = new CameraNode("Camera Node", cam);
         camNode.setControlDir(CameraControl.ControlDirection.SpatialToCamera);

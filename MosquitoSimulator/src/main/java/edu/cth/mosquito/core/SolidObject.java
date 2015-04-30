@@ -2,30 +2,30 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.cth.mosquito.mosquitosimulator;
+package edu.cth.mosquito.core;
 
 /**
  *
  * @author Alexander
  */
-public class newSolidObject {
+public class SolidObject {
     private Position3D position;
     private float width, heigth;
     
-    public newSolidObject(){
+    public SolidObject(){
         position = new Position3D();
     }
     
-    public newSolidObject(Position3D position){
+    public SolidObject(Position3D position){
         this.position = position;
     }
     
-    public newSolidObject(float width, float heigth){
+    public SolidObject(float width, float heigth){
         this.width = width;
         this.heigth = heigth;
     }
     
-    public newSolidObject(Position3D position, float width, float heigth){
+    public SolidObject(Position3D position, float width, float heigth){
         this.position = position;
         this.width = width;
         this.heigth = heigth;
@@ -39,7 +39,7 @@ public class newSolidObject {
         return width;
     }
     
-    private float getHeigth(){
+    private float getHeight(){
         return heigth;
     }
 }

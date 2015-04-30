@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.cth.mosquito.mosquitosimulator;
+package edu.cth.mosquito.core;
 
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
@@ -14,12 +14,12 @@ import com.jme3.scene.Node;
  *
  * @author Alexander
  */
-public class SolidObject {
+public class OldSolidObject {
     
     private Node solidObjectNode = new Node("SolidObject");
     private GhostControl ghost;
     
-    public SolidObject(Vector3f size, PhysicsSpace physicsSpace){
+    public OldSolidObject(Vector3f size, PhysicsSpace physicsSpace){
         
         ghost = new GhostControl(new BoxCollisionShape(size));
         solidObjectNode.addControl(ghost);
