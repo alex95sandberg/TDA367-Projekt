@@ -10,7 +10,7 @@ package edu.cth.mosquito.core;
  */
 public class SolidObject {
     private Position3D position;
-    private float width, heigth;
+    private float width, height;
     
     public SolidObject(){
         position = new Position3D();
@@ -20,15 +20,15 @@ public class SolidObject {
         this.position = position;
     }
     
-    public SolidObject(float width, float heigth){
+    public SolidObject(float width, float height){
         this.width = width;
-        this.heigth = heigth;
+        this.height = height;
     }
     
-    public SolidObject(Position3D position, float width, float heigth){
+    public SolidObject(Position3D position, float width, float height){
         this.position = position;
         this.width = width;
-        this.heigth = heigth;
+        this.height = height;
     }
     
     private Position3D getPosition(){
@@ -40,6 +40,6 @@ public class SolidObject {
     }
     
     private float getHeight(){
-        return heigth;
+        return height;
     }
 }
