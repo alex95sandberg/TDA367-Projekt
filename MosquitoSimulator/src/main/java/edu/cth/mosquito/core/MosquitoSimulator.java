@@ -10,7 +10,8 @@ import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.math.Vector3f;
-import com.jme3.scene.Node;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * Sample 1 - how to get started with the most simple JME 3 application. Display
@@ -24,6 +25,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         app.start(); // start the game
     }
     
+    private Controller controller;
+    private Highscore highscore;
     public BulletAppState bulletAppState;
     private Vector3f directionForward = new Vector3f();
     private Vector3f directionLeft = new Vector3f();
@@ -45,11 +48,13 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         player = new OldPlayer(cam);
         world = new OldWorld(assetManager, getPhysicsSpace());
         msr = new MosquitoSimulatorRenderer(assetManager);
+        highscore = new Highscore();
         player.getPlayerNode().attachChild(msr.getMosquito());
+        controller = new Controller();
         
         rootNode.attachChild(world.getWorldNode());
         rootNode.attachChild(player.getPlayerNode());
-        
+
     }
     
     public PhysicsSpace getPhysicsSpace(){
