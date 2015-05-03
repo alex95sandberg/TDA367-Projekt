@@ -4,6 +4,8 @@
  */
 package edu.cth.mosquito.core;
 
+import java.util.Random;
+import static junit.framework.Assert.assertTrue;
 import junit.framework.TestCase;
 
 /**
@@ -11,6 +13,8 @@ import junit.framework.TestCase;
  * @author Johan
  */
 public class HumanTest extends TestCase {
+    
+    Random rnd = new Random();
     
     public HumanTest(String testName) {
         super(testName);
@@ -28,13 +32,21 @@ public class HumanTest extends TestCase {
 
     public void testDecreaseBlood() {
         Human h1 = new Human();
-        h1.decreaseBlood(12.3f);
-        assertTrue(h1.getBlood() == 87.7f);
+        
+        float maxBlood = h1.getBlood();
+        float bloodDiff = rnd.nextFloat();
+        
+        h1.decreaseBlood(bloodDiff);
+        assertTrue(h1.getBlood() == maxBlood - bloodDiff);
     }
 
     public void testIncreaseBlood() {
         Human h1 = new Human();
-        h1.increaseBlood(45.6f);
-        assertTrue(h1.getBlood() == 145.6f);
+        
+        float maxBlood = h1.getBlood();
+        float bloodDiff = rnd.nextFloat();
+        
+        h1.increaseBlood(bloodDiff);
+        assertTrue(h1.getBlood() == maxBlood + bloodDiff);
     }
 }
