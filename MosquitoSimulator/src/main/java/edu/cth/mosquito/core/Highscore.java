@@ -9,11 +9,11 @@ import java.util.Collections;
 
 /**
  *
- * @author Alexander
+ * @author Anton
  */
 public class Highscore {
     
-    private static ArrayList<Integer> highscores;
+    private ArrayList<Integer> highscores;
     
     public Highscore(){
         
@@ -28,7 +28,6 @@ public class Highscore {
     public void addScore(int newScore){
         
         highscores.add(newScore);
-        System.out.print("blf");
         
         sortArray();
     }
@@ -50,6 +49,16 @@ public class Highscore {
     public ArrayList<Integer> getHighscore(){
         
         return highscores;
+        
+    }
+    
+    /**
+     * A method to simplify the expression to get the length of the array.
+     * @return the size of the highscore Array.
+     */
+    public int getSize(){
+        
+        return highscores.size();
         
     }
     

@@ -23,7 +23,7 @@ public class FileHandler {
     
      /**
      * Loads the highscore.txt with the scores found in the ArrayList containing the scores
-     * @throws FileNotFoundException if the file is not found
+     * @throws FileNotFoundException if the file which to write to is not found
      */
     public void loadScoreFile(ArrayList<Integer> highScores) throws FileNotFoundException {
             
@@ -35,12 +35,12 @@ public class FileHandler {
                 
         }
             
-        ops.close(); //Flushes data to the file
+        ops.close();
         
     }
     
    /**
-    * Loads the ArrayList with the saved scores in highscore.txt
+    * Loads and returns an ArrayList with the saved scores in the highscore file
     * @throws IOException
     */
     public ArrayList<Integer> loadHighscoreList() throws IOException {

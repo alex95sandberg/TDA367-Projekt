@@ -5,7 +5,6 @@
 package edu.cth.mosquito.core;
 
 import java.util.Random;
-import static junit.framework.Assert.assertTrue;
 import junit.framework.TestCase;
 
 /**
