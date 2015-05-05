@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- *
+ * 
  * @author Anton
  */
 public class Controller {
@@ -23,16 +23,21 @@ public class Controller {
         
     }
     
-    public void saveHighscoreToFile(ArrayList<Integer> highscore) throws FileNotFoundException{
+    public void saveHighscoreToFile(ArrayList<Integer> highscore) throws FileNotFoundException {
         
         fileHandler.loadScoreFile(highscore);
         
     }
     
-    public ArrayList<Integer> getHighscores() throws IOException{
+    public ArrayList<Integer> getHighscores() throws IOException {
         
        return fileHandler.loadHighscoreList();
         
     }
     
+    public void deleteHighscore() throws FileNotFoundException {
+        
+        fileHandler.deleteHighscores();
+        
+    }
 }

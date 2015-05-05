@@ -57,4 +57,19 @@ public class FileHandler {
         
     }
     
+    /**
+     * A method thats prints a empty string to the highscore file 
+     * thus removing the previous highscore from the file
+     * @throws FileNotFoundException if the file which to write to is not found.
+     */
+    public void deleteHighscores() throws FileNotFoundException {
+        
+        ops = new PrintWriter(fileName);
+        
+        ops.print("");
+        
+        ops.close();
+        
+    }
+    
 }
