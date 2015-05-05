@@ -46,16 +46,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         controller = new Controller();
         msr = new MosquitoSimulatorRenderer(assetManager, cam);
         rootNode.attachChild(msr.getMosquitoNode());
-<<<<<<< HEAD
-
         rootNode.attachChild(msr.getRoomSpatial());
-        
 
-        
-
-=======
-        
->>>>>>> hjbj
         ///TEMPORÄRT
         Box b = new Box(1, 1, 1); // create cube shape
         Material mat1 = new Material(assetManager,
