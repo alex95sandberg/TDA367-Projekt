@@ -25,9 +25,9 @@ public class Highscore {
      * Adds a score to the score list
      * @param newScore the score to be added
      */
-    public void addScore(int newScore){
+    public void addScore(float newScore){
         
-        highscores.add(newScore);
+        highscores.add(Math.round(newScore));
         
         sortArray();
     }
