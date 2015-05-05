@@ -15,9 +15,19 @@ import java.util.List;
 public class World {
     
     private List<SolidObject> objects = new ArrayList<>();
+    private float width, height;
     
-    public World(){
-        
+    public World(float width, float height){
+        this.width = width;
+        this.height = height;
+    }
+    
+    public float getWidth(){
+        return width;
+    }
+    
+    public float getHeight(){
+        return height;
     }
     
 }
