@@ -31,15 +31,15 @@ public class SolidObject {
         this.height = height;
     }
     
-    private Position3D getPosition(){
+    public Position3D getPosition(){
         return position;
     }
     
-    private float getWidth(){
+    public float getWidth(){
         return width;
     }
     
-    private float getHeight(){
+    public float getHeight(){
         return height;
     }
 }
