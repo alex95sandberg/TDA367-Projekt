@@ -26,11 +26,13 @@ public class MosquitoSimulatorRenderer {
         this.cam = cam;
         mosquitoNode = new Node();
         this.renderMosquito();
+        this.renderRoom();
         cameraSetup();
     }
     private AssetManager assetManager;
     private Camera cam;
     private Spatial mosquito;
+    private Spatial room;
     private CameraNode camNode;
     private Node mosquitoNode;
     
@@ -58,8 +60,25 @@ public class MosquitoSimulatorRenderer {
         mosquitoNode.attachChild(mosquito);
     }
     
+    private void renderRoom(){
+        assetManager.registerLocator("assets.zip", ZipLocator.class);
+        room = assetManager.loadModel("assets/room.j3o");
+        room.scale(10,4,10);
+        room.setLocalTranslation(0, 0, 0);
+        
+        Material m = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        m.setColor("Color", ColorRGBA.Yellow);
+        m.getAdditionalRenderState().setWireframe(true);
+        
+        room.setMaterial(m);
+    }
+    
     public Node getMosquitoNode(){
             return mosquitoNode;
+    }
+    
+    public Spatial getRoomSpatial(){
+        return room;
     }
     
     public void renderEnergybar(){
