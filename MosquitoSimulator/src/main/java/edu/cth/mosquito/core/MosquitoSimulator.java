@@ -27,6 +27,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     private Controller controller;
     private Highscore highscore;
     private Player player;
+    private World world;
     private MosquitoSimulatorRenderer msr;
     private GuiOverlay guiOverlay;
     private Vector3f directionForward = new Vector3f();
@@ -44,7 +45,9 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         player = new Player();
         highscore = new Highscore();
         controller = new Controller();
+        world = new World(10, 5, player);
         msr = new MosquitoSimulatorRenderer(assetManager, cam);
+        msr.renderRoom(world.getWidth(), world.getHeight());
         rootNode.attachChild(msr.getMosquitoNode());
         rootNode.attachChild(msr.getRoomSpatial());
         initGUI();
@@ -103,6 +106,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         directionUp.set(directionLeft).crossLocal(directionForward).normalizeLocal();
 
         if (name.equals("Forward")) {
+            
             directionForward.multLocal(5*tpf);
             player.move(new Position3D(directionForward.x, directionForward.y, directionForward.z));
         }
