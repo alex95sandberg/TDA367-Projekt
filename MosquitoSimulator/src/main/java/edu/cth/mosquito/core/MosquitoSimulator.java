@@ -14,6 +14,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
+import edu.cth.mosquito.view.GuiOverlay;
 import edu.cth.mosquito.view.MosquitoSimulatorRenderer;
 
 public class MosquitoSimulator extends SimpleApplication implements AnalogListener {
@@ -27,6 +28,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     private Highscore highscore;
     private Player player;
     private MosquitoSimulatorRenderer msr;
+    private GuiOverlay guiover;
     private Vector3f directionForward = new Vector3f();
     private Vector3f directionLeft = new Vector3f();
     private Vector3f directionUp = new Vector3f();
@@ -38,13 +40,22 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         // Disable the default flyby cam
         flyCam.setEnabled(false);
         initKeys();
+        guiover = new GuiOverlay(assetManager);
         player = new Player();
         highscore = new Highscore();
         controller = new Controller();
         msr = new MosquitoSimulatorRenderer(assetManager, cam);
         rootNode.attachChild(msr.getMosquitoNode());
+<<<<<<< HEAD
+
         rootNode.attachChild(msr.getRoomSpatial());
         
+
+        
+
+=======
+        
+>>>>>>> hjbj
         ///TEMPORÄRT
         Box b = new Box(1, 1, 1); // create cube shape
         Material mat1 = new Material(assetManager,
@@ -67,14 +78,23 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     public void simpleUpdate(float tpf) {
         msr.getMosquitoNode().setLocalTranslation(player.getPosition().getX(), 
                 player.getPosition().getY(), player.getPosition().getZ());
+        updateEnergyText();
     }
 
     @Override
     public void simpleRender(RenderManager rm) {
         //TODO: add render code
-        
+       
     }
-
+      
+      public void updateEnergyText(){
+        setDisplayStatView(false);  
+        setDisplayFps(false);
+        guiover.setEnergyAmount(player.getEnergy());
+        guiNode.attachChild(guiover.getEnergyText());
+    
+    }
+      
     @Override
     public void onAnalog(String name, float value, float tpf) {
 
