@@ -8,7 +8,13 @@ import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
+import com.jme3.material.Material;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
+import com.jme3.renderer.RenderManager;
+import com.jme3.scene.Geometry;
+import com.jme3.scene.shape.Box;
+import edu.cth.mosquito.view.MosquitoSimulatorRenderer;
 
 public class MosquitoSimulator extends SimpleApplication implements AnalogListener {
     
@@ -20,9 +26,11 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     private Controller controller;
     private Highscore highscore;
     private Player player;
+    private MosquitoSimulatorRenderer msr;
     private Vector3f directionForward = new Vector3f();
     private Vector3f directionLeft = new Vector3f();
     private Vector3f directionUp = new Vector3f();
+    
     
     @Override
     public void simpleInitApp(){
@@ -33,7 +41,37 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         player = new Player();
         highscore = new Highscore();
         controller = new Controller();
+        msr = new MosquitoSimulatorRenderer(assetManager, cam);
+        rootNode.attachChild(msr.getMosquitoNode());
+        
+        ///TEMPORÄRT
+        Box b = new Box(1, 1, 1); // create cube shape
+        Material mat1 = new Material(assetManager,
+                "Common/MatDefs/Misc/Unshaded.j3md");  // create a simple material
+        
+        Geometry geom1 = new Geometry("Box", b);  // create cube geometry from the shape
 
+        mat1.setColor("Color", ColorRGBA.Blue);   // set color of material to blue
+        mat1.getAdditionalRenderState().setWireframe(true);
+        geom1.setMaterial(mat1);                   // set the cube's material
+        //TEMPORÄRT
+        
+        
+        rootNode.attachChild(geom1);
+        
+
+    }
+    
+    @Override
+    public void simpleUpdate(float tpf) {
+        msr.getMosquitoNode().setLocalTranslation(player.getPosition().getX(), 
+                player.getPosition().getY(), player.getPosition().getZ());
+    }
+
+    @Override
+    public void simpleRender(RenderManager rm) {
+        //TODO: add render code
+        
     }
 
     @Override
@@ -48,39 +86,42 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
 
         if (name.equals("Forward")) {
             directionForward.multLocal(5*tpf);
-            //player.movePlayerNode(directionForward);
+            player.move(new Position3D(directionForward.x, directionForward.y, directionForward.z));
         }
         if (name.equals("Backward")) {
             directionForward.multLocal(-5 * tpf);
-            //player.movePlayerNode(directionForward);
+            player.move(new Position3D(directionForward.x, directionForward.y, directionForward.z));
         }
         if (name.equals("Right")) {
             directionLeft.multLocal(-5*tpf);
-            //player.movePlayerNode(directionLeft);
+            player.move(new Position3D(directionLeft.x, directionLeft.y, directionLeft.z));
 
         }
         if (name.equals("Left")) {
             directionLeft.multLocal(5*tpf);
-            //player.movePlayerNode(directionLeft);
+            player.move(new Position3D(directionLeft.x, directionLeft.y, directionLeft.z));
         }
 
         if(name.equals("Up")){
             directionUp.multLocal(5 * tpf);
-            //player.movePlayerNode(directionUp);
+            player.move(new Position3D(directionUp.x, directionUp.y, directionUp.z));
         } 
         if(name.equals("Down")){
             directionUp.multLocal(-5 * tpf);
-            //player.movePlayerNode(directionUp);
+            player.move(new Position3D(directionUp.x, directionUp.y, directionUp.z));
         }
         if (name.equals("rotateRight")) {
             //player.rotatePlayerNode(0, 5 * tpf, 0);
         }
+        
         if (name.equals("rotateLeft")) {
             //player.rotatePlayerNode(0, -5 * tpf, 0);
         }
+        
         if(name.equals("rotateUp")){               
             //player.rotatePlayerNode(+5 * tpf, 0, 0);
         }
+        
         if(name.equals("rotateDown")){
             //player.rotatePlayerNode(-5 * tpf, 0, 0);
         }
