@@ -28,7 +28,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     private Highscore highscore;
     private Player player;
     private MosquitoSimulatorRenderer msr;
-    private GuiOverlay guiover;
+    private GuiOverlay guiOverlay;
     private Vector3f directionForward = new Vector3f();
     private Vector3f directionLeft = new Vector3f();
     private Vector3f directionUp = new Vector3f();
@@ -40,7 +40,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         // Disable the default flyby cam
         flyCam.setEnabled(false);
         initKeys();
-        guiover = new GuiOverlay(assetManager);
+        guiOverlay = new GuiOverlay(assetManager);
         player = new Player();
         highscore = new Highscore();
         controller = new Controller();
@@ -70,6 +70,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     public void simpleUpdate(float tpf) {
         msr.getMosquitoNode().setLocalTranslation(player.getPosition().getX(), 
                 player.getPosition().getY(), player.getPosition().getZ());
+        
+        player.decreaseEnergy(3 * tpf);
         updateEnergyText();
     }
 
@@ -79,11 +81,11 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
        
     }
       
-      public void updateEnergyText(){
+    public void updateEnergyText(){
         setDisplayStatView(false);  
         setDisplayFps(false);
-        guiover.setEnergyAmount(player.getEnergy());
-        guiNode.attachChild(guiover.getEnergyText());
+        guiOverlay.setEnergyAmount(player.getEnergy());
+        guiNode.attachChild(guiOverlay.getEnergyText());
     
     }
       

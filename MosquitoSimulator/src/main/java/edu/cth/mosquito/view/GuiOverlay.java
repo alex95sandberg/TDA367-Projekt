@@ -25,20 +25,19 @@ public class GuiOverlay {
         font = assetManager.loadFont("Interface/Fonts/Console.fnt");
         hudText = new BitmapText(font, false);
         
+        hudText.setSize(font.getCharSet().getRenderedSize());      // font size
+        hudText.setColor(ColorRGBA.White);                             // font color
+        hudText.setLocalTranslation(0f, hudText.getLineHeight(), 0f);   // position
+        
     }
  
     
     public BitmapText getEnergyText(){
-        
-         
-        hudText.setSize(font.getCharSet().getRenderedSize());      // font size
-        hudText.setColor(ColorRGBA.White);                             // font color
-        hudText.setLocalTranslation(0f, hudText.getLineHeight(), 0f);   // position
         return hudText;
     }
     
     public void setEnergyAmount(float amount){
-        hudText.setText("Energy " + amount + "%");
+        hudText.setText("Energy " + Math.round(amount) + "%");
         
     
     }
