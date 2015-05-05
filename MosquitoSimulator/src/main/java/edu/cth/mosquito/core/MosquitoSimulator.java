@@ -33,7 +33,6 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     private Vector3f directionLeft = new Vector3f();
     private Vector3f directionUp = new Vector3f();
     
-    
     @Override
     public void simpleInitApp(){
         
