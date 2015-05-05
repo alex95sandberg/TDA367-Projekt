@@ -74,6 +74,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         msr.getMosquitoNode().setLocalTranslation(player.getPosition().getX(), 
                 player.getPosition().getY(), player.getPosition().getZ());
         
+        player.increaseScore(3 * tpf);
         player.decreaseEnergy(3 * tpf);
         guiOverlay.updateGUI(player.getEnergy(), player.getScore());
       
@@ -146,10 +147,16 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         if(name.equals("rotateDown")){
             //player.rotatePlayerNode(-5 * tpf, 0, 0);
         }
+        
+        if(name.equals("Reset")){
+            player.reset();
+        }
 
     }   
     
     private void initKeys(){
+        inputManager.addMapping("Reset", new KeyTrigger(KeyInput.KEY_R));
+        
         inputManager.addMapping("Forward", new KeyTrigger(KeyInput.KEY_W));
         inputManager.addMapping("Right", new KeyTrigger(KeyInput.KEY_D));
         inputManager.addMapping("Left", new KeyTrigger(KeyInput.KEY_A));
@@ -162,7 +169,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         inputManager.addMapping("rotateUp", new MouseAxisTrigger(MouseInput.AXIS_Y, true));
         inputManager.addMapping("rotateDown", new MouseAxisTrigger(MouseInput.AXIS_Y, false));
         
-        inputManager.addListener(this, "Left", "Forward", "Right", "Backward", "Up", "Down");
+        inputManager.addListener(this, "Left", "Forward", "Right", "Backward", "Up", "Down", "Reset");
         inputManager.addListener(this, "rotateRight", "rotateLeft","rotateUp", "rotateDown", "toggleRotate");
        
     }

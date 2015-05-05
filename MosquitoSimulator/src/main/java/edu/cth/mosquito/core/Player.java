@@ -38,6 +38,13 @@ public class Player {
         rot.rotate(x, y, z);
     }
     
+    public void reset(){
+        energy = 100;
+        score = 0;
+        pos = new Position3D();
+        rot = new Rotation();
+    }
+    
     public float getRotationX(){
         return rot.getXRotation();
     }
