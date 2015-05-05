@@ -47,6 +47,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         msr = new MosquitoSimulatorRenderer(assetManager, cam);
         rootNode.attachChild(msr.getMosquitoNode());
         rootNode.attachChild(msr.getRoomSpatial());
+        initGUI();
 
         ///TEMPORÄRT
         Box b = new Box(1, 1, 1); // create cube shape
@@ -72,7 +73,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
                 player.getPosition().getY(), player.getPosition().getZ());
         
         player.decreaseEnergy(3 * tpf);
-        updateEnergyText();
+        guiOverlay.updateGUI(player.getEnergy(), player.getScore());
+      
     }
 
     @Override
@@ -81,14 +83,15 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
        
     }
       
-    public void updateEnergyText(){
+    public void initGUI(){
+        
         setDisplayStatView(false);  
         setDisplayFps(false);
-        guiOverlay.setEnergyAmount(player.getEnergy());
+        guiOverlay.setEnergyTextPos(settings.getHeight(),settings.getWidth(), 0f);
+        guiNode.attachChild(guiOverlay.getScoreText());
         guiNode.attachChild(guiOverlay.getEnergyText());
     
     }
-      
     @Override
     public void onAnalog(String name, float value, float tpf) {
 
