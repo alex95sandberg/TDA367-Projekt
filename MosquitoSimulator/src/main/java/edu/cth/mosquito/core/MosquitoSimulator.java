@@ -11,6 +11,7 @@ import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
+import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Geometry;
@@ -34,6 +35,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     private Vector3f directionForward = new Vector3f();
     private Vector3f directionLeft = new Vector3f();
     private Vector3f directionUp = new Vector3f();
+    
+    private Quaternion q;
     
     @Override
     public void simpleInitApp(){
@@ -79,6 +82,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         player.decreaseEnergy(3 * tpf);
         guiOverlay.updateGUI(player.getEnergy(), player.getScore());
       
+        
     }
 
     @Override
@@ -136,23 +140,24 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             player.move(new Position3D(directionUp.x, directionUp.y, directionUp.z));
         }
         if (name.equals("rotateRight")) {
-            //player.rotatePlayerNode(0, 5 * tpf, 0);
+            msr.getMosquitoNode().rotate(0, -tpf, 0);
         }
         
         if (name.equals("rotateLeft")) {
-            //player.rotatePlayerNode(0, -5 * tpf, 0);
+            msr.getMosquitoNode().rotate(0, tpf, 0);
         }
         
         if(name.equals("rotateUp")){               
-            //player.rotatePlayerNode(+5 * tpf, 0, 0);
+            msr.getMosquitoNode().rotate(-tpf, 0, 0);
         }
         
         if(name.equals("rotateDown")){
-            //player.rotatePlayerNode(-5 * tpf, 0, 0);
+            msr.getMosquitoNode().rotate(tpf, 0, 0);
         }
         
         if(name.equals("Reset")){
             player.reset();
+            msr.getMosquitoNode().setLocalRotation(Quaternion.IDENTITY);
         }
 
     }   
@@ -166,6 +171,12 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         inputManager.addMapping("Backward", new KeyTrigger(KeyInput.KEY_S));
         inputManager.addMapping("Up", new KeyTrigger(KeyInput.KEY_LCONTROL));
         inputManager.addMapping("Down", new KeyTrigger(KeyInput.KEY_SPACE));
+        
+        inputManager.addMapping("rotateUp", new KeyTrigger(KeyInput.KEY_UP));
+        inputManager.addMapping("rotateDown", new KeyTrigger(KeyInput.KEY_DOWN));
+        inputManager.addMapping("rotateLeft", new KeyTrigger(KeyInput.KEY_LEFT));
+        inputManager.addMapping("rotateRight", new KeyTrigger(KeyInput.KEY_RIGHT));
+        
         inputManager.addMapping("toggleRotate", new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
         inputManager.addMapping("rotateRight", new MouseAxisTrigger(MouseInput.AXIS_X, true));
         inputManager.addMapping("rotateLeft", new MouseAxisTrigger(MouseInput.AXIS_X, false));

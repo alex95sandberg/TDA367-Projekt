@@ -45,16 +45,8 @@ public class Player {
         rot = new Rotation();
     }
     
-    public float getRotationX(){
-        return rot.getXRotation();
-    }
-    
-    public float getRotationY(){
-        return rot.getYRotation();
-    }
-    
-    public float getRotationZ(){
-        return rot.getZRotation();
+    public Rotation getRotation(){
+        return rot;
     }
     
     public float getEnergy(){
