@@ -14,6 +14,7 @@ import com.jme3.scene.CameraNode;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.CameraControl;
+import com.jme3.texture.Texture;
 
 /**
  *
@@ -32,8 +33,10 @@ public class MosquitoSimulatorRenderer {
     private Camera cam;
     private Spatial mosquito;
     private Spatial room;
+    private Spatial floor, wallN, wallS, wallW, wallE, roof;
     private CameraNode camNode;
     private Node mosquitoNode;
+    private Node roomNode = new Node();
     
     private void cameraSetup(){
         camNode = new CameraNode("Camera Node", cam);
@@ -68,15 +71,126 @@ public class MosquitoSimulatorRenderer {
         Material m = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
         m.setColor("Color", ColorRGBA.Yellow);
         m.getAdditionalRenderState().setWireframe(true);
+        //Texture txt = assetManager.loadTexture("assets/lloyd.jpg");
+        //m.setTexture("ColorMap", txt);
         
         room.setMaterial(m);
     }
     
+    public void renderPlaneRoom(float width, float height, float length){
+        renderPlaneFloor(width, height, length);
+        renderPlaneWallNorth(width, height, length);
+        renderPlaneWallEast(width, height, length);
+        renderPlaneWallWest(width, height, length);
+        renderPlaneWallSouth(width, height, length);
+        renderPlaneRoof(width, height, length);
+    }
+    
+    public void renderPlaneFloor(float width, float height, float length){
+        assetManager.registerLocator("assets.zip", ZipLocator.class);
+        floor = assetManager.loadModel("assets/plane.j3o");
+        
+        floor.scale(width, 1, length);
+        floor.setLocalTranslation(0, -height, 0);
+        
+        Material m = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        m.setColor("Color", ColorRGBA.Green);
+        
+        floor.setMaterial(m);
+        
+        roomNode.attachChild(floor);
+    }
+    
+    public void renderPlaneWallNorth(float width, float height, float length){
+        assetManager.registerLocator("assets.zip", ZipLocator.class);
+        wallN = assetManager.loadModel("assets/plane.j3o");
+        
+        wallN.rotate((float)-Math.PI/2, 0, 0);
+        wallN.scale(width, 1, height);
+        wallN.setLocalTranslation(0, 0, length);
+        
+        Material m = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        m.setColor("Color", ColorRGBA.Red);
+        
+        wallN.setMaterial(m);
+        
+        roomNode.attachChild(wallN);
+    }
+      
+    public void renderPlaneWallSouth(float width, float height, float length){
+        assetManager.registerLocator("assets.zip", ZipLocator.class);
+        wallS = assetManager.loadModel("assets/plane.j3o");
+        
+        wallS.rotate((float)Math.PI/2, 0, 0);
+        wallS.scale(width, 1, height);
+        wallS.setLocalTranslation(0, 0, -length);
+        
+        Material m = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        m.setColor("Color", ColorRGBA.Blue);
+        
+        wallS.setMaterial(m);
+        
+        roomNode.attachChild(wallS);
+    }
+    
+    public void renderPlaneWallEast(float width, float height, float length){
+        assetManager.registerLocator("assets.zip", ZipLocator.class);
+        wallE = assetManager.loadModel("assets/plane.j3o");
+        
+        wallE.rotate(0, 0, (float)-Math.PI/2);
+        wallE.scale(height, 1, length);
+        wallE.setLocalTranslation(-
+                width, 0, 0);
+        
+        Material m = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        m.setColor("Color", ColorRGBA.Yellow);
+        
+        wallE.setMaterial(m);
+        
+        roomNode.attachChild(wallE);
+    }
+    
+    public void renderPlaneWallWest(float width, float height, float length){
+        assetManager.registerLocator("assets.zip", ZipLocator.class);
+        wallW = assetManager.loadModel("assets/plane.j3o");
+        
+        wallW.rotate(0, 0, (float)Math.PI/2);
+        wallW.scale(height, 1, length);
+        wallW.setLocalTranslation(width, 0, 0);
+        
+        Material m = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        m.setColor("Color", ColorRGBA.LightGray);
+        
+        wallW.setMaterial(m);
+        
+        roomNode.attachChild(wallW);
+    }
+    
+    public void renderPlaneRoof(float width, float height, float length){
+        assetManager.registerLocator("assets.zip", ZipLocator.class);
+        roof = assetManager.loadModel("assets/plane.j3o");
+        
+        roof.rotate((float)Math.PI, 0, 0);
+        roof.scale(width, 1, length);
+        roof.setLocalTranslation(0, height, 0);
+        
+        Material m = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        m.setColor("Color", ColorRGBA.Cyan);
+        
+        roof.setMaterial(m);
+        
+        roomNode.attachChild(roof);
+    }
+    
     public Node getMosquitoNode(){
-            return mosquitoNode;
+        return mosquitoNode;
     }
     
     public Spatial getRoomSpatial(){
         return room;
+    }
+    
+    public Node getRoomNode(){
+        return roomNode;
     }
 }

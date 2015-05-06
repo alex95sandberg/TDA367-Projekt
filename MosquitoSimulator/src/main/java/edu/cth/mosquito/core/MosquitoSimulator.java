@@ -2,6 +2,7 @@ package edu.cth.mosquito.core;
 
 import edu.cth.mosquito.controller.Controller;
 import com.jme3.app.SimpleApplication;
+import com.jme3.asset.plugins.ZipLocator;
 import com.jme3.font.BitmapFont;
 import com.jme3.input.KeyInput;
 import com.jme3.input.MouseInput;
@@ -16,6 +17,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
+import com.jme3.texture.Texture;
 import edu.cth.mosquito.view.GuiOverlay;
 import edu.cth.mosquito.view.MosquitoSimulatorRenderer;
 
@@ -36,8 +38,6 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     private Vector3f directionLeft = new Vector3f();
     private Vector3f directionUp = new Vector3f();
     
-    private Quaternion q;
-    
     @Override
     public void simpleInitApp(){
         
@@ -51,11 +51,20 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         controller = new Controller();
         msr = new MosquitoSimulatorRenderer(assetManager, cam);
         msr.renderRoom(world.getWidth(), world.getHeight());
+        
+        msr.renderPlaneRoom(world.getWidth(), world.getHeight(), world.getWidth()+3);
+        
+        
+        
+        rootNode.attachChild(msr.getRoomNode());
+        
         rootNode.attachChild(msr.getMosquitoNode());
-        rootNode.attachChild(msr.getRoomSpatial());
+        //rootNode.attachChild(msr.getRoomSpatial());
         initGUI();
 
         ///TEMPORÄRT
+        assetManager.registerLocator("assets.zip", ZipLocator.class);
+        
         Box b = new Box(1, 1, 1); // create cube shape
         Material mat1 = new Material(assetManager,
                 "Common/MatDefs/Misc/Unshaded.j3md");  // create a simple material
@@ -65,10 +74,22 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         mat1.setColor("Color", ColorRGBA.Blue);   // set color of material to blue
         mat1.getAdditionalRenderState().setWireframe(true);
         geom1.setMaterial(mat1);                   // set the cube's material
+        
+      
+        Geometry geom2 = new Geometry("Box", b);  // create cube geometry from the shape
+        Material mat2 = new Material(assetManager,
+                "Common/MatDefs/Misc/Unshaded.j3md");  // create a simple material
+        Texture txt2 =assetManager.loadTexture("assets/lloyd.jpg");
+        
+        mat2.setTexture("ColorMap", txt2);
+        //mat2.getAdditionalRenderState().setWireframe(true);
+        geom2.setMaterial(mat2);                   // set the cube's material
+        geom2.setLocalTranslation(2, 0, 0);
         //TEMPORÄRT
         
         
         rootNode.attachChild(geom1);
+        rootNode.attachChild(geom2);
         
 
     }
@@ -147,15 +168,20 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             msr.getMosquitoNode().rotate(0, tpf, 0);
         }
         
-        if(name.equals("rotateUp")){               
-            msr.getMosquitoNode().rotate(-tpf, 0, 0);
+        if(name.equals("rotateUp")){
+            if (msr.getMosquitoNode().getLocalRotation().getX() > -0.70){
+                msr.getMosquitoNode().rotate(-tpf, 0, 0);
+            }
         }
         
         if(name.equals("rotateDown")){
-            msr.getMosquitoNode().rotate(tpf, 0, 0);
+            if (msr.getMosquitoNode().getLocalRotation().getX() < 0.70){
+                msr.getMosquitoNode().rotate(tpf, 0, 0);
+            }
         }
         
         if(name.equals("Reset")){
+            System.out.println(msr.getMosquitoNode().getLocalRotation().getX());
             player.reset();
             msr.getMosquitoNode().setLocalRotation(Quaternion.IDENTITY);
         }
@@ -178,10 +204,10 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         inputManager.addMapping("rotateRight", new KeyTrigger(KeyInput.KEY_RIGHT));
         
         inputManager.addMapping("toggleRotate", new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
-        inputManager.addMapping("rotateRight", new MouseAxisTrigger(MouseInput.AXIS_X, true));
-        inputManager.addMapping("rotateLeft", new MouseAxisTrigger(MouseInput.AXIS_X, false));
-        inputManager.addMapping("rotateUp", new MouseAxisTrigger(MouseInput.AXIS_Y, true));
-        inputManager.addMapping("rotateDown", new MouseAxisTrigger(MouseInput.AXIS_Y, false));
+        inputManager.addMapping("rotateLeft", new MouseAxisTrigger(MouseInput.AXIS_X, true));
+        inputManager.addMapping("rotateRight", new MouseAxisTrigger(MouseInput.AXIS_X, false));
+        inputManager.addMapping("rotateDown", new MouseAxisTrigger(MouseInput.AXIS_Y, true));
+        inputManager.addMapping("rotateUp", new MouseAxisTrigger(MouseInput.AXIS_Y, false));
         
         inputManager.addListener(this, "Left", "Forward", "Right", "Backward", "Up", "Down", "Reset");
         inputManager.addListener(this, "rotateRight", "rotateLeft","rotateUp", "rotateDown", "toggleRotate");
