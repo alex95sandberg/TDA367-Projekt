@@ -15,11 +15,12 @@ import java.util.List;
 public class World {
     
     private List<SolidObject> objects = new ArrayList<>();
-    private float width, height;
+    private float width, height, length;
     
-    public World(float width, float height){
+    public World(float width, float height, float length){
         this.width = width;
         this.height = height;
+        this.length = length;
     }
     
     public float getWidth(){
@@ -28,6 +29,10 @@ public class World {
     
     public float getHeight(){
         return height;
+    }
+    
+    public float getLength(){
+        return length;
     }
     
 }

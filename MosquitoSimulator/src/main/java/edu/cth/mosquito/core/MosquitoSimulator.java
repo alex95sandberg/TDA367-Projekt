@@ -45,14 +45,14 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         flyCam.setEnabled(false);
         initKeys();
         guiOverlay = new GuiOverlay(assetManager);
-        world = new World(10, 5);
+        world = new World(10, 5, 15);
         player = new Player(world);
         highscore = new Highscore();
         controller = new Controller();
         msr = new MosquitoSimulatorRenderer(assetManager, cam);
         msr.renderRoom(world.getWidth(), world.getHeight());
         
-        msr.renderPlaneRoom(world.getWidth(), world.getHeight(), world.getWidth()+3);
+        msr.renderPlaneRoom(world.getWidth(), world.getHeight(), world.getLength());
         
         
         

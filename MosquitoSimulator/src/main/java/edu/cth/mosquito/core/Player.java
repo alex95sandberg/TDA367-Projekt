@@ -45,9 +45,9 @@ public class Player {
         else if(pos.getY() > -world.getHeight() && distance.getY() < 0)
             tempY += distance.getY();
         
-        if(pos.getZ() < world.getWidth() && distance.getZ() > 0)
+        if(pos.getZ() < world.getLength() && distance.getZ() > 0)
             tempZ += distance.getZ();
-        else if(pos.getZ() > -world.getWidth() && distance.getZ() < 0)
+        else if(pos.getZ() > -world.getLength() && distance.getZ() < 0)
             tempZ += distance.getZ();
         
         pos.setPosition(tempX, tempY, tempZ);
