@@ -9,25 +9,48 @@ package edu.cth.mosquito.core;
  * @author Alexander
  */
 public class Player {
+    private World world;
     private Position3D pos;
     private Rotation rot;
     private float energy;
     private float score;
     
-    public Player(){
-        energy = 100;
-        pos = new Position3D();
-        rot = new Rotation();
+    public Player(World world){
+        this.energy = 100;
+        this.pos = new Position3D();
+        this.rot = new Rotation();
+        this.world  = world;
+        
     }
     
-    public Player(Position3D position){
-        energy = 100;
-        pos = new Position3D(position);
-        rot = new Rotation();
+    public Player(Position3D position, World world){
+        this.energy = 100;
+        this.pos = new Position3D(position);
+        this.rot = new Rotation();
+        this.world = world;
     }
     
     public void move(Position3D distance){
-        pos.setPosition(pos.getX() + distance.getX(), pos.getY() + distance.getY(), pos.getZ() + distance.getZ());
+        float tempX = pos.getX();
+        float tempY = pos.getY();
+        float tempZ = pos.getZ();
+        
+        if(pos.getX() < world.getWidth() && distance.getX() > 0)
+            tempX += distance.getX();
+        else if(pos.getX() > -world.getWidth() && distance.getX() < 0)
+            tempX += distance.getX();
+        
+        if(pos.getY() < world.getHeight() && distance.getY() > 0)
+            tempY += distance.getY();
+        else if(pos.getY() > -world.getHeight() && distance.getY() < 0)
+            tempY += distance.getY();
+        
+        if(pos.getZ() < world.getWidth() && distance.getZ() > 0)
+            tempZ += distance.getZ();
+        else if(pos.getZ() > -world.getWidth() && distance.getZ() < 0)
+            tempZ += distance.getZ();
+        
+        pos.setPosition(tempX, tempY, tempZ);
     }
     
     public Position3D getPosition(){
