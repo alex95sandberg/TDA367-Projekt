@@ -7,10 +7,14 @@ package edu.cth.mosquito.view;
 import com.jme3.asset.AssetManager;
 import com.jme3.asset.plugins.ZipLocator;
 import com.jme3.material.Material;
+import com.jme3.material.RenderState;
+import com.jme3.material.RenderState.BlendMode;
 import com.jme3.math.ColorRGBA;
+import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.CameraNode;
+import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.CameraControl;
@@ -94,7 +98,9 @@ public class MosquitoSimulatorRenderer {
         floor.setLocalTranslation(0, -height, 0);
         
         Material m = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        m.setColor("Color", ColorRGBA.Green);
+        //m.setColor("Color", ColorRGBA.Green);
+        Texture txt = assetManager.loadTexture("assets/floor.jpg");
+        m.setTexture("ColorMap", txt); 
         
         floor.setMaterial(m);
         
@@ -110,7 +116,10 @@ public class MosquitoSimulatorRenderer {
         wallN.setLocalTranslation(0, 0, length);
         
         Material m = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        m.setColor("Color", ColorRGBA.Red);
+        //m.setColor("Color", ColorRGBA.Red);
+        
+        Texture txt = assetManager.loadTexture("assets/wall.jpg");
+        m.setTexture("ColorMap", txt);
         
         wallN.setMaterial(m);
         
@@ -126,7 +135,9 @@ public class MosquitoSimulatorRenderer {
         wallS.setLocalTranslation(0, 0, -length);
         
         Material m = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        m.setColor("Color", ColorRGBA.Blue);
+        //m.setColor("Color", ColorRGBA.Blue);
+        Texture txt = assetManager.loadTexture("assets/wall.jpg");
+        m.setTexture("ColorMap", txt);
         
         wallS.setMaterial(m);
         
@@ -143,7 +154,9 @@ public class MosquitoSimulatorRenderer {
                 width, 0, 0);
         
         Material m = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        m.setColor("Color", ColorRGBA.Yellow);
+        //m.setColor("Color", ColorRGBA.Yellow);
+        Texture txt = assetManager.loadTexture("assets/wall.jpg");
+        m.setTexture("ColorMap", txt);
         
         wallE.setMaterial(m);
         
@@ -159,7 +172,9 @@ public class MosquitoSimulatorRenderer {
         wallW.setLocalTranslation(width, 0, 0);
         
         Material m = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        m.setColor("Color", ColorRGBA.LightGray);
+        //m.setColor("Color", ColorRGBA.LightGray);
+        Texture txt = assetManager.loadTexture("assets/wall.jpg");
+        m.setTexture("ColorMap", txt);
         
         wallW.setMaterial(m);
         
@@ -175,7 +190,9 @@ public class MosquitoSimulatorRenderer {
         roof.setLocalTranslation(0, height, 0);
         
         Material m = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        m.setColor("Color", ColorRGBA.Cyan);
+        //m.setColor("Color", ColorRGBA.Cyan);
+        Texture txt = assetManager.loadTexture("assets/roof.jpg");
+        m.setTexture("ColorMap", txt);
         
         roof.setMaterial(m);
         
@@ -192,5 +209,9 @@ public class MosquitoSimulatorRenderer {
     
     public Node getRoomNode(){
         return roomNode;
+    }
+
+    private Vector2f Vector2f(double d, double d0) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
