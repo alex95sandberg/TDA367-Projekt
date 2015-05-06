@@ -30,9 +30,11 @@ public class GuiOverlay {
         energyText.setSize(font.getCharSet().getRenderedSize());      // font size
         energyText.setColor(ColorRGBA.White);                             // font color
         
+        
         scoreText.setSize(font.getCharSet().getRenderedSize());      // font size
         scoreText.setColor(ColorRGBA.White);                        // font color
-        scoreText.setLocalTranslation(0f, scoreText.getLineHeight(), 0f);   // position
+        
+        updateGUI(100f,10f);
         
         
     }
@@ -57,8 +59,7 @@ public class GuiOverlay {
     }
 
     public void setEnergyTextPos(float x, float y, float z){
-         energyText.setLocalTranslation(x, energyText.getLineHeight(), z);   // position
-       
+         energyText.setLocalTranslation(x, y, z);   // position
     }
     //All Energy methods ends here.
     
@@ -70,9 +71,13 @@ public class GuiOverlay {
     }
     
     public void setScoreAmount(float amount){
-        scoreText.setText("Score: " + Math.round(amount));
+        scoreText.setText("Score: " + Math.round(amount) + " ");
         
     
+    }
+    
+     public void setScoreTextPos(float x, float y, float z){
+         scoreText.setLocalTranslation(x, y, z);   // position
     }
 
     //All score methods ends here.

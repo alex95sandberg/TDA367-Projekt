@@ -2,6 +2,7 @@ package edu.cth.mosquito.core;
 
 import edu.cth.mosquito.controller.Controller;
 import com.jme3.app.SimpleApplication;
+import com.jme3.font.BitmapFont;
 import com.jme3.input.KeyInput;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.AnalogListener;
@@ -90,7 +91,9 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         
         setDisplayStatView(false);  
         setDisplayFps(false);
-        guiOverlay.setEnergyTextPos(settings.getHeight(),settings.getWidth(), 0f);
+        guiOverlay.setScoreTextPos(settings.getWidth()-guiOverlay.getScoreText().getLineWidth()-10,settings.getHeight()-10, 0f);
+        guiOverlay.setEnergyTextPos(settings.getWidth()-guiOverlay.getEnergyText().getLineWidth()-10,(settings.getHeight()/2), 0f);
+      
         guiNode.attachChild(guiOverlay.getScoreText());
         guiNode.attachChild(guiOverlay.getEnergyText());
     
