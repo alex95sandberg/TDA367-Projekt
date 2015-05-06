@@ -71,7 +71,7 @@ public class GuiOverlay {
     }
     
     public void setScoreAmount(float amount){
-        scoreText.setText("Score: " + Math.round(amount) + " ");
+        scoreText.setText("Score: " + Math.round(amount) + "  ");
         
     
     }
