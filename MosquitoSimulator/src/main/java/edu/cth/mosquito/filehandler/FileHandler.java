@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.cth.mosquito.core;
+package edu.cth.mosquito.filehandler;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

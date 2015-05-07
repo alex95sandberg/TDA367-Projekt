@@ -1,4 +1,4 @@
-package edu.cth.mosquito.core;
+package edu.cth.mosquito.main;
 
 import edu.cth.mosquito.controller.Controller;
 import com.jme3.app.SimpleApplication;
@@ -18,6 +18,10 @@ import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
 import com.jme3.texture.Texture;
+import edu.cth.mosquito.core.Highscore;
+import edu.cth.mosquito.core.Player;
+import edu.cth.mosquito.core.Position3D;
+import edu.cth.mosquito.core.World;
 import edu.cth.mosquito.view.GuiOverlay;
 import edu.cth.mosquito.view.MosquitoSimulatorRenderer;
 
