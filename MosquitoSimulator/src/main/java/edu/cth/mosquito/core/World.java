@@ -21,6 +21,13 @@ public class World {
         this.width = width;
         this.height = height;
         this.length = length;
+        
+        initObjects();
+    }
+    
+    private void initObjects(){
+        objects.add(new SolidObject(1, 1, 1));
+        objects.add(new Human(new Position3D(2,0,0),1,2,1));
     }
     
     public float getWidth(){
