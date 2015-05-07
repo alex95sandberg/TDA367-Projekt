@@ -13,10 +13,11 @@ public class Player {
     private Position3D pos;
     private Rotation rot;
     private float energy;
+    private float maxEnergy = 100;
     private float score;
     
     public Player(World world){
-        this.energy = 100;
+        this.energy = maxEnergy;
         this.pos = new Position3D();
         this.rot = new Rotation();
         this.world  = world;
@@ -24,7 +25,7 @@ public class Player {
     }
     
     public Player(Position3D position, World world){
-        this.energy = 100;
+        this.energy = maxEnergy;
         this.pos = new Position3D(position);
         this.rot = new Rotation();
         this.world = world;
@@ -62,7 +63,7 @@ public class Player {
     }
     
     public void reset(){
-        energy = 100;
+        energy = maxEnergy;
         score = 0;
         pos = new Position3D();
         rot = new Rotation();
@@ -78,10 +79,17 @@ public class Player {
     
     public void decreaseEnergy(float amount){
         energy -= amount;
+        
+        if(energy < 0)
+            energy = 0;
     }
     
     public void increaseEnergy(float amount){
         energy += amount;
+        
+        if(energy > 100)
+            energy = 100;
+             
     }
     
     public float getScore(){
