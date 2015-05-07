@@ -35,7 +35,7 @@ public class PlayerTest extends TestCase {
         float y1 = rnd.nextFloat();
         float z1 = rnd.nextFloat();
         
-        Player p1 = new Player(new Position3D(x1, y1, z1));
+        Player p1 = new Player(new Position3D(x1, y1, z1), new World(0,0,0));
         
         float x2 = rnd.nextFloat();
         float y2 = rnd.nextFloat();
@@ -50,7 +50,7 @@ public class PlayerTest extends TestCase {
     }
 
     public void testDecreaseEnergy() {
-        Player p2 = new Player();
+        Player p2 = new Player(new World(0,0,0));
         
         float max = p2.getEnergy();
         float energyDiff = rnd.nextFloat();
@@ -60,7 +60,7 @@ public class PlayerTest extends TestCase {
     }
 
     public void testIncreaseEnergy() {
-        Player p3 = new Player();
+        Player p3 = new Player(new World(0,0,0));
         
         float max = p3.getEnergy();
         float energyDiff = rnd.nextFloat();
@@ -70,7 +70,7 @@ public class PlayerTest extends TestCase {
     }
 
     public void testIncreaseScore() {
-        Player p4 = new Player();
+        Player p4 = new Player(new World(0,0,0));
         
         float start = p4.getScore();
         float scoreDiff = rnd.nextFloat();
