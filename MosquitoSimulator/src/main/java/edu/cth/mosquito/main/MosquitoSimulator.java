@@ -20,7 +20,7 @@ import com.jme3.scene.shape.Box;
 import com.jme3.texture.Texture;
 import edu.cth.mosquito.core.Highscore;
 import edu.cth.mosquito.core.Player;
-import edu.cth.mosquito.util.Position3D;
+import edu.cth.mosquito.core.Position3D;
 import edu.cth.mosquito.core.World;
 import edu.cth.mosquito.view.GuiOverlay;
 import edu.cth.mosquito.view.MosquitoSimulatorRenderer;

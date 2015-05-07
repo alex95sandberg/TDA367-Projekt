@@ -4,7 +4,6 @@
  */
 package edu.cth.mosquito.core;
 
-import edu.cth.mosquito.util.Position3D;
 import java.util.Random;
 import static junit.framework.Assert.assertTrue;
 import junit.framework.TestCase;
@@ -36,7 +35,7 @@ public class PlayerTest extends TestCase {
         float y1 = rnd.nextFloat();
         float z1 = rnd.nextFloat();
         
-        Player p1 = new Player(new Position3D(x1, y1, z1), new World(0,0,0));
+        Player p1 = new Player(new Position3D(x1, y1, z1));
         
         float x2 = rnd.nextFloat();
         float y2 = rnd.nextFloat();
@@ -51,7 +50,7 @@ public class PlayerTest extends TestCase {
     }
 
     public void testDecreaseEnergy() {
-        Player p2 = new Player(new World(0,0,0));
+        Player p2 = new Player();
         
         float max = p2.getEnergy();
         float energyDiff = rnd.nextFloat();
@@ -61,7 +60,7 @@ public class PlayerTest extends TestCase {
     }
 
     public void testIncreaseEnergy() {
-        Player p3 = new Player(new World(0,0,0));
+        Player p3 = new Player();
         
         float max = p3.getEnergy();
         float energyDiff = rnd.nextFloat();
@@ -71,7 +70,7 @@ public class PlayerTest extends TestCase {
     }
 
     public void testIncreaseScore() {
-        Player p4 = new Player(new World(0,0,0));
+        Player p4 = new Player();
         
         float start = p4.getScore();
         float scoreDiff = rnd.nextFloat();

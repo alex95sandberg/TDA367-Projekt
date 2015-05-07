@@ -4,7 +4,6 @@
  */
 package edu.cth.mosquito.core;
 
-import edu.cth.mosquito.util.Rotation;
 import junit.framework.TestCase;
 
 /**
