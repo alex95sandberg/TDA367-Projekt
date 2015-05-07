@@ -18,7 +18,12 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.CameraControl;
+import com.jme3.scene.shape.Box;
 import com.jme3.texture.Texture;
+import edu.cth.mosquito.core.Human;
+import edu.cth.mosquito.core.SolidObject;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -28,6 +33,8 @@ public class MosquitoSimulatorRenderer {
     
     public MosquitoSimulatorRenderer(AssetManager assetManager, Camera cam){
         this.assetManager = assetManager;
+        
+        assetManager.registerLocator("assets.zip", ZipLocator.class);
         this.cam = cam;
         mosquitoNode = new Node();
         this.renderMosquito();
@@ -41,6 +48,7 @@ public class MosquitoSimulatorRenderer {
     private CameraNode camNode;
     private Node mosquitoNode;
     private Node roomNode = new Node();
+    private List<Node> objectNodes;
     
     private void cameraSetup(){
         camNode = new CameraNode("Camera Node", cam);
@@ -197,6 +205,44 @@ public class MosquitoSimulatorRenderer {
         roof.setMaterial(m);
         
         roomNode.attachChild(roof);
+    }
+    
+    public void renderWorldObjects(List<SolidObject> objects){
+        Box b;
+        Material m;       
+        Geometry g;
+        objectNodes = new ArrayList<>();
+        
+        for(int i = 0; i < objects.size(); i++){
+            SolidObject object = objects.get(i);
+            
+            if(object instanceof Human){
+                m = new Material(assetManager,
+                "Common/MatDefs/Misc/Unshaded.j3md");
+                Texture txt2 = assetManager.loadTexture("assets/lloyd.jpg");
+        
+                m.setTexture("ColorMap", txt2);
+                
+            }else{
+                m = new Material(assetManager,
+                "Common/MatDefs/Misc/Unshaded.j3md");
+                m.setColor("Color", ColorRGBA.Blue);
+            }
+            
+            b = new Box(object.getWidth(), object.getHeight(), object.getLength());
+            g = new Geometry("Box", b);
+            g.setMaterial(m);
+            
+            Node tempNode = new Node();
+            tempNode.attachChild(g);
+            tempNode.setLocalTranslation(object.getPosition().getX(), object.getPosition().getY(), object.getPosition().getZ());
+            objectNodes.add(tempNode);
+        }
+        
+    }
+    
+    public List<Node> getObjectNodes(){
+        return objectNodes;
     }
     
     public Node getMosquitoNode(){

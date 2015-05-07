@@ -26,8 +26,25 @@ public class World {
     }
     
     private void initObjects(){
-        objects.add(new SolidObject(1, 1, 1));
-        objects.add(new Human(new Position3D(2,0,0),1,2,1));
+        addSolidObject(1,1,1);
+        addHuman(new Position3D(2,0,0),1,2,1);
+        addHuman(new Position3D(-3,1,0),1,1,2);
+    }
+    
+    private void addHuman(float width, float height, float length){
+        objects.add(new Human(width,height,length));
+    }
+    
+    private void addHuman(Position3D position, float width, float height, float length){
+        objects.add(new Human(position,width,height,length));
+    }
+    
+    private void addSolidObject(float width, float height, float length){
+        objects.add(new SolidObject(width, height, length));
+    }
+    
+    private void addSolidObject(Position3D position, float width, float height, float length){
+        objects.add(new SolidObject(position, width, height, length));
     }
     
     public float getWidth(){
@@ -40,6 +57,10 @@ public class World {
     
     public float getLength(){
         return length;
+    }
+    
+    public List<SolidObject> getObjects(){
+        return objects;
     }
     
 }

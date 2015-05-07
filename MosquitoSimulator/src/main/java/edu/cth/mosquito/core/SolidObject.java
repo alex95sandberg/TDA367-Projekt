@@ -24,6 +24,7 @@ public class SolidObject {
         this.width = width;
         this.height = height;
         this.length = length;
+        this.position = new Position3D();
     }
     
     public SolidObject(Position3D position, float width, float height, float length){
@@ -43,5 +44,9 @@ public class SolidObject {
     
     public float getHeight(){
         return height;
+    }
+    
+    public float getLength(){
+        return length;
     }
 }

@@ -63,38 +63,14 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         rootNode.attachChild(msr.getRoomNode());
         
         rootNode.attachChild(msr.getMosquitoNode());
-        //rootNode.attachChild(msr.getRoomSpatial());
+        
         initGUI();
-
-        ///TEMPORÄRT
-        assetManager.registerLocator("assets.zip", ZipLocator.class);
         
-        Box b = new Box(1, 1, 1); // create cube shape
-        Material mat1 = new Material(assetManager,
-                "Common/MatDefs/Misc/Unshaded.j3md");  // create a simple material
-        
-        Geometry geom1 = new Geometry("Box", b);  // create cube geometry from the shape
-
-        mat1.setColor("Color", ColorRGBA.Blue);   // set color of material to blue
-        mat1.getAdditionalRenderState().setWireframe(true);
-        geom1.setMaterial(mat1);                   // set the cube's material
-        
-      
-        Geometry geom2 = new Geometry("Box", b);  // create cube geometry from the shape
-        Material mat2 = new Material(assetManager,
-                "Common/MatDefs/Misc/Unshaded.j3md");  // create a simple material
-        Texture txt2 =assetManager.loadTexture("assets/lloyd.jpg");
-        
-        mat2.setTexture("ColorMap", txt2);
-        //mat2.getAdditionalRenderState().setWireframe(true);
-        geom2.setMaterial(mat2);                   // set the cube's material
-        geom2.setLocalTranslation(2, 0, 0);
-        //TEMPORÄRT
-        
-        
-        rootNode.attachChild(geom1);
-        rootNode.attachChild(geom2);
-        
+        //Renders all the objects in world
+        msr.renderWorldObjects(world.getObjects());       
+        for(int i = 0; i < msr.getObjectNodes().size(); i++){
+            rootNode.attachChild(msr.getObjectNodes().get(i));
+        }
 
     }
     
