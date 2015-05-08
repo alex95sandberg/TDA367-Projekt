@@ -7,8 +7,6 @@ package edu.cth.mosquito.view;
 import com.jme3.asset.AssetManager;
 import com.jme3.asset.plugins.ZipLocator;
 import com.jme3.material.Material;
-import com.jme3.material.RenderState;
-import com.jme3.material.RenderState.BlendMode;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
@@ -31,6 +29,18 @@ import java.util.List;
  */
 public class MosquitoSimulatorRenderer {
     
+    private AssetManager assetManager;
+    private Camera cam;
+    private CameraNode camNode;
+    private Node mosquitoNode;
+    private Node roomNode = new Node();
+    private List<Node> objectNodes;
+    
+    private Spatial mosquito;
+    private Spatial room;
+    private Spatial floor, wallN, wallS, wallW, wallE, roof;
+    private Material floorMaterial, wallMaterial, roofMaterial;
+    
     public MosquitoSimulatorRenderer(AssetManager assetManager, Camera cam){
         this.assetManager = assetManager;
         
@@ -40,15 +50,6 @@ public class MosquitoSimulatorRenderer {
         this.renderMosquito();
         cameraSetup();
     }
-    private AssetManager assetManager;
-    private Camera cam;
-    private Spatial mosquito;
-    private Spatial room;
-    private Spatial floor, wallN, wallS, wallW, wallE, roof;
-    private CameraNode camNode;
-    private Node mosquitoNode;
-    private Node roomNode = new Node();
-    private List<Node> objectNodes;
     
     private void cameraSetup(){
         camNode = new CameraNode("Camera Node", cam);
@@ -74,6 +75,7 @@ public class MosquitoSimulatorRenderer {
         mosquitoNode.attachChild(mosquito);
     }
     
+    //Gamla rummet
     public void renderRoom(float width, float height){
         assetManager.registerLocator("assets.zip", ZipLocator.class);
         room = assetManager.loadModel("assets/room.j3o");
@@ -90,6 +92,7 @@ public class MosquitoSimulatorRenderer {
     }
     
     public void renderPlaneRoom(float width, float height, float length){
+        createMaterials();
         renderPlaneFloor(width, height, length);
         renderPlaneWallNorth(width, height, length);
         renderPlaneWallEast(width, height, length);
@@ -98,6 +101,16 @@ public class MosquitoSimulatorRenderer {
         renderPlaneRoof(width, height, length);
     }
     
+    public void createMaterials(){
+        floorMaterial = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        wallMaterial = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        roofMaterial = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        
+        floorMaterial.setColor("Color", new ColorRGBA(1f, .96f, .56f, 1f));
+        wallMaterial.setColor("Color", new ColorRGBA(.01f, .66f, .62f, 1f));
+        roofMaterial.setColor("Color", new ColorRGBA(.98f, 1f, 1f, 1f)); 
+    }   
+    
     public void renderPlaneFloor(float width, float height, float length){
         assetManager.registerLocator("assets.zip", ZipLocator.class);
         floor = assetManager.loadModel("assets/plane.j3o");
@@ -105,12 +118,7 @@ public class MosquitoSimulatorRenderer {
         floor.scale(width, 1, length);
         floor.setLocalTranslation(0, -height, 0);
         
-        Material m = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        //m.setColor("Color", ColorRGBA.Green);
-        Texture txt = assetManager.loadTexture("assets/floor.jpg");
-        m.setTexture("ColorMap", txt); 
-        
-        floor.setMaterial(m);
+        floor.setMaterial(floorMaterial);
         
         roomNode.attachChild(floor);
     }
@@ -123,13 +131,7 @@ public class MosquitoSimulatorRenderer {
         wallN.scale(width, 1, height);
         wallN.setLocalTranslation(0, 0, length);
         
-        Material m = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        //m.setColor("Color", ColorRGBA.Red);
-        
-        Texture txt = assetManager.loadTexture("assets/wall.jpg");
-        m.setTexture("ColorMap", txt);
-        
-        wallN.setMaterial(m);
+        wallN.setMaterial(wallMaterial);
         
         roomNode.attachChild(wallN);
     }
@@ -142,12 +144,7 @@ public class MosquitoSimulatorRenderer {
         wallS.scale(width, 1, height);
         wallS.setLocalTranslation(0, 0, -length);
         
-        Material m = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        //m.setColor("Color", ColorRGBA.Blue);
-        Texture txt = assetManager.loadTexture("assets/wall.jpg");
-        m.setTexture("ColorMap", txt);
-        
-        wallS.setMaterial(m);
+        wallS.setMaterial(wallMaterial);
         
         roomNode.attachChild(wallS);
     }
@@ -158,15 +155,9 @@ public class MosquitoSimulatorRenderer {
         
         wallE.rotate(0, 0, (float)-Math.PI/2);
         wallE.scale(height, 1, length);
-        wallE.setLocalTranslation(-
-                width, 0, 0);
+        wallE.setLocalTranslation(-width, 0, 0);
         
-        Material m = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        //m.setColor("Color", ColorRGBA.Yellow);
-        Texture txt = assetManager.loadTexture("assets/wall.jpg");
-        m.setTexture("ColorMap", txt);
-        
-        wallE.setMaterial(m);
+        wallE.setMaterial(wallMaterial);
         
         roomNode.attachChild(wallE);
     }
@@ -179,12 +170,7 @@ public class MosquitoSimulatorRenderer {
         wallW.scale(height, 1, length);
         wallW.setLocalTranslation(width, 0, 0);
         
-        Material m = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        //m.setColor("Color", ColorRGBA.LightGray);
-        Texture txt = assetManager.loadTexture("assets/wall.jpg");
-        m.setTexture("ColorMap", txt);
-        
-        wallW.setMaterial(m);
+        wallW.setMaterial(wallMaterial);
         
         roomNode.attachChild(wallW);
     }
@@ -197,12 +183,7 @@ public class MosquitoSimulatorRenderer {
         roof.scale(width, 1, length);
         roof.setLocalTranslation(0, height, 0);
         
-        Material m = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        //m.setColor("Color", ColorRGBA.Cyan);
-        Texture txt = assetManager.loadTexture("assets/roof.jpg");
-        m.setTexture("ColorMap", txt);
-        
-        roof.setMaterial(m);
+        roof.setMaterial(roofMaterial);
         
         roomNode.attachChild(roof);
     }
