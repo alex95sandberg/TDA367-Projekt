@@ -3,6 +3,7 @@ package edu.cth.mosquito.main;
 import edu.cth.mosquito.controller.Controller;
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.ZipLocator;
+import com.jme3.bullet.BulletAppState;
 import com.jme3.font.BitmapFont;
 import com.jme3.input.KeyInput;
 import com.jme3.input.MouseInput;
@@ -16,14 +17,17 @@ import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Geometry;
+import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
 import com.jme3.texture.Texture;
+import edu.cth.mosquito.core.Collision;
 import edu.cth.mosquito.core.Highscore;
 import edu.cth.mosquito.core.Player;
 import edu.cth.mosquito.core.Position3D;
 import edu.cth.mosquito.core.World;
 import edu.cth.mosquito.view.GuiOverlay;
 import edu.cth.mosquito.view.MosquitoSimulatorRenderer;
+import java.util.ArrayList;
 
 public class MosquitoSimulator extends SimpleApplication implements AnalogListener {
     
@@ -41,9 +45,14 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     private Vector3f directionForward = new Vector3f();
     private Vector3f directionLeft = new Vector3f();
     private Vector3f directionUp = new Vector3f();
+    private BulletAppState bulletAppState;
+    private Collision collision;
     
     @Override
     public void simpleInitApp(){
+        
+        bulletAppState = new BulletAppState();
+        stateManager.attach(bulletAppState);
         
         // Disable the default flyby cam
         flyCam.setEnabled(false);
@@ -72,6 +81,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             rootNode.attachChild(msr.getObjectNodes().get(i));
         }
 
+        collision = new Collision(bulletAppState, msr.getMosquitoNode(), (ArrayList<Node>) msr.getObjectNodes());
+        
     }
     
     @Override
@@ -83,7 +94,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         player.decreaseEnergy(3 * tpf);
         guiOverlay.updateGUI(player.getEnergy(), player.getScore());
       
-        
+        System.out.println("Collision? :" + collision.isColliding());
     }
 
     @Override

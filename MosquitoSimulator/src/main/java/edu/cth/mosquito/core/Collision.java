@@ -37,10 +37,10 @@ public class Collision {
         
         initCollision();
     }
-    
+
     private void addGhostControl(){
         
-        playerGhost = new GhostControl(new BoxCollisionShape(new Vector3f(0.3f,0.3f,0.3f)));
+        playerGhost = new GhostControl(new BoxCollisionShape(new Vector3f(0.4f,0.4f,0.4f)));
         mosquitoNode.addControl(playerGhost);
         
     }
@@ -61,17 +61,30 @@ public class Collision {
         
         addGhostControl();
         addControls();
-        addToPhysicsSpace();
+        addObjectsToPhysicsSpace();
+        setPhysicsLocation();
         
     }
     
-    private void addToPhysicsSpace(){
+    private void addObjectsToPhysicsSpace(){
         
         getPhysicsSpace().add(playerGhost);
         
         for(RigidBodyControl a : rbcArray){
             
             getPhysicsSpace().add(a);
+            
+        }
+        
+    }
+    
+    private void setPhysicsLocation(){
+        
+        playerGhost.setPhysicsLocation(mosquitoNode.getLocalTranslation());
+        
+        for(int i = 0; i < rbcArray.size(); i++){
+            
+            rbcArray.get(i).setPhysicsLocation(solidObjectNodes.get(i).getLocalTranslation());
             
         }
         
