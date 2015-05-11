@@ -108,7 +108,7 @@ public class Collision {
             
         }
  
-        return null;
+        return "Empty";
         
     }
     
