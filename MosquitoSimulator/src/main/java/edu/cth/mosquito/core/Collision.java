@@ -54,6 +54,7 @@ public class Collision {
             CollisionShape solidObjectShape = CollisionShapeFactory.createMeshShape(a);
             rb = new RigidBody(solidObjectShape, 0, a.getName());
             
+            a.addControl(rb);
             rbArray.add(rb);
             
         }
@@ -100,6 +101,7 @@ public class Collision {
                 
                 if(a.getClass().equals(RigidBody.class)){
                     
+                    //a.getUserObject(); --> Node
                     return a.toString();
                     
                 }
