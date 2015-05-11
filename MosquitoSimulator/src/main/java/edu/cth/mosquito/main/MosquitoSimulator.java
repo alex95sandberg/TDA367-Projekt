@@ -3,6 +3,7 @@ package edu.cth.mosquito.main;
 import edu.cth.mosquito.controller.Controller;
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.ZipLocator;
+import com.jme3.audio.AudioNode;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.font.BitmapFont;
 import com.jme3.input.KeyInput;
@@ -49,6 +50,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     private Vector3f directionUp = new Vector3f();
     private BulletAppState bulletAppState;
     private Collision collision;
+    private AudioNode audioMosquito;
     
     @Override
     public void simpleInitApp(){
@@ -76,6 +78,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         rootNode.attachChild(msr.getMosquitoNode());
         
         initGUI();
+        initAudio();
         
         //Renders all the objects in world
         msr.renderWorldObjects(world.getObjects());       
@@ -126,6 +129,17 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         guiNode.attachChild(guiOverlay.getEnergyText());
     
     }
+    
+    public void initAudio(){
+        assetManager.registerLocator("assets.zip", ZipLocator.class);
+        audioMosquito = new AudioNode(assetManager, "assets/mosquitoSound.wav", false);
+        audioMosquito.setPositional(false);
+        audioMosquito.setLooping(true);
+        audioMosquito.setVolume(2);
+        rootNode.attachChild(audioMosquito);
+        audioMosquito.play();
+    }
+    
     @Override
     public void onAnalog(String name, float value, float tpf) {
 
