@@ -156,11 +156,11 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         }
 
         if(name.equals("Up")){
-            directionUp.multLocal(5 * tpf);
+            directionUp.multLocal(-5 * tpf);
             player.move(new Position3D(directionUp.x, directionUp.y, directionUp.z));
         } 
         if(name.equals("Down")){
-            directionUp.multLocal(-5 * tpf);
+            directionUp.multLocal(5 * tpf);
             player.move(new Position3D(directionUp.x, directionUp.y, directionUp.z));
         }
         if (name.equals("rotateRight")) {
@@ -192,7 +192,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         if(name.equals("SuckBlood") && collision.getCollidingObject() instanceof Human){
             Human temp = (Human)collision.getCollidingObject();
             if(temp.getBlood() > 0){
-                ((Human)collision.getCollidingObject()).decreaseBlood(15*tpf);
+                ((Human)collision.getCollidingObject()).decreaseBlood(24*tpf);
                 player.increaseEnergy(15 * tpf);
             }
             
@@ -208,8 +208,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         inputManager.addMapping("Right", new KeyTrigger(KeyInput.KEY_D));
         inputManager.addMapping("Left", new KeyTrigger(KeyInput.KEY_A));
         inputManager.addMapping("Backward", new KeyTrigger(KeyInput.KEY_S));
-        inputManager.addMapping("Up", new KeyTrigger(KeyInput.KEY_LCONTROL));
-        inputManager.addMapping("Down", new KeyTrigger(KeyInput.KEY_SPACE));
+        inputManager.addMapping("Down", new KeyTrigger(KeyInput.KEY_LSHIFT));
+        inputManager.addMapping("Up", new KeyTrigger(KeyInput.KEY_SPACE));
         
         inputManager.addMapping("rotateUp", new KeyTrigger(KeyInput.KEY_UP));
         inputManager.addMapping("rotateDown", new KeyTrigger(KeyInput.KEY_DOWN));
