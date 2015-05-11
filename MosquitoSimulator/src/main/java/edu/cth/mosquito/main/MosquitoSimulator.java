@@ -81,7 +81,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             rootNode.attachChild(msr.getObjectNodes().get(i));
         }
 
-        collision = new Collision(bulletAppState, msr.getMosquitoNode(), (ArrayList<Node>) msr.getObjectNodes());
+        collision = new Collision(bulletAppState, msr.getMosquitoNode(), msr.getObjectNodes());
         
     }
     
@@ -94,7 +94,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         player.decreaseEnergy(3 * tpf);
         guiOverlay.updateGUI(player.getEnergy(), player.getScore());
       
-        System.out.println("Collision? :" + collision.isColliding());
+        System.out.println(collision.isColliding());
     }
 
     @Override

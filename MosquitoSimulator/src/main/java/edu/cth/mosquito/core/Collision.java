@@ -6,6 +6,7 @@ package edu.cth.mosquito.core;
 
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.PhysicsSpace;
+import com.jme3.bullet.collision.PhysicsCollisionObject;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.control.GhostControl;
@@ -14,6 +15,7 @@ import com.jme3.bullet.util.CollisionShapeFactory;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -22,17 +24,17 @@ import java.util.ArrayList;
 public class Collision {
     
     private BulletAppState bulletAppState;
-    private ArrayList<Node> solidObjectNodes;
-    private ArrayList<RigidBodyControl> rbcArray;
+    private List<Node> solidObjectNodes;
+    private List<RigidBody> rbArray;
     private GhostControl playerGhost;
-    private RigidBodyControl rbc;
     private Node mosquitoNode;
+    private RigidBody rb;
     
-    public Collision(BulletAppState bulletAppState, Node mosquitoNode, ArrayList<Node> solidObjectNodes){
+    public Collision(BulletAppState bulletAppState, Node mosquitoNode, List<Node> solidObjectNodes){
         
         this.bulletAppState = bulletAppState;
         this.solidObjectNodes = solidObjectNodes;
-        this.rbcArray = new ArrayList<>();
+        this.rbArray = new ArrayList<>();
         this.mosquitoNode = mosquitoNode;
         
         initCollision();
@@ -48,11 +50,11 @@ public class Collision {
     private void addControls(){
         
         for(Node a : solidObjectNodes){
-        
-            CollisionShape solidObjectShape = CollisionShapeFactory.createMeshShape(a);
-            rbc = new RigidBodyControl(solidObjectShape, 0);
             
-            rbcArray.add(rbc);
+            CollisionShape solidObjectShape = CollisionShapeFactory.createMeshShape(a);
+            rb = new RigidBody(solidObjectShape, 0, a.getName());
+            
+            rbArray.add(rb);
             
         }
     }
@@ -70,7 +72,7 @@ public class Collision {
         
         getPhysicsSpace().add(playerGhost);
         
-        for(RigidBodyControl a : rbcArray){
+        for(RigidBodyControl a : rbArray){
             
             getPhysicsSpace().add(a);
             
@@ -82,21 +84,31 @@ public class Collision {
         
         playerGhost.setPhysicsLocation(mosquitoNode.getLocalTranslation());
         
-        for(int i = 0; i < rbcArray.size(); i++){
+        for(int i = 0; i < rbArray.size(); i++){
             
-            rbcArray.get(i).setPhysicsLocation(solidObjectNodes.get(i).getLocalTranslation());
+            rbArray.get(i).setPhysicsLocation(solidObjectNodes.get(i).getLocalTranslation());
             
         }
         
     }
     
-    public boolean isColliding(){
+    public String getColliding(){
         
-        if(playerGhost.getOverlappingCount() > 0){
-            return true;
+        if(playerGhost.getOverlappingCount() == 1){
+            
+            for(PhysicsCollisionObject a : playerGhost.getOverlappingObjects()){
+                
+                if(a.getClass().equals(RigidBody.class)){
+                    
+                    return a.toString();
+                    
+                }
+                
+            }
+            
         }
  
-        return false;
+        return null;
         
     }
     

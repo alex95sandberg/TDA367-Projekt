@@ -193,6 +193,7 @@ public class MosquitoSimulatorRenderer {
         Material m;       
         Geometry g;
         objectNodes = new ArrayList<>();
+        Node tempNode;
         
         for(int i = 0; i < objects.size(); i++){
             SolidObject object = objects.get(i);
@@ -204,17 +205,20 @@ public class MosquitoSimulatorRenderer {
         
                 m.setTexture("ColorMap", txt2);
                 
-            }else{
+                tempNode = new Node("Human");
+                
+            } else{
                 m = new Material(assetManager,
                 "Common/MatDefs/Misc/Unshaded.j3md");
                 m.setColor("Color", ColorRGBA.Blue);
+                
+                tempNode = new Node("Solid");
             }
             
             b = new Box(object.getWidth(), object.getHeight(), object.getLength());
             g = new Geometry("Box", b);
             g.setMaterial(m);
             
-            Node tempNode = new Node();
             tempNode.attachChild(g);
             tempNode.setLocalTranslation(object.getPosition().getX(), object.getPosition().getY(), object.getPosition().getZ());
             objectNodes.add(tempNode);
