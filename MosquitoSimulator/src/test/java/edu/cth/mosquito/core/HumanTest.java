@@ -42,10 +42,10 @@ public class HumanTest extends TestCase {
     public void testIncreaseBlood() {
         Human h1 = new Human();
         
-        float maxBlood = h1.getBlood();
+        float blood = h1.getBlood()/2;
         float bloodDiff = rnd.nextFloat();
         
         h1.increaseBlood(bloodDiff);
-        assertTrue(h1.getBlood() == maxBlood + bloodDiff);
+        assertTrue(h1.getBlood()/2 == blood + bloodDiff);
     }
 }

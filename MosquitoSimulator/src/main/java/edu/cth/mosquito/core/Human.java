@@ -10,25 +10,26 @@ package edu.cth.mosquito.core;
  */
 public class Human extends SolidObject{
     private float blood;
+    private float maxBlood = 100;
     
     public Human(){
         super();
-        blood = 100;   
+        blood = maxBlood;   
     }
     
     public Human(Position3D position){
         super(position);
-        blood = 100;
+        blood = maxBlood;
     }
     
     public Human(float width, float height, float length){
         super(width, height, length);
-        blood = 100;
+        blood = maxBlood;
     }
     
     public Human(Position3D position, float width, float height, float length){
         super(position, width, height, length);
-        blood = 100;
+        blood = maxBlood;
     }
     
     public float getBlood(){
@@ -37,9 +38,15 @@ public class Human extends SolidObject{
     
     public void decreaseBlood(float amount){
         blood -= amount;
+        
+        if(blood < 0)
+            blood = 0;
     }
     
     public void increaseBlood(float amount){
         blood += amount;
+        
+        if(blood > maxBlood)
+            blood = maxBlood;
     }
 }

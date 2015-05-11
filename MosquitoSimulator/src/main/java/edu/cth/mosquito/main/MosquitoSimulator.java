@@ -200,7 +200,10 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         if(name.equals("Reset")){
             System.out.println(msr.getMosquitoNode().getLocalRotation().getX());
             player.reset();
+            world.reset();
             msr.getMosquitoNode().setLocalRotation(Quaternion.IDENTITY);
+            
+            
         }
         
         if(name.equals("SuckBlood") && collision.getCollidingObject() instanceof Human){
