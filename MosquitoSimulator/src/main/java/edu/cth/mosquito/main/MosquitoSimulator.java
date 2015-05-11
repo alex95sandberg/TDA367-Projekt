@@ -22,8 +22,10 @@ import com.jme3.scene.shape.Box;
 import com.jme3.texture.Texture;
 import edu.cth.mosquito.core.Collision;
 import edu.cth.mosquito.core.Highscore;
+import edu.cth.mosquito.core.Human;
 import edu.cth.mosquito.core.Player;
 import edu.cth.mosquito.core.Position3D;
+import edu.cth.mosquito.core.SolidObject;
 import edu.cth.mosquito.core.World;
 import edu.cth.mosquito.view.GuiOverlay;
 import edu.cth.mosquito.view.MosquitoSimulatorRenderer;
@@ -94,7 +96,17 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         player.decreaseEnergy(3 * tpf);
         guiOverlay.updateGUI(player.getEnergy(), player.getScore());
       
-        System.out.println(collision.getColliding());
+        if(collision.getCollidingNode() != null){
+            
+            for(int i = 0; i < msr.getObjectNodes().size(); i++){
+                if(collision.getCollidingNode().equals(msr.getObjectNodes().get(i))){
+                    collision.setCollidingObject(world.getObjects().get(i));
+                    break;
+                }
+            }
+        }
+        
+        
     }
 
     @Override
@@ -177,9 +189,12 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             msr.getMosquitoNode().setLocalRotation(Quaternion.IDENTITY);
         }
         
-        if(name.equals("SuckBlood") && collision.getColliding().equals("Human")){
-            
-            player.increaseEnergy(12 * tpf);
+        if(name.equals("SuckBlood") && collision.getCollidingObject() instanceof Human){
+            Human temp = (Human)collision.getCollidingObject();
+            if(temp.getBlood() > 0){
+                ((Human)collision.getCollidingObject()).decreaseBlood(15*tpf);
+                player.increaseEnergy(15 * tpf);
+            }
             
         }
 

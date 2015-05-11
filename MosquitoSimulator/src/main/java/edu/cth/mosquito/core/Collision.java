@@ -29,6 +29,7 @@ public class Collision {
     private GhostControl playerGhost;
     private Node mosquitoNode;
     private RigidBody rb;
+    private SolidObject collidingObject;
     
     public Collision(BulletAppState bulletAppState, Node mosquitoNode, List<Node> solidObjectNodes){
         
@@ -40,6 +41,14 @@ public class Collision {
         initCollision();
     }
 
+    public SolidObject getCollidingObject(){
+        return collidingObject;
+    }
+    
+    public void setCollidingObject(SolidObject collidingObject){
+        this.collidingObject = collidingObject;
+    }
+    
     private void addGhostControl(){
         
         playerGhost = new GhostControl(new BoxCollisionShape(new Vector3f(0.4f,0.4f,0.4f)));
@@ -93,16 +102,19 @@ public class Collision {
         
     }
     
-    public String getColliding(){
+    public boolean isColliding(){
+        return playerGhost.getOverlappingCount() == 1;
+    }
+    
+    public Node getCollidingNode(){
         
-        if(playerGhost.getOverlappingCount() == 1){
+        if(isColliding()){
             
             for(PhysicsCollisionObject a : playerGhost.getOverlappingObjects()){
                 
                 if(a.getClass().equals(RigidBody.class)){
-                    
-                    //a.getUserObject(); --> Node
-                    return a.toString();
+                     
+                    return (Node)a.getUserObject();
                     
                 }
                 
@@ -110,7 +122,7 @@ public class Collision {
             
         }
  
-        return "Empty";
+        return null;
         
     }
     
