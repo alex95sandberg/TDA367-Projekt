@@ -108,6 +108,9 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
                 }
             }
             
+            if(collision.getCollidingObject() instanceof Human)
+                guiOverlay.setBloodAmount(((Human)collision.getCollidingObject()).getBlood());
+            
         }else{
             
             collision.setCollidingObject(null);
