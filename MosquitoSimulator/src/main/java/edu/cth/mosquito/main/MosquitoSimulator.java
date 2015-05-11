@@ -107,6 +107,11 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
                     break;
                 }
             }
+            
+        }else{
+            
+            collision.setCollidingObject(null);
+            guiOverlay.getBloodText().setText("");
         }
         
         
@@ -124,7 +129,9 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         setDisplayFps(false);
         guiOverlay.setScoreTextPos(settings.getWidth()-guiOverlay.getScoreText().getLineWidth()-10,settings.getHeight()-10, 0f);
         guiOverlay.setEnergyTextPos(settings.getWidth()-guiOverlay.getEnergyText().getLineWidth()-10,(settings.getHeight()*0.9f), 0f);
-      
+        guiOverlay.setBloodTextPos(settings.getWidth()/2 -guiOverlay.getBloodText().getLineWidth()/2, settings.getHeight()/2 - 20, 0);
+        
+        guiNode.attachChild(guiOverlay.getBloodText());
         guiNode.attachChild(guiOverlay.getScoreText());
         guiNode.attachChild(guiOverlay.getEnergyText());
     
@@ -209,8 +216,9 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         if(name.equals("SuckBlood") && collision.getCollidingObject() instanceof Human){
             Human temp = (Human)collision.getCollidingObject();
             if(temp.getBlood() > 0){
-                ((Human)collision.getCollidingObject()).decreaseBlood(24*tpf);
+                temp.decreaseBlood(24*tpf);
                 player.increaseEnergy(15 * tpf);
+                guiOverlay.setBloodAmount(temp.getBlood());
             }
             
         }
