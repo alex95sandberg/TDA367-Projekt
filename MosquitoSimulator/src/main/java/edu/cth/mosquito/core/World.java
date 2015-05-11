@@ -27,8 +27,8 @@ public class World {
     
     private void initObjects(){
         addSolidObject(1,1,1);
-        addHuman(new Position3D(2,0,0),1,2,1);
-        addHuman(new Position3D(-3,1,0),1,1,2);
+        addHuman(new Position3D(2,-5,0),1,2,1);
+        addHuman(new Position3D(-3,-5,0),1,1,2);
     }
     
     private void addHuman(float width, float height, float length){

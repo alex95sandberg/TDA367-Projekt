@@ -19,6 +19,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 import com.jme3.texture.Texture;
 import edu.cth.mosquito.core.Collision;
@@ -79,6 +80,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         
         initGUI();
         initAudio();
+        
+        
         
         //Renders all the objects in world
         msr.renderWorldObjects(world.getObjects());       

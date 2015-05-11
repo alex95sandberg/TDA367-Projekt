@@ -7,10 +7,14 @@ package edu.cth.mosquito.view;
 import com.jme3.asset.AssetManager;
 import com.jme3.asset.plugins.ZipLocator;
 import com.jme3.material.Material;
+import com.jme3.material.RenderState;
+import com.jme3.material.RenderState.BlendMode;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
+import com.jme3.renderer.queue.RenderQueue;
+import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.scene.CameraNode;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
@@ -194,18 +198,19 @@ public class MosquitoSimulatorRenderer {
         Geometry g;
         objectNodes = new ArrayList<>();
         Node tempNode;
+        Spatial h;
         
+        assetManager.registerLocator("assets.zip", ZipLocator.class);
         for(int i = 0; i < objects.size(); i++){
             SolidObject object = objects.get(i);
             
             if(object instanceof Human){
-                m = new Material(assetManager,
-                "Common/MatDefs/Misc/Unshaded.j3md");
-                Texture txt2 = assetManager.loadTexture("assets/lloyd.jpg");
-        
-                m.setTexture("ColorMap", txt2);
-                
+                h = assetManager.loadModel("assets/human.j3o");
+                m = new Material(assetManager,"Common/MatDefs/Misc/Unshaded.j3md");
+                m.setColor("Color", ColorRGBA.Magenta);
+                h.setMaterial(m);
                 tempNode = new Node("Human");
+                tempNode.attachChild(h);
                 
             } else{
                 m = new Material(assetManager,
@@ -213,13 +218,14 @@ public class MosquitoSimulatorRenderer {
                 m.setColor("Color", ColorRGBA.Blue);
                 
                 tempNode = new Node("Solid");
+                
+                b = new Box(object.getWidth(), object.getHeight(), object.getLength());
+                g = new Geometry("Box", b);
+                g.setMaterial(m);
+                tempNode.attachChild(g);
             }
             
-            b = new Box(object.getWidth(), object.getHeight(), object.getLength());
-            g = new Geometry("Box", b);
-            g.setMaterial(m);
             
-            tempNode.attachChild(g);
             tempNode.setLocalTranslation(object.getPosition().getX(), object.getPosition().getY(), object.getPosition().getZ());
             objectNodes.add(tempNode);
         }
