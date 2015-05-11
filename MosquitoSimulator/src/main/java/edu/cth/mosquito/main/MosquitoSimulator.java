@@ -56,13 +56,13 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         
         // Disable the default flyby cam
         flyCam.setEnabled(false);
-        initKeys();
-        guiOverlay = new GuiOverlay(assetManager);
+        initKeys();   
         world = new World(10, 5, 15);
         player = new Player(world);
         highscore = new Highscore();
         controller = new Controller();
         msr = new MosquitoSimulatorRenderer(assetManager, cam);
+        guiOverlay = new GuiOverlay(assetManager, msr.getMosquitoNode());
         msr.renderRoom(world.getWidth(), world.getHeight());
         
         msr.renderPlaneRoom(world.getWidth(), world.getHeight(), world.getLength());
