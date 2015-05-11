@@ -11,15 +11,13 @@ package edu.cth.mosquito.core;
 public class Player {
     private World world;
     private Position3D pos;
-    private Rotation rot;
     private float energy;
-    private float maxEnergy = 100;
+    private final float maxEnergy = 100;
     private float score;
     
     public Player(World world){
         this.energy = maxEnergy;
         this.pos = new Position3D();
-        this.rot = new Rotation();
         this.world  = world;
         
     }
@@ -27,7 +25,6 @@ public class Player {
     public Player(Position3D position, World world){
         this.energy = maxEnergy;
         this.pos = new Position3D(position);
-        this.rot = new Rotation();
         this.world = world;
     }
     
@@ -58,23 +55,18 @@ public class Player {
         return pos;
     }
     
-    public void rotate(float x, float y, float z){
-        rot.rotate(x, y, z);
-    }
-    
     public void reset(){
         energy = maxEnergy;
         score = 0;
         pos = new Position3D();
-        rot = new Rotation();
-    }
-    
-    public Rotation getRotation(){
-        return rot;
     }
     
     public float getEnergy(){
         return energy;
+    }
+    
+    public float getMaxEnergy(){
+        return maxEnergy;
     }
     
     public void decreaseEnergy(float amount){
