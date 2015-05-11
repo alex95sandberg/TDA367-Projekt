@@ -25,6 +25,7 @@ public class GuiOverlay {
     private BitmapFont font;
     private BitmapText energyText;
     private BitmapText scoreText;
+    private BitmapText bloodText;
     private Geometry energybar;
     private BillboardControl billboard;
      
@@ -34,8 +35,11 @@ public class GuiOverlay {
         font = assetManager.loadFont("Interface/Fonts/Console.fnt");
         energyText = new BitmapText(font, false);
         scoreText = new BitmapText(font, false);
+        bloodText = new BitmapText(font, false);
         
-        
+        //blood init
+        bloodText.setSize(font.getCharSet().getRenderedSize());      // font size
+        bloodText.setColor(ColorRGBA.White);
         
         //energy init
         energyText.setSize(font.getCharSet().getRenderedSize());      // font size
@@ -58,13 +62,12 @@ public class GuiOverlay {
         energybar.addControl(billboard);
         mosqNode.attachChild(energybar);
         
-        updateGUI(100f,10f);
-        
+        updateGUI(100f,0f);
+        setBloodAmount(100f);
         
     }
  
     public void updateGUI(float currentEnergy, float currentScore){
-        
         
         setEnergyAmount(currentEnergy);
         setScoreAmount(currentScore);
@@ -102,8 +105,20 @@ public class GuiOverlay {
     
      public void setScoreTextPos(float x, float y, float z){
          scoreText.setLocalTranslation(x, y, z);   // position
-    }
-
+     }
+    
+     public void setBloodAmount(float amount){
+         bloodText.setText("Blood: " + Math.round(amount) + "%");
+     }
+     
+     public void setBloodTextPos(float x, float y, float z){
+         bloodText.setLocalTranslation(x, y, z);
+     }
+     
+     public BitmapText getBloodText(){
+         return bloodText;
+     }
+     
     //All score methods ends here.
      
      //Energybar methods

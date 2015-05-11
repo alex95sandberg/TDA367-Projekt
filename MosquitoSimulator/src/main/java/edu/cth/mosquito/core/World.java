@@ -31,6 +31,14 @@ public class World {
         addHuman(new Position3D(-3,-5,0),1,1,2);
     }
     
+    public void reset(){
+        for(int i = 0; i < objects.size(); i++){
+            if(objects.get(i) instanceof Human){
+                ((Human)objects.get(i)).increaseBlood(100);
+            }
+        }
+    }
+    
     private void addHuman(float width, float height, float length){
         objects.add(new Human(width,height,length));
     }
