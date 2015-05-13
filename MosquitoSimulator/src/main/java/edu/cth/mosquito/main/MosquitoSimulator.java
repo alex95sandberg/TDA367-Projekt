@@ -12,6 +12,7 @@ import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
+import com.jme3.light.PointLight;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
@@ -81,6 +82,14 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         rootNode.attachChild(msr.getRoomNode());
         
         rootNode.attachChild(msr.getMosquitoNode());
+        
+        msr.createLights(world.getWidth(), world.getHeight(), world.getLength());
+        
+        for (int i = 0; i < msr.getLights().size(); i++){
+            rootNode.addLight((PointLight)msr.getLights().get(i));
+        }
+        
+        
         
         initGUI();
         initAudio();

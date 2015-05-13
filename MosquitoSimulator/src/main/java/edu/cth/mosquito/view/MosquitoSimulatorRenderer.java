@@ -40,8 +40,9 @@ public class MosquitoSimulatorRenderer {
     private Camera cam;
     private CameraNode camNode;
     private Node mosquitoNode;
-    private Node roomNode = new Node();
+    private Node roomNode;
     private List<Node> objectNodes;
+    private List<PointLight> lights;
     
     private Spatial mosquito;
     private Spatial room;
@@ -55,6 +56,8 @@ public class MosquitoSimulatorRenderer {
         assetManager.registerLocator("assets.zip", ZipLocator.class);
         this.cam = cam;
         mosquitoNode = new Node();
+        roomNode = new Node();
+        lights = new ArrayList<>();
         this.renderMosquito();
         cameraSetup();
     }
@@ -101,7 +104,6 @@ public class MosquitoSimulatorRenderer {
     
     public void renderPlaneRoom(float width, float height, float length){
         createMaterials();
-        createLight(0, height -2, 0);
         renderPlaneFloor(width, height, length);
         renderPlaneWallNorth(width, height, length);
         renderPlaneWallEast(width, height, length);
@@ -111,11 +113,15 @@ public class MosquitoSimulatorRenderer {
         
     }
     
-    public void createLight(float width, float height, float length){
+    public void createLights(float width, float height, float length){
+        addLight(0, height-2, 0);
+    }
+    
+    public void addLight(float width, float height, float length){
         PointLight lamp = new PointLight();
         lamp.setColor(ColorRGBA.White);
         lamp.setPosition(new Vector3f(width, height, length));
-        roomNode.addLight(lamp);
+        lights.add(lamp);
     }
     
     public void createMaterials(){
@@ -247,6 +253,8 @@ public class MosquitoSimulatorRenderer {
             }
             
             
+            
+            
             tempNode.setLocalTranslation(object.getPosition().getX(), object.getPosition().getY(), object.getPosition().getZ());
             objectNodes.add(tempNode);
         }
@@ -269,6 +277,10 @@ public class MosquitoSimulatorRenderer {
         return roomNode;
     }
 
+    public List getLights(){
+        return lights;
+    }
+    
     private Vector2f Vector2f(double d, double d0) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
