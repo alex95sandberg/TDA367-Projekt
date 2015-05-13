@@ -105,7 +105,11 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         player.increaseScore(3 * tpf);
         player.decreaseEnergy(3 * tpf);
         guiOverlay.updateGUI(player.getEnergy(), player.getScore());
-      
+        guiOverlay.updateEnergybar(-0.03f*tpf);
+        
+        guiOverlay.getEnergyNode().updateGeometricState();
+        guiOverlay.getEnergyNode().updateLogicalState(tpf);
+         
         if(collision.getCollidingNode() != null){
             
             for(int i = 0; i < msr.getObjectNodes().size(); i++){
@@ -122,12 +126,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             
             collision.setCollidingObject(null);
             guiOverlay.getBloodText().setText("");
-        }
-        
-        guiOverlay.getEnergyNode().updateGeometricState();
-        guiOverlay.getEnergyNode().updateLogicalState(tpf);
-        
-        
+        }            
     }
 
     @Override
@@ -323,6 +322,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             if(temp.getBlood() > 0){
                 temp.decreaseBlood(24*tpf);
                 player.increaseEnergy(15 * tpf);
+                guiOverlay.updateEnergybar(0.15f*tpf);
                 guiOverlay.setBloodAmount(temp.getBlood());
             }
             

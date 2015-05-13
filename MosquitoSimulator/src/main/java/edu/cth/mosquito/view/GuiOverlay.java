@@ -33,7 +33,9 @@ public class GuiOverlay {
     private BitmapText bloodText;
     private BillboardControl billboard;
     Geometry geom;
-    Node n = new Node("energybar");
+    Node barNode = new Node("energybar");
+    private Camera energyCam;
+    private Box barBox;
      
      
     public GuiOverlay(AssetManager assetManager, Camera cam, RenderManager renderManager) {
@@ -58,36 +60,17 @@ public class GuiOverlay {
         
         //energybar init
  
-        Box b = new Box(new Vector3f(0, 0, 0), 0.2f, 0.2f, 3.6f);
-        geom = new Geometry("Box", b);
+        barBox = new Box( 0.15f, 0.2f, 0f); 
+        geom = new Geometry("Box", barBox);    
         Material mat12 = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
         mat12.setColor("Color", ColorRGBA.Yellow);
         geom.setMaterial(mat12);
-        n.attachChild(geom);
-        Camera energyCam = cam.clone();
-        energyCam.setViewPort(0.8f, 1.05f, 0f, 1f);       
-        energyCam.setLocation(new Vector3f(-0.1f, -0.1f, 4.6f));       
+        barNode.attachChild(geom);
+        energyCam = cam.clone();
+        energyCam.setViewPort(0.8f, 1.05f, 0f, 1f);  
+        energyCam.setLocation(new Vector3f(-0.1f, -0.1f, 1f));       
         final ViewPort view2 = renderManager.createMainView("energyview", energyCam); 
-        view2.attachScene(n.getChild("Box"));
-        
-        
-       // cam2.setViewPort(0.8f, 1f, 0f, 1f);
-        
-       // cam2.setLocation(new Vector3f(-0.8f, -0.1f, 4.6f));
-
-        
-
-        ////view2.setBackgroundColor(ColorRGBA.randomColor().set(1, 1, 1, 1f));
-
-       // view2.setClearDepth(true);
-
-
-         //(Geometry)(n.getChild("healthbar")).getMesh()).updateGeometry(player.getEnergy() / 100 * 4, 0.2f);
-        //cam2.setViewPort(speed, speed, speed, speed);
-        
-        
-        
-        
+        view2.attachScene(barNode.getChild("Box"));  
         
         updateGUI(100f,0f);
         setBloodAmount(100f);
@@ -152,27 +135,14 @@ public class GuiOverlay {
      
      public Node getEnergyNode(){
      
-         return n;
+         return barNode;
      }
-     public void updateEnergybar(){
+     public void updateEnergybar(float y){
 
-        //msr.getMosquitoNode().setUserData("health", 100f); kanske behöver??
-        
-        
-        
-        
-         //Energy bar
-       
-        
-        
-        
-        //rootNode.attachChild(msr.getMosquitoNode());
- 
-         
-                                                                    //updateGeometry(player.getEnergy()/100, 3.0f)
-        
-        
-    
+         if((y > 0 && geom.getLocalScale().getY() < 1) || (y < 0 && geom.getLocalScale().getY() > 0)){
+            geom.setLocalScale(geom.getLocalScale().getX(), geom.getLocalScale().getY()+y, geom.getLocalScale().getZ());
+            geom.setLocalTranslation(geom.getLocalTranslation().getX(), geom.getLocalTranslation().getY()+y/5, geom.getLocalTranslation().getZ());
+         }
     }
      
      //energybar methods end
