@@ -6,6 +6,8 @@ package edu.cth.mosquito.view;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.asset.plugins.ZipLocator;
+import com.jme3.light.DirectionalLight;
+import com.jme3.light.PointLight;
 import com.jme3.material.Material;
 import com.jme3.material.RenderState;
 import com.jme3.material.RenderState.BlendMode;
@@ -23,6 +25,7 @@ import com.jme3.scene.control.CameraControl;
 import com.jme3.scene.shape.Box;
 import com.jme3.texture.Texture;
 import edu.cth.mosquito.core.Human;
+import edu.cth.mosquito.core.Position3D;
 import edu.cth.mosquito.core.SolidObject;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +47,7 @@ public class MosquitoSimulatorRenderer {
     private Spatial room;
     private Spatial floor, wallN, wallS, wallW, wallE, roof;
     private Material floorMaterial, wallMaterial, roofMaterial;
+    private PointLight lamp;
     
     public MosquitoSimulatorRenderer(AssetManager assetManager, Camera cam){
         this.assetManager = assetManager;
@@ -97,22 +101,40 @@ public class MosquitoSimulatorRenderer {
     
     public void renderPlaneRoom(float width, float height, float length){
         createMaterials();
+        createLight(0, height -2, 0);
         renderPlaneFloor(width, height, length);
         renderPlaneWallNorth(width, height, length);
         renderPlaneWallEast(width, height, length);
         renderPlaneWallWest(width, height, length);
         renderPlaneWallSouth(width, height, length);
         renderPlaneRoof(width, height, length);
+        
+    }
+    
+    public void createLight(float width, float height, float length){
+        PointLight lamp = new PointLight();
+        lamp.setColor(ColorRGBA.White);
+        lamp.setPosition(new Vector3f(width, height, length));
+        roomNode.addLight(lamp);
     }
     
     public void createMaterials(){
-        floorMaterial = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        wallMaterial = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        roofMaterial = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        floorMaterial = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
+        wallMaterial = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
+        roofMaterial = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
         
-        floorMaterial.setColor("Color", new ColorRGBA(1f, .96f, .56f, 1f));
-        wallMaterial.setColor("Color", new ColorRGBA(.01f, .66f, .62f, 1f));
-        roofMaterial.setColor("Color", new ColorRGBA(.98f, 1f, 1f, 1f)); 
+        //floorMaterial.setColor("Ambient", new ColorRGBA(1f, .96f, .56f, 1f));
+        //wallMaterial.setColor("Ambient", new ColorRGBA(.01f, .66f, .62f, 1f));
+        //roofMaterial.setColor("Ambient", new ColorRGBA(.98f, 1f, 1f, 1f)); 
+        
+        Texture tf = assetManager.loadTexture("assets/floor.jpg");
+        floorMaterial.setTexture("DiffuseMap", tf);
+        
+        Texture tw = assetManager.loadTexture("assets/wall.jpg");
+        wallMaterial.setTexture("DiffuseMap", tw);
+        
+        Texture tr = assetManager.loadTexture("assets/roof.jpg");
+        roofMaterial.setTexture("DiffuseMap", tr);
     }   
     
     public void renderPlaneFloor(float width, float height, float length){
@@ -206,8 +228,7 @@ public class MosquitoSimulatorRenderer {
             
             if(object instanceof Human){
                 h = assetManager.loadModel("assets/human.j3o");
-                m = new Material(assetManager,"Common/MatDefs/Misc/Unshaded.j3md");
-                m.setColor("Color", ColorRGBA.Magenta);
+                m = new Material(assetManager,"Common/MatDefs/Light/Lighting.j3md");
                 h.setMaterial(m);
                 tempNode = new Node("Human");
                 tempNode.attachChild(h);

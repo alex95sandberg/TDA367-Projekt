@@ -26,9 +26,10 @@ public class World {
     }
     
     private void initObjects(){
-        addSolidObject(1,1,1);
+        //addSolidObject(1,1,1);
         addHuman(new Position3D(2,-5,0),1,2,1);
         addHuman(new Position3D(-3,-5,0),1,1,2);
+        addHuman(new Position3D(4,-5,3),2,2,2);
     }
     
     public void reset(){
