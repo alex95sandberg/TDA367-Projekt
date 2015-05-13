@@ -9,10 +9,14 @@ import com.jme3.font.BitmapText;
 import com.jme3.math.ColorRGBA;
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
+import com.jme3.math.Vector3f;
+import com.jme3.renderer.Camera;
+import com.jme3.renderer.RenderManager;
+import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.control.BillboardControl;
-import com.jme3.scene.shape.Quad;
+import com.jme3.scene.shape.Box;
 
 /**
  *
@@ -21,17 +25,20 @@ import com.jme3.scene.shape.Quad;
 public class GuiOverlay {
     
     private AssetManager assetManager;
+    private RenderManager renderManager;
     private Material guiMat;
     private BitmapFont font;
     private BitmapText energyText;
     private BitmapText scoreText;
     private BitmapText bloodText;
-    private Geometry energybar;
     private BillboardControl billboard;
+    Geometry geom;
+    Node n = new Node("energybar");
      
      
-    public GuiOverlay(AssetManager assetManager, Node mosqNode) {
+    public GuiOverlay(AssetManager assetManager, Camera cam, RenderManager renderManager) {
         this.assetManager = assetManager;
+        this.renderManager = renderManager;
         font = assetManager.loadFont("Interface/Fonts/Console.fnt");
         energyText = new BitmapText(font, false);
         scoreText = new BitmapText(font, false);
@@ -50,17 +57,37 @@ public class GuiOverlay {
         scoreText.setColor(ColorRGBA.White);                        // font color
         
         //energybar init
-        guiMat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        energybar = new Geometry("energybar", new Quad(0.1f, 0.4f));
-        billboard = new BillboardControl();
+ 
+        Box b = new Box(new Vector3f(0, 0, 0), 0.2f, 0.2f, 3.6f);
+        geom = new Geometry("Box", b);
+        Material mat12 = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        mat12.setColor("Color", ColorRGBA.Yellow);
+        geom.setMaterial(mat12);
+        n.attachChild(geom);
+        Camera energyCam = cam.clone();
+        energyCam.setViewPort(0.8f, 1.05f, 0f, 1f);       
+        energyCam.setLocation(new Vector3f(-0.1f, -0.1f, 4.6f));       
+        final ViewPort view2 = renderManager.createMainView("energyview", energyCam); 
+        view2.attachScene(n.getChild("Box"));
         
-        Material matC = guiMat.clone();
-        matC.setColor("Color", ColorRGBA.Yellow);
-        energybar.setMaterial(matC);
         
-        energybar.move(-0.55f,-0.1f, -8.9999f);
-        energybar.addControl(billboard);
-        mosqNode.attachChild(energybar);
+       // cam2.setViewPort(0.8f, 1f, 0f, 1f);
+        
+       // cam2.setLocation(new Vector3f(-0.8f, -0.1f, 4.6f));
+
+        
+
+        ////view2.setBackgroundColor(ColorRGBA.randomColor().set(1, 1, 1, 1f));
+
+       // view2.setClearDepth(true);
+
+
+         //(Geometry)(n.getChild("healthbar")).getMesh()).updateGeometry(player.getEnergy() / 100 * 4, 0.2f);
+        //cam2.setViewPort(speed, speed, speed, speed);
+        
+        
+        
+        
         
         updateGUI(100f,0f);
         setBloodAmount(100f);
@@ -123,6 +150,10 @@ public class GuiOverlay {
      
      //Energybar methods
      
+     public Node getEnergyNode(){
+     
+         return n;
+     }
      public void updateEnergybar(){
 
         //msr.getMosquitoNode().setUserData("health", 100f); kanske behöver??
@@ -144,5 +175,5 @@ public class GuiOverlay {
     
     }
      
-     //energybar methods
+     //energybar methods end
 }

@@ -17,6 +17,7 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
+import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
@@ -68,7 +69,9 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         highscore = new Highscore();
         controller = new Controller();
         msr = new MosquitoSimulatorRenderer(assetManager, cam);
-        guiOverlay = new GuiOverlay(assetManager, msr.getMosquitoNode());
+        
+        
+        guiOverlay = new GuiOverlay(assetManager, cam, renderManager);
         msr.renderRoom(world.getWidth(), world.getHeight());
         
         msr.renderPlaneRoom(world.getWidth(), world.getHeight(), world.getLength());
@@ -120,6 +123,9 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             collision.setCollidingObject(null);
             guiOverlay.getBloodText().setText("");
         }
+        
+        guiOverlay.getEnergyNode().updateGeometricState();
+        guiOverlay.getEnergyNode().updateLogicalState(tpf);
         
         
     }
