@@ -16,6 +16,11 @@
             <name>jmonkey</name>
             <url>http://updates.jmonkeyengine.org/maven/</url>
         </repository>
+        <repository>
+            <id>eventbus</id>
+            <name>bushe</name>
+            <url>http://central.maven.org/maven2/</url>
+        </repository>
     </repositories>
     <dependencies>
         <dependency>
@@ -47,6 +52,16 @@
             <groupId>com.jme3</groupId>
             <artifactId>jme3-bullet-natives</artifactId>
             <version>3.0.10</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jme3</groupId>
+            <artifactId>jme3-niftygui</artifactId>
+            <version>3.0.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.bushe</groupId>
+            <artifactId>eventbus</artifactId>
+            <version>1.3</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
