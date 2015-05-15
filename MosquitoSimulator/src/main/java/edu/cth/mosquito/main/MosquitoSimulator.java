@@ -168,55 +168,6 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         audioMosquito.play();
     }
     
-    private void setCollisionVariables(String binding){
-        
-        if(binding.equals("Forward")){
-            back = true; right = true; left = true; up = true; down = true;
-        } else if(binding.equals("Back")){
-            forward = true; right = true; left = true; up = true; down = true;
-        } else if(binding.equals("Right")){
-            forward = true; left = true; up = true; down = true; back = true;
-        } else if(binding.equals("Left")){
-            forward = true; right = true; up = true; down = true; back = true;
-        } else if(binding.equals("Down")){
-            forward = true; left = true; up = true; right = true; back = true;
-        } else if(binding.equals("Up")){
-            forward = true; left = true; right = true; down = true; back = true;
-        }
-        
-    }
-    
-    private void movePlayer(String binding, float tpf){
-        
-        if(binding.equals("Forward") || binding.equals("Backward")){
-            if(binding.equals("Forward")){
-                directionForward.multLocal(5*tpf);
-            } else {
-                directionForward.multLocal(-5*tpf);
-            }
-            player.move(new Position3D(directionForward.x, directionForward.y, directionForward.z));
-        }
-        
-        if(binding.equals("Left") || binding.equals("Right")){
-            if(binding.equals("Left")){
-                directionLeft.multLocal(5*tpf);
-            } else {
-                directionLeft.multLocal(-5*tpf);
-            }
-            player.move(new Position3D(directionLeft.x, directionLeft.y, directionLeft.z));
-        }
-        
-        if(binding.equals("Up") || binding.equals("Down")){
-            if(binding.equals("Up")){
-                directionUp.multLocal(5*tpf);
-            } else {
-                directionUp.multLocal(-5*tpf);
-            }
-            player.move(new Position3D(directionUp.x, directionUp.y, directionUp.z));
-        }
-        
-    }
-    
     @Override
     public void onAnalog(String binding, float value, float tpf) {
 
@@ -228,75 +179,35 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         directionUp.set(directionLeft).crossLocal(directionForward).normalizeLocal();
 
         if (binding.equals("Forward")) {
-            if(!collision.isColliding()){
-                forward = false;
-                movePlayer(binding, tpf);
-            } else {
-                setCollisionVariables(binding);
-                if(forward){
-                    movePlayer(binding, tpf); 
-                }
-            }
+            directionForward.multLocal(5*tpf);
+            player.move(new Position3D(directionForward.x, directionForward.y, directionForward.z));
         }
         
         if (binding.equals("Backward")) {
-            if(!collision.isColliding()){
-                back = false;
-                movePlayer(binding, tpf);
-            } else {
-                setCollisionVariables(binding);
-                if(back){
-                    movePlayer(binding, tpf);
-                }
-            }
+            directionForward.multLocal(-5*tpf);
+            player.move(new Position3D(directionForward.x, directionForward.y, directionForward.z));
         }
-            
+                
         if (binding.equals("Right")) {
-            if(!collision.isColliding()){
-                right = false;
-                movePlayer(binding, tpf);
-            } else {
-                setCollisionVariables(binding);
-                if(right){
-                    movePlayer(binding, tpf);
-                }
-            }
+            directionLeft.multLocal(-5*tpf);
+            player.move(new Position3D(directionLeft.x, directionLeft.y, directionLeft.z));
         }
         
         if (binding.equals("Left")) {
-            if(!collision.isColliding()){
-                left = false;
-                movePlayer(binding, tpf);
-            } else {
-                setCollisionVariables(binding);
-                if(left){
-                    movePlayer(binding, tpf);
-                }
-            }
+            directionLeft.multLocal(5*tpf);
+            player.move(new Position3D(directionLeft.x, directionLeft.y, directionLeft.z));
         }
 
         if(binding.equals("Up")){
-            if(!collision.isColliding()){
-                up = false;
-                movePlayer(binding, tpf);
-            } else {
-                setCollisionVariables(binding);
-                if(up){
-                    movePlayer(binding, tpf);
-                }
-            } 
-        }     
-        if(binding.equals("Down")){
-            if(!collision.isColliding()){
-                down = false;
-                movePlayer(binding, tpf);
-            } else {
-                setCollisionVariables(binding);
-                if(down){
-                    movePlayer(binding, tpf);
-                }
-            }     
+            directionUp.multLocal(5*tpf);
+            player.move(new Position3D(directionUp.x, directionUp.y, directionUp.z));
         }
+        
+        if(binding.equals("Down")){
+            directionUp.multLocal(-5*tpf);
+            player.move(new Position3D(directionUp.x, directionUp.y, directionUp.z));
+        }
+        
         if (binding.equals("rotateRight")) {
             msr.getMosquitoNode().rotate(0, -tpf, 0);
         }
