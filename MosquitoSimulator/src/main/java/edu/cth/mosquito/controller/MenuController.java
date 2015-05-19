@@ -24,7 +24,6 @@ public class MenuController extends AbstractAppState implements ScreenController
     private MosquitoSimulator ms;
     private NiftyJmeDisplay ourScreen;
     private Nifty nifty;
-    private AppStateManager asm;
     private List<Integer> highscore;
     
     public MenuController(List<Integer> highscore){
@@ -72,6 +71,7 @@ public class MenuController extends AbstractAppState implements ScreenController
     public void startGame(){
         
         nifty.exit();
+        ms.reset();
         
     }
     

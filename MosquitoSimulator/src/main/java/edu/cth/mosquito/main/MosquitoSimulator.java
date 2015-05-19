@@ -15,6 +15,7 @@ import com.jme3.light.PointLight;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
+import edu.cth.mosquito.controller.MenuController;
 import edu.cth.mosquito.core.Collision;
 import edu.cth.mosquito.core.Highscore;
 import edu.cth.mosquito.core.Human;
@@ -43,11 +44,15 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     private BulletAppState bulletAppState;
     private Collision collision;
     private AudioNode audioMosquito;
-    private boolean forward = false, back = true, left = true, right = true, up = true, down = true;
+    private MenuController menu;
     
     @Override
     public void simpleInitApp(){
         
+        highscore = new Highscore();
+        menu = new MenuController(highscore.getHighscore());
+        
+        stateManager.attach(menu);
         bulletAppState = new BulletAppState();
         stateManager.attach(bulletAppState);
         
@@ -56,7 +61,6 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         initKeys();   
         world = new World(10, 5, 15);
         player = new Player(world);
-        highscore = new Highscore();
         controller = new Controller();
         msr = new MosquitoSimulatorRenderer(assetManager, cam);
         
@@ -157,12 +161,21 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         audioMosquito.play();
     }
     
+    public void reset(){
+        
+        player.reset();
+        world.reset();
+        msr.getMosquitoNode().setLocalRotation(Quaternion.IDENTITY);
+        
+    }
+    
     @Override
     public void onAnalog(String binding, float value, float tpf) {
 
-        if(inputManager.isCursorVisible())
+        /*if(inputManager.isCursorVisible())
             inputManager.setCursorVisible(false);
-
+        */
+        
         directionForward.set(cam.getDirection()).normalizeLocal();
         directionLeft.set(cam.getLeft()).normalizeLocal();
         directionUp.set(directionLeft).crossLocal(directionForward).normalizeLocal();
@@ -255,11 +268,13 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         inputManager.addMapping("rotateLeft", new KeyTrigger(KeyInput.KEY_LEFT));
         inputManager.addMapping("rotateRight", new KeyTrigger(KeyInput.KEY_RIGHT));
         
+        /*
         inputManager.addMapping("toggleRotate", new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
         inputManager.addMapping("rotateLeft", new MouseAxisTrigger(MouseInput.AXIS_X, true));
         inputManager.addMapping("rotateRight", new MouseAxisTrigger(MouseInput.AXIS_X, false));
         inputManager.addMapping("rotateDown", new MouseAxisTrigger(MouseInput.AXIS_Y, true));
         inputManager.addMapping("rotateUp", new MouseAxisTrigger(MouseInput.AXIS_Y, false));
+        */
         
         inputManager.addListener(this, "Left", "Forward", "Right", "Backward", "Up", "Down", "Reset", "SuckBlood");
         inputManager.addListener(this, "rotateRight", "rotateLeft","rotateUp", "rotateDown", "toggleRotate");
