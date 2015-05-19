@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<nifty xmlns="http://nifty-gui.sourceforge.net/nifty-1.3.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nifty-gui.sourceforge.net/nifty-1.3.xsd http://nifty-gui.sourceforge.net/nifty-1.3.xsd">
+<!-- +++++++++++++++++++++++++++++++++++++++ -->    
+<!-- start screen -->
+<!-- +++++++++++++++++++++++++++++++++++++++ -->
+    
+<screen id="start" controller="edu.cth.mosquito.controller.MenuController">
+        
+	<layer id="background"  childLayout="center">
+        <image filename="assets/startScreen.jpg"></image>
+    </layer>
+
+    <layer id="foreground" childLayout="vertical">
+
+        <panel id="text" height="20%" width="75%" align="center" childLayout="center">
+
+            <text id="welcomeText" font="assets/font.fnt" align="center" valign="center" text="Mosquito Simulator" />
+
+        </panel>
+
+        <panel id="startGame" height="25%" width="75%" align="center" childLayout="center" visibleToMouse="true">
+
+            <interact onClick="startGame()" />
+
+            <text id="startGameText" font="assets/font.fnt" align="center" valign="center" text="Start game" />
+
+        </panel>
+
+        <panel id="highscore" height="25%" width="75%" align="center" childLayout="center" visibleToMouse="true">
+
+            <interact onClick="switchScreen(highscore)" />
+
+            <text id="highscoreText" font="assets/font.fnt" align="center" valign="center" text="See highscore" />
+
+        </panel>
+
+		<panel id="exitGame" height="25%" width="75%" align="center" childLayout="center" visibleToMouse="true">
+                
+	       <interact onClick="exitGame()"/>
+
+            <text id="exitGameText" font="assets/font.fnt" align="center" valign="center" text="Exit Game" />
+
+        </panel>
+
+    </layer>
+
+</screen>
+
+<screen id="highscore" controller="edu.cth.mosquito.controller.MenuController">
+
+    <layer id="background" childLayout="center">
+        <image filename="assets/startScreen.jpg"></image>
+    </layer>
+
+    <layer id="foreground" childLayout="vertical">
+
+        <panel id="highscore" height="14%" width="75%" align="center" childLayout="center">
+
+            <text id="highscoreText" font="assets/font.fnt" align="center" valign="center" text="Highscores" />
+
+        </panel>
+
+        <panel id="numberOne" height="14%" width="75%" align="center" childLayout="center">
+
+            <text id="numberOneText" font="assets/font.fnt" align="center" valign="center" text="1. ${CALL.getPlayerScore(1)}" />
+
+        </panel>
+
+        <panel id="numberTwo" height="14%" width="75%" align="center" childLayout="center">
+
+            <text id="numberTwoText" font="assets/font.fnt" align="center" valign="center" text="2. ${CALL.getPlayerScore(2)}" />
+
+        </panel>
+
+        <panel id="numberThree" height="14%" width="75%" align="center" childLayout="center">
+
+            <text id="numberThreeText" font="assets/font.fnt" align="center" valign="center" text="3. ${CALL.getPlayerScore(3)}" />
+
+        </panel>
+
+        <panel id="numberFour" height="14%" width="75%" align="center" childLayout="center">
+
+            <text id="numberFourText" font="assets/font.fnt" align="center" valign="center" text="4. ${CALL.getPlayerScore(4)}" />
+
+        </panel>
+
+        <panel id="numberFive" height="14%" width="75%" align="center" childLayout="center">
+
+            <text id="numberFiveText" font="assets/font.fnt" align="center" valign="center" text="5. ${CALL.getPlayerScore(5)}" />
+
+        </panel>
+
+        <panel id="back" height="14%" width="75%" align="center" childLayout="center" visibleToMouse="true">
+
+            <text id="backToMenu" font="assets/font.fnt" align="center" valign="center" text="Back to menu" />
+            <interact onClick="switchScreen(start)" />
+
+        </panel>
+
+    </layer>
+</screen>
+</nifty>
