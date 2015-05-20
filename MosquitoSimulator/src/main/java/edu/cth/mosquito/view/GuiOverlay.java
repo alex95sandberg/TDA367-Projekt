@@ -143,7 +143,11 @@ public class GuiOverlay {
             geom.setLocalScale(geom.getLocalScale().getX(), geom.getLocalScale().getY()+y, geom.getLocalScale().getZ());
             geom.setLocalTranslation(geom.getLocalTranslation().getX(), geom.getLocalTranslation().getY()+y/5, geom.getLocalTranslation().getZ());
          }
-    }
+     }
+     
+     public void resetUI(){
+         geom.setLocalScale(1);
+     }
      
      //energybar methods end
 }

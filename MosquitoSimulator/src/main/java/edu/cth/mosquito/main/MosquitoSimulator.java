@@ -166,6 +166,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         player.reset();
         world.reset();
         msr.getMosquitoNode().setLocalRotation(Quaternion.IDENTITY);
+        guiOverlay.resetUI();
         
     }
     
@@ -201,12 +202,12 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         }
 
         if(binding.equals("Up")){
-            directionUp.multLocal(5*tpf);
+            directionUp.multLocal(-5*tpf);
             player.move(new Position3D(directionUp.x, directionUp.y, directionUp.z));
         }
         
         if(binding.equals("Down")){
-            directionUp.multLocal(-5*tpf);
+            directionUp.multLocal(5*tpf);
             player.move(new Position3D(directionUp.x, directionUp.y, directionUp.z));
         }
         
