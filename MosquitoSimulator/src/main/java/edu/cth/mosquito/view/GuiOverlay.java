@@ -31,6 +31,7 @@ public class GuiOverlay {
     private BitmapText energyText;
     private BitmapText scoreText;
     private BitmapText bloodText;
+    private BitmapText objectiveText;
     private BillboardControl billboard;
     Geometry geom;
     Node barNode = new Node("energybar");
@@ -116,7 +117,11 @@ public class GuiOverlay {
      public void setScoreTextPos(float x, float y, float z){
          scoreText.setLocalTranslation(x, y, z);   // position
      }
+     
+     //All score methods ends here.
     
+     //blood start
+     
      public void setBloodAmount(float amount){
          bloodText.setText("Blood: " + Math.round(amount) + "%");
      }
@@ -129,7 +134,8 @@ public class GuiOverlay {
          return bloodText;
      }
      
-    //All score methods ends here.
+     //blood end
+     
      
      //Energybar methods
      
@@ -150,4 +156,25 @@ public class GuiOverlay {
      }
      
      //energybar methods end
+     
+     
+     //Objectives methods
+     public BitmapText getObjectivesText(){
+        return energyText;
+    }
+    
+     public void setObjectiveText(float amount){
+        energyText.setText("Energy " + Math.round(amount) + "%");
+        
+    
+    }
+
+     public void setObjectiveTextPos(float x, float y, float z){
+         energyText.setLocalTranslation(x, y, z);   // position
+    }
+     
+     
+     
+     
+     //objectives methods end
 }
