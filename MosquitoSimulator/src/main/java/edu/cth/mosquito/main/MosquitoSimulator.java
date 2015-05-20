@@ -96,7 +96,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         }
 
         collision = new Collision(bulletAppState, msr.getMosquitoNode(), msr.getObjectNodes());
-        objectives = new Objectives(0,5); //vilket objective det precis har varit
+        objectives = new Objectives(0,4); //vilket objective det precis har varit
                                           //och max antal objectives.
         
     }
