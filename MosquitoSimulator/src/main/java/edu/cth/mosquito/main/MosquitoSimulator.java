@@ -59,7 +59,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         // Disable the default flyby cam
         flyCam.setEnabled(false);
         initKeys();   
-        world = new World(10, 5, 15);
+        world = new World(30, 10, 60);
+        
         player = new Player(world);
         controller = new Controller();
         msr = new MosquitoSimulatorRenderer(assetManager, cam);
