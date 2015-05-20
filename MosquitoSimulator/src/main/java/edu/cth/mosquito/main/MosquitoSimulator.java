@@ -106,6 +106,12 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         
         player.increaseScore(3 * tpf);
         player.decreaseEnergy(3 * tpf);
+        
+        if(player.getEnergy() <= 0){
+            reset();
+            highscore.addScore(player.getScore());
+        }
+        
         guiOverlay.updateGUI(player.getEnergy(), player.getScore());
         guiOverlay.updateEnergybar(-0.03f*tpf);
         
