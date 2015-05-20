@@ -46,6 +46,7 @@ public class GuiOverlay {
         energyText = new BitmapText(font, false);
         scoreText = new BitmapText(font, false);
         bloodText = new BitmapText(font, false);
+        objectiveText = new BitmapText(font, false);
         
         //blood init
         bloodText.setSize(font.getCharSet().getRenderedSize());      // font size
@@ -58,6 +59,10 @@ public class GuiOverlay {
         //score init
         scoreText.setSize(font.getCharSet().getRenderedSize());      // font size
         scoreText.setColor(ColorRGBA.White);                        // font color
+        
+        //objective init
+        objectiveText.setSize(font.getCharSet().getRenderedSize());
+        objectiveText.setColor(ColorRGBA.White);
         
         //energybar init
  
@@ -159,18 +164,18 @@ public class GuiOverlay {
      
      
      //Objectives methods
-     public BitmapText getObjectivesText(){
-        return energyText;
+     public BitmapText getObjectiveText(){
+        return objectiveText;
     }
     
-     public void setObjectiveText(float amount){
-        energyText.setText("Energy " + Math.round(amount) + "%");
+     public void setObjectiveText(String text){
+        objectiveText.setText(text);
         
     
     }
 
      public void setObjectiveTextPos(float x, float y, float z){
-         energyText.setLocalTranslation(x, y, z);   // position
+         objectiveText.setLocalTranslation(x, y, z);   // position
     }
      
      
