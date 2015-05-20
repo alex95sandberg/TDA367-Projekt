@@ -78,15 +78,16 @@ public class GuiOverlay {
         final ViewPort view2 = renderManager.createMainView("energyview", energyCam); 
         view2.attachScene(barNode.getChild("Box"));  
         
-        updateGUI(100f,0f);
+        updateGUI(100f,0f,"");
         setBloodAmount(100f);
         
     }
  
-    public void updateGUI(float currentEnergy, float currentScore){
+    public void updateGUI(float currentEnergy, float currentScore, String objText){
         
         setEnergyAmount(currentEnergy);
         setScoreAmount(currentScore);
+        setObjectiveText(objText);
     
     }
     
@@ -169,7 +170,7 @@ public class GuiOverlay {
     }
     
      public void setObjectiveText(String text){
-        objectiveText.setText(text);
+        objectiveText.setText("Objectives :"+"\n"+text);
         
     
     }
