@@ -6,11 +6,8 @@ import com.jme3.asset.plugins.ZipLocator;
 import com.jme3.audio.AudioNode;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.input.KeyInput;
-import com.jme3.input.MouseInput;
 import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
-import com.jme3.input.controls.MouseAxisTrigger;
-import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.light.PointLight;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
@@ -19,6 +16,7 @@ import edu.cth.mosquito.controller.MenuController;
 import edu.cth.mosquito.core.Collision;
 import edu.cth.mosquito.core.Highscore;
 import edu.cth.mosquito.core.Human;
+import edu.cth.mosquito.core.Objectives;
 import edu.cth.mosquito.core.Player;
 import edu.cth.mosquito.core.Position3D;
 import edu.cth.mosquito.core.World;
@@ -45,6 +43,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     private Collision collision;
     private AudioNode audioMosquito;
     private MenuController menu;
+    private Objectives objectives;
     
     @Override
     public void simpleInitApp(){
@@ -59,7 +58,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         // Disable the default flyby cam
         flyCam.setEnabled(false);
         initKeys();   
-        world = new World(10, 5, 15);
+        world = new World(30, 10, 60);
+        
         player = new Player(world);
         controller = new Controller();
         msr = new MosquitoSimulatorRenderer(assetManager, cam);
@@ -96,6 +96,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         }
 
         collision = new Collision(bulletAppState, msr.getMosquitoNode(), msr.getObjectNodes());
+        objectives = new Objectives(0,1,player); //vilket objective det precis har varit
+                                          //och max antal objectives.
         
     }
     
@@ -104,9 +106,24 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         msr.getMosquitoNode().setLocalTranslation(player.getPosition().getX(), 
                 player.getPosition().getY(), player.getPosition().getZ());
         
+       
+        //objective 1
+        if(player.getScore()>=200 && objectives.getCurrentObjective()==1){
+            objectives.objective1Reward();
+            guiOverlay.setRewardText("You have completed an Objective.\nYour reward is 50 points!");
+            objectives = new Objectives(1,4,player);
+        }
+        //---//
         player.increaseScore(3 * tpf);
         player.decreaseEnergy(3 * tpf);
-        guiOverlay.updateGUI(player.getEnergy(), player.getScore());
+        
+        
+        if(player.getEnergy() <= 0){
+            reset();
+            highscore.addScore(player.getScore());
+        }
+        
+        guiOverlay.updateGUI(player.getEnergy(), player.getScore(), objectives.getObjectiveText());
         guiOverlay.updateEnergybar(-0.03f*tpf);
         
         guiOverlay.getEnergyNode().updateGeometricState();
@@ -143,11 +160,15 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         setDisplayFps(false);
         guiOverlay.setScoreTextPos(settings.getWidth()-guiOverlay.getScoreText().getLineWidth()-10,settings.getHeight()-10, 0f);
         guiOverlay.setEnergyTextPos(settings.getWidth()-guiOverlay.getEnergyText().getLineWidth()-10,(settings.getHeight()*0.9f), 0f);
-        guiOverlay.setBloodTextPos(settings.getWidth()/2 -guiOverlay.getBloodText().getLineWidth()/2, settings.getHeight()/2 - 20, 0);
+        guiOverlay.setBloodTextPos(settings.getWidth()/2 -guiOverlay.getBloodText().getLineWidth()/2, settings.getHeight()/2 - 20, 0f);
+        guiOverlay.setObjectiveTextPos(settings.getWidth()*0.05f, settings.getHeight()-10, 0f);
+        guiOverlay.setRewardTextPos(settings.getWidth()/2-guiOverlay.getRewardText().getLineWidth()/2, settings.getHeight()/1.5f, 0f);
         
+        guiNode.attachChild(guiOverlay.getObjectiveText());
         guiNode.attachChild(guiOverlay.getBloodText());
         guiNode.attachChild(guiOverlay.getScoreText());
         guiNode.attachChild(guiOverlay.getEnergyText());
+        guiNode.attachChild(guiOverlay.getRewardText());
     
     }
     
@@ -166,6 +187,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         player.reset();
         world.reset();
         msr.getMosquitoNode().setLocalRotation(Quaternion.IDENTITY);
+        guiOverlay.resetUI();
         
     }
     
@@ -201,12 +223,12 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         }
 
         if(binding.equals("Up")){
-            directionUp.multLocal(5*tpf);
+            directionUp.multLocal(-5*tpf);
             player.move(new Position3D(directionUp.x, directionUp.y, directionUp.z));
         }
         
         if(binding.equals("Down")){
-            directionUp.multLocal(-5*tpf);
+            directionUp.multLocal(5*tpf);
             player.move(new Position3D(directionUp.x, directionUp.y, directionUp.z));
         }
         

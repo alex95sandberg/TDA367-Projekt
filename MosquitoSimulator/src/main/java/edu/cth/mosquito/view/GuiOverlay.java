@@ -31,6 +31,8 @@ public class GuiOverlay {
     private BitmapText energyText;
     private BitmapText scoreText;
     private BitmapText bloodText;
+    private BitmapText objectiveText;
+    private BitmapText rewardText;
     private BillboardControl billboard;
     Geometry geom;
     Node barNode = new Node("energybar");
@@ -45,6 +47,8 @@ public class GuiOverlay {
         energyText = new BitmapText(font, false);
         scoreText = new BitmapText(font, false);
         bloodText = new BitmapText(font, false);
+        objectiveText = new BitmapText(font, false);
+        rewardText = new BitmapText(font, false);
         
         //blood init
         bloodText.setSize(font.getCharSet().getRenderedSize());      // font size
@@ -57,6 +61,14 @@ public class GuiOverlay {
         //score init
         scoreText.setSize(font.getCharSet().getRenderedSize());      // font size
         scoreText.setColor(ColorRGBA.White);                        // font color
+        
+        //objective init
+        objectiveText.setSize(font.getCharSet().getRenderedSize());
+        objectiveText.setColor(ColorRGBA.White);
+        
+        //reward init
+        rewardText.setSize(font.getCharSet().getRenderedSize());
+        rewardText.setColor(ColorRGBA.White);
         
         //energybar init
  
@@ -72,15 +84,16 @@ public class GuiOverlay {
         final ViewPort view2 = renderManager.createMainView("energyview", energyCam); 
         view2.attachScene(barNode.getChild("Box"));  
         
-        updateGUI(100f,0f);
+        updateGUI(100f,0f,"");
         setBloodAmount(100f);
         
     }
  
-    public void updateGUI(float currentEnergy, float currentScore){
+    public void updateGUI(float currentEnergy, float currentScore, String objText){
         
         setEnergyAmount(currentEnergy);
         setScoreAmount(currentScore);
+        setObjectiveText(objText);
     
     }
     
@@ -116,7 +129,11 @@ public class GuiOverlay {
      public void setScoreTextPos(float x, float y, float z){
          scoreText.setLocalTranslation(x, y, z);   // position
      }
+     
+     //All score methods ends here.
     
+     //blood start
+     
      public void setBloodAmount(float amount){
          bloodText.setText("Blood: " + Math.round(amount) + "%");
      }
@@ -129,7 +146,8 @@ public class GuiOverlay {
          return bloodText;
      }
      
-    //All score methods ends here.
+     //blood end
+     
      
      //Energybar methods
      
@@ -143,7 +161,45 @@ public class GuiOverlay {
             geom.setLocalScale(geom.getLocalScale().getX(), geom.getLocalScale().getY()+y, geom.getLocalScale().getZ());
             geom.setLocalTranslation(geom.getLocalTranslation().getX(), geom.getLocalTranslation().getY()+y/5, geom.getLocalTranslation().getZ());
          }
-    }
+     }
+     
+     public void resetUI(){
+         geom.setLocalScale(1);
+     }
      
      //energybar methods end
+     
+     
+     //Objectives methods
+     public BitmapText getObjectiveText(){
+        return objectiveText;
+    }
+    
+     public void setObjectiveText(String text){
+        objectiveText.setText("Objectives :"+"\n"+text);
+        
+    
+    }
+
+     public void setObjectiveTextPos(float x, float y, float z){
+         objectiveText.setLocalTranslation(x, y, z);   // position
+    }
+     
+     
+     public void setRewardText(String text){
+         rewardText.setText(text);
+         
+     }
+     
+     public void setRewardTextPos(float x, float y, float z){
+         rewardText.setLocalTranslation(x, y, z);   // position
+    }
+     
+     public BitmapText getRewardText(){
+     
+         return rewardText;
+     }
+     
+     
+     //objectives methods end
 }
