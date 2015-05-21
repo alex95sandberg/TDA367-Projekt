@@ -16,7 +16,6 @@ import edu.cth.mosquito.controller.MenuController;
 import edu.cth.mosquito.core.Collision;
 import edu.cth.mosquito.core.Highscore;
 import edu.cth.mosquito.core.Human;
-import edu.cth.mosquito.core.Objectives;
 import edu.cth.mosquito.core.Player;
 import edu.cth.mosquito.core.Position3D;
 import edu.cth.mosquito.core.World;
@@ -43,7 +42,6 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     private Collision collision;
     private AudioNode audioMosquito;
     private MenuController menu;
-    private Objectives objectives;
     
     @Override
     public void simpleInitApp(){
@@ -96,7 +94,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         }
 
         collision = new Collision(bulletAppState, msr.getMosquitoNode(), msr.getObjectNodes());
-        objectives = new Objectives(0,1,player); //vilket objective det precis har varit
+    //    objectives = new Objectives(0,1,player); //vilket objective det precis har varit
                                           //och max antal objectives.
         
     }
@@ -106,7 +104,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         msr.getMosquitoNode().setLocalTranslation(player.getPosition().getX(), 
                 player.getPosition().getY(), player.getPosition().getZ());
         
-       
+ /*      
         //objective 1
         if(player.getScore()>=200 && objectives.getCurrentObjective()==1){
             objectives.objective1Reward();
@@ -114,6 +112,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             objectives = new Objectives(1,4,player);
         }
         //---//
+        
+ */
         player.increaseScore(3 * tpf);
         player.decreaseEnergy(3 * tpf);
         
@@ -123,7 +123,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             highscore.addScore(player.getScore());
         }
         
-        guiOverlay.updateGUI(player.getEnergy(), player.getScore(), objectives.getObjectiveText());
+        guiOverlay.updateGUI(player.getEnergy(), player.getScore());
         guiOverlay.updateEnergybar(-0.03f*tpf);
         
         guiOverlay.getEnergyNode().updateGeometricState();
