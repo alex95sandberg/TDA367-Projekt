@@ -32,6 +32,7 @@ public class GuiOverlay {
     private BitmapText scoreText;
     private BitmapText bloodText;
     private BitmapText objectiveText;
+    private BitmapText rewardText;
     private BillboardControl billboard;
     Geometry geom;
     Node barNode = new Node("energybar");
@@ -47,6 +48,7 @@ public class GuiOverlay {
         scoreText = new BitmapText(font, false);
         bloodText = new BitmapText(font, false);
         objectiveText = new BitmapText(font, false);
+        rewardText = new BitmapText(font, false);
         
         //blood init
         bloodText.setSize(font.getCharSet().getRenderedSize());      // font size
@@ -63,6 +65,10 @@ public class GuiOverlay {
         //objective init
         objectiveText.setSize(font.getCharSet().getRenderedSize());
         objectiveText.setColor(ColorRGBA.White);
+        
+        //reward init
+        rewardText.setSize(font.getCharSet().getRenderedSize());
+        rewardText.setColor(ColorRGBA.White);
         
         //energybar init
  
@@ -180,6 +186,19 @@ public class GuiOverlay {
     }
      
      
+     public void setRewardText(String text){
+         rewardText.setText(text);
+         
+     }
+     
+     public void setRewardTextPos(float x, float y, float z){
+         rewardText.setLocalTranslation(x, y, z);   // position
+    }
+     
+     public BitmapText getRewardText(){
+     
+         return rewardText;
+     }
      
      
      //objectives methods end

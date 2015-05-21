@@ -96,7 +96,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         }
 
         collision = new Collision(bulletAppState, msr.getMosquitoNode(), msr.getObjectNodes());
-        objectives = new Objectives(0,4); //vilket objective det precis har varit
+        objectives = new Objectives(0,1,player); //vilket objective det precis har varit
                                           //och max antal objectives.
         
     }
@@ -106,8 +106,17 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         msr.getMosquitoNode().setLocalTranslation(player.getPosition().getX(), 
                 player.getPosition().getY(), player.getPosition().getZ());
         
+       
+        //objective 1
+        if(player.getScore()>=200 && objectives.getCurrentObjective()==1){
+            objectives.objective1Reward();
+            guiOverlay.setRewardText("You have completed an Objective.\nYour reward is 50 points!");
+            objectives = new Objectives(1,4,player);
+        }
+        //---//
         player.increaseScore(3 * tpf);
         player.decreaseEnergy(3 * tpf);
+        
         
         if(player.getEnergy() <= 0){
             reset();
@@ -116,11 +125,6 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         
         guiOverlay.updateGUI(player.getEnergy(), player.getScore(), objectives.getObjectiveText());
         guiOverlay.updateEnergybar(-0.03f*tpf);
-        
-        //objectives
-        
-        
-        //objectives end
         
         guiOverlay.getEnergyNode().updateGeometricState();
         guiOverlay.getEnergyNode().updateLogicalState(tpf);
@@ -158,11 +162,13 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         guiOverlay.setEnergyTextPos(settings.getWidth()-guiOverlay.getEnergyText().getLineWidth()-10,(settings.getHeight()*0.9f), 0f);
         guiOverlay.setBloodTextPos(settings.getWidth()/2 -guiOverlay.getBloodText().getLineWidth()/2, settings.getHeight()/2 - 20, 0f);
         guiOverlay.setObjectiveTextPos(settings.getWidth()*0.05f, settings.getHeight()-10, 0f);
+        guiOverlay.setRewardTextPos(settings.getWidth()/2-guiOverlay.getRewardText().getLineWidth()/2, settings.getHeight()/1.5f, 0f);
         
         guiNode.attachChild(guiOverlay.getObjectiveText());
         guiNode.attachChild(guiOverlay.getBloodText());
         guiNode.attachChild(guiOverlay.getScoreText());
         guiNode.attachChild(guiOverlay.getEnergyText());
+        guiNode.attachChild(guiOverlay.getRewardText());
     
     }
     
