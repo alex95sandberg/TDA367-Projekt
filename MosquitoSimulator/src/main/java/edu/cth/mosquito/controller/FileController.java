@@ -13,11 +13,11 @@ import java.util.ArrayList;
  * 
  * @author Anton
  */
-public class Controller {
+public class FileController {
     
     private FileHandler fileHandler;
     
-    public Controller(){
+    public FileController(){
         
         fileHandler = new FileHandler();
         
