@@ -164,6 +164,7 @@ public class GuiOverlay {
      
      public void resetUI(){
          geom.setLocalScale(1);
+         geom.setLocalTranslation(0, 0, 0);
      }
      
      //energybar methods end

@@ -87,13 +87,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         for (int i = 0; i < msr.getLights().size(); i++){
             rootNode.addLight((PointLight)msr.getLights().get(i));
         }
-        
-        
-        
-        //initGUI();
-        //initAudio();
-        
-        
+
         
         //Renders all the objects in world
         msr.renderWorldObjects(world.getObjects());       
@@ -262,12 +256,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         }
         
         if(binding.equals("Reset")){
-            System.out.println(msr.getMosquitoNode().getLocalRotation().getX());
-            player.reset();
-            world.reset();
-            msr.getMosquitoNode().setLocalRotation(Quaternion.IDENTITY);
-            
-            
+            reset();         
         }
         
         if(binding.equals("SuckBlood") && collision.getCollidingObject() instanceof Human){
