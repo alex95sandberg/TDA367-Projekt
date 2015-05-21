@@ -16,11 +16,13 @@ import edu.cth.mosquito.controller.MenuController;
 import edu.cth.mosquito.core.Collision;
 import edu.cth.mosquito.core.Highscore;
 import edu.cth.mosquito.core.Human;
+import edu.cth.mosquito.core.Objectives;
 import edu.cth.mosquito.core.Player;
 import edu.cth.mosquito.core.Position3D;
 import edu.cth.mosquito.core.World;
 import edu.cth.mosquito.view.GuiOverlay;
 import edu.cth.mosquito.view.MosquitoSimulatorRenderer;
+import java.util.Random;
 
 public class MosquitoSimulator extends SimpleApplication implements AnalogListener {
     
@@ -42,6 +44,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     private Collision collision;
     private AudioNode audioMosquito;
     private MenuController menu;
+    private Objectives objectives;
     
     @Override
     public void simpleInitApp(){
@@ -94,8 +97,6 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         }
 
         collision = new Collision(bulletAppState, msr.getMosquitoNode(), msr.getObjectNodes());
-    //    objectives = new Objectives(0,1,player); //vilket objective det precis har varit
-                                          //och max antal objectives.
         
     }
     
@@ -103,6 +104,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     public void simpleUpdate(float tpf) {
         msr.getMosquitoNode().setLocalTranslation(player.getPosition().getX(), 
                 player.getPosition().getY(), player.getPosition().getZ());
+        
         
  /*      
         //objective 1
@@ -148,6 +150,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         }            
     }
 
+    
+   
     @Override
     public void simpleRender(RenderManager rm) {
         //TODO: add render code

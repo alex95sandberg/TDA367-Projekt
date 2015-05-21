@@ -4,6 +4,9 @@
  */
 package edu.cth.mosquito.core;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  *
  * @author Alexander
@@ -14,11 +17,18 @@ public class Player {
     private float energy;
     private final float maxEnergy = 100;
     private float score;
+    private Objectives objectives;
+    private ArrayList<Objectives> objList;
+    private Random rand;
+    private int currentObj;
+    private int indexObj;
     
     public Player(World world){
         this.energy = maxEnergy;
         this.pos = new Position3D();
         this.world  = world;
+        objList = new ArrayList<Objectives>();
+        rand = new Random();
         
     }
     
@@ -90,5 +100,24 @@ public class Player {
     
     public void increaseScore(float amount){
         score += amount;
+    }
+    
+    //OBJ!!---------//
+    public void setNewObjective(){
+        indexObj = rand.nextInt(objList.size());
+        if(currentObj == indexObj){
+            setNewObjective();
+        } else{
+        objectives = objList.get(indexObj);
+        }
+    }
+    
+    public Objectives getObjectives(){
+        return objectives;
+    }
+    
+    public void startObjective(){
+        
+        objectives.objectiveGoal();
     }
 }
