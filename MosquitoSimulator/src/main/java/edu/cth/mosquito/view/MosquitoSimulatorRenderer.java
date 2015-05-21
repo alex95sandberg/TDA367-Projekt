@@ -73,8 +73,9 @@ public class MosquitoSimulatorRenderer {
         mosquito.scale(0.1f);
         mosquito.setLocalTranslation(0, 0, 0);
         
-        Material m = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        m.setColor("Color", ColorRGBA.Orange);
+        Material m = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
+        Texture tf = assetManager.loadTexture("assets/orange.png");
+        m.setTexture("DiffuseMap", tf);
         
         mosquito.setMaterial(m);
         mosquitoNode.attachChild(mosquito);
