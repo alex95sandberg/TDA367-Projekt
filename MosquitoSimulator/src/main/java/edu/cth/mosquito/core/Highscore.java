@@ -4,6 +4,9 @@
  */
 package edu.cth.mosquito.core;
 
+import edu.cth.mosquito.controller.FileController;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -14,11 +17,13 @@ import java.util.Collections;
 public class Highscore {
     
     private ArrayList<Integer> highscores;
+    private FileController file;
     
     public Highscore(){
         
         highscores = new ArrayList<>();
         
+        file = new FileController();
     }
     
     /**
@@ -30,16 +35,12 @@ public class Highscore {
         highscores.add(Math.round(newScore));
         
         sortArray();
-    }
-    
-    /**
-     * A method that sets the highscore array to the input
-     * @param highscoreList the list that should be the highscore list
-     */
-    public void setArray(ArrayList<Integer> highscoreList){
         
-        highscores = highscoreList;
-        
+        try{
+            file.saveHighscoreToFile(highscores);
+        } catch(FileNotFoundException e){
+            System.out.println("Error! FileNotFoundException");
+        }
     }
     
     /**
@@ -47,6 +48,14 @@ public class Highscore {
      * @return score list
      */
     public ArrayList<Integer> getHighscore(){
+        
+        try {
+            this.highscores = file.getHighscores();
+        } catch(IOException e){
+           System.out.println("Error: IOException");
+        }
+        
+        sortArray();
         
         return highscores;
         
@@ -68,6 +77,16 @@ public class Highscore {
     private void sortArray(){
         
         Collections.sort(highscores);
+        
+    }
+    
+    public void resetHighscore(){
+        
+        try {
+            file.deleteHighscore();
+        } catch(FileNotFoundException e){
+            System.out.println("Error: FileNotFoundException");
+        }
         
     }
     
