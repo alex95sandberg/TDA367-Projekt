@@ -71,6 +71,8 @@ public class MenuController extends AbstractAppState implements ScreenController
     public void startGame(){
         
         nifty.exit();
+        ms.initGUI();
+        ms.initAudio();
         ms.reset();
         
     }

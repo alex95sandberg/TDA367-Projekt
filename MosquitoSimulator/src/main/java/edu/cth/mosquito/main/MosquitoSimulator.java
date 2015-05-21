@@ -17,6 +17,7 @@ import edu.cth.mosquito.core.Collision;
 import edu.cth.mosquito.core.Highscore;
 import edu.cth.mosquito.core.Human;
 import edu.cth.mosquito.core.Objectives;
+//import edu.cth.mosquito.core.Objectives;
 import edu.cth.mosquito.core.Player;
 import edu.cth.mosquito.core.Position3D;
 import edu.cth.mosquito.core.World;
@@ -48,6 +49,10 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     
     @Override
     public void simpleInitApp(){
+        
+        //Removes the stats in the lower left corner that are shown by default
+        setDisplayStatView(false);  
+        setDisplayFps(false);
         
         highscore = new Highscore();
         menu = new MenuController(highscore.getHighscore());
@@ -85,8 +90,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         
         
         
-        initGUI();
-        initAudio();
+        //initGUI();
+        //initAudio();
         
         
         
@@ -160,8 +165,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
       
     public void initGUI(){
         
-        setDisplayStatView(false);  
-        setDisplayFps(false);
+        inputManager.setCursorVisible(false);
+        
         guiOverlay.setScoreTextPos(settings.getWidth()-guiOverlay.getScoreText().getLineWidth()-10,settings.getHeight()-10, 0f);
         guiOverlay.setEnergyTextPos(settings.getWidth()-guiOverlay.getEnergyText().getLineWidth()-10,(settings.getHeight()*0.9f), 0f);
         guiOverlay.setBloodTextPos(settings.getWidth()/2 -guiOverlay.getBloodText().getLineWidth()/2, settings.getHeight()/2 - 20, 0f);
