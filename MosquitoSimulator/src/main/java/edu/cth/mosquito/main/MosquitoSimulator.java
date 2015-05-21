@@ -1,6 +1,6 @@
 package edu.cth.mosquito.main;
 
-import edu.cth.mosquito.controller.Controller;
+import edu.cth.mosquito.controller.FileController;
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.ZipLocator;
 import com.jme3.audio.AudioNode;
@@ -29,7 +29,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         app.start(); // start the game
     }
     
-    private Controller controller;
+    private FileController controller;
     private Highscore highscore;
     private Player player;
     private World world;
@@ -59,7 +59,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         world = new World(30, 10, 60);
         
         player = new Player(world);
-        controller = new Controller();
+        controller = new FileController();
         msr = new MosquitoSimulatorRenderer(assetManager, cam);
         
         
