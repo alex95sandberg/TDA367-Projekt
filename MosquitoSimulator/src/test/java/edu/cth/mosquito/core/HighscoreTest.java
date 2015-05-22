@@ -4,7 +4,6 @@
  */
 package edu.cth.mosquito.core;
 
-import java.util.ArrayList;
 import junit.framework.TestCase;
 
 /**
@@ -44,18 +43,20 @@ public class HighscoreTest extends TestCase {
         assertTrue(h1.getSize() == 25 && h1.getHighscore().get(h1.getSize()-1) == 50);
         
     }
-
-    public void testSetArray() {
+    
+    public void testResetHighscoreList(){
         
-        Highscore h2 = new Highscore();
+        Highscore h = new Highscore();
         
-        ArrayList<Integer> test = new ArrayList<>();
+        for(int i = 0; i < 20; i++){
+            
+            h.addScore(i);
+            
+        }
         
-        h2.setArray(test);
+        h.resetHighscore();
         
-        ArrayList<Integer> test2 = test;
-
-        assertTrue(test2.equals(h2.getHighscore()));
+        assertTrue(h.getHighscore().isEmpty());
         
     }
 

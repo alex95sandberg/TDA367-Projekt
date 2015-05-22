@@ -32,7 +32,6 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         app.start(); // start the game
     }
     
-    private FileController controller;
     private Highscore highscore;
     private Player player;
     private World world;
@@ -67,9 +66,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         world = new World(30, 10, 60);
         
         player = new Player(world);
-        controller = new FileController();
         msr = new MosquitoSimulatorRenderer(assetManager, cam);
-        
         
         guiOverlay = new GuiOverlay(assetManager, cam, renderManager);
         msr.renderRoom(world.getWidth(), world.getHeight());
@@ -235,6 +232,13 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             player.move(new Position3D(directionUp.x, directionUp.y, directionUp.z));
         }
         
+        if(binding.equals("Escape")){
+            
+            inputManager.setCursorVisible(true);
+            menu.switchScreen("start");
+            
+        }
+        
         if (binding.equals("rotateRight")) {
             msr.getMosquitoNode().rotate(0, -tpf, 0);
         }
@@ -282,6 +286,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         inputManager.addMapping("Backward", new KeyTrigger(KeyInput.KEY_S));
         inputManager.addMapping("Down", new KeyTrigger(KeyInput.KEY_LSHIFT));
         inputManager.addMapping("Up", new KeyTrigger(KeyInput.KEY_SPACE));
+        inputManager.addMapping("Escape", new KeyTrigger(KeyInput.KEY_P));
         
         inputManager.addMapping("rotateUp", new KeyTrigger(KeyInput.KEY_UP));
         inputManager.addMapping("rotateDown", new KeyTrigger(KeyInput.KEY_DOWN));
@@ -296,7 +301,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         inputManager.addMapping("rotateUp", new MouseAxisTrigger(MouseInput.AXIS_Y, false));
         */
         
-        inputManager.addListener(this, "Left", "Forward", "Right", "Backward", "Up", "Down", "Reset", "SuckBlood");
+        inputManager.addListener(this, "Left", "Forward", "Right", "Backward", "Up", "Down", "Reset", "SuckBlood", "Escape");
         inputManager.addListener(this, "rotateRight", "rotateLeft","rotateUp", "rotateDown", "toggleRotate");
        
     }

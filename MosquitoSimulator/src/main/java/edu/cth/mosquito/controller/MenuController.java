@@ -38,13 +38,13 @@ public class MenuController extends AbstractAppState implements ScreenController
         super.initialize(asm, app);
         ms = (MosquitoSimulator)app;
         
+        app.getAssetManager().registerLocator("assets.zip", ZipLocator.class);
         ourScreen = new NiftyJmeDisplay(app.getAssetManager(), app.getInputManager(), app.getAudioRenderer(), app.getGuiViewPort());
        
         nifty = ourScreen.getNifty();
         
         app.getGuiViewPort().addProcessor(ourScreen);
         
-        app.getAssetManager().registerLocator("assets.zip", ZipLocator.class);
         nifty.fromXml("assets/mainMenu.xml", "start", this);
         
     }
