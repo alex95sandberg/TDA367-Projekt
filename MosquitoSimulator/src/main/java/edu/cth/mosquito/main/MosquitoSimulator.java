@@ -45,14 +45,17 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     private AudioNode audioMosquito;
     private MenuController menu;
     private Objectives objectives;
+    private boolean isRunning;
     
     @Override
     public void simpleInitApp(){
+        
         
         //Removes the stats in the lower left corner that are shown by default
         setDisplayStatView(false);  
         setDisplayFps(false);
         
+        isRunning = true;
         highscore = new Highscore();
         menu = new MenuController(highscore.getHighscore());
         
@@ -98,52 +101,56 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     
     @Override
     public void simpleUpdate(float tpf) {
-        msr.getMosquitoNode().setLocalTranslation(player.getPosition().getX(), 
-                player.getPosition().getY(), player.getPosition().getZ());
-        
-        
- /*      
-        //objective 1
-        if(player.getScore()>=200 && objectives.getCurrentObjective()==1){
-            objectives.objective1Reward();
-            guiOverlay.setRewardText("You have completed an Objective.\nYour reward is 50 points!");
-            objectives = new Objectives(1,4,player);
-        }
-        //---//
-        
- */
-        player.increaseScore(3 * tpf);
-        player.decreaseEnergy(3 * tpf);
-        
-        
-        if(player.getEnergy() <= 0){
-            highscore.addScore(player.getScore());
-            reset();
-        }
-        
-        guiOverlay.updateGUI(player.getEnergy(), player.getScore());
-        guiOverlay.updateEnergybar(-0.03f*tpf);
-        
-        guiOverlay.getEnergyNode().updateGeometricState();
-        guiOverlay.getEnergyNode().updateLogicalState(tpf);
-         
-        if(collision.getCollidingNode() != null){
-            
-            for(int i = 0; i < msr.getObjectNodes().size(); i++){
-                if(collision.getCollidingNode().equals(msr.getObjectNodes().get(i))){
-                    collision.setCollidingObject(world.getObjects().get(i));
-                    break;
-                }
+        if(isRunning){
+            msr.getMosquitoNode().setLocalTranslation(player.getPosition().getX(), 
+                    player.getPosition().getY(), player.getPosition().getZ());
+
+
+     /*      
+            //objective 1
+            if(player.getScore()>=200 && objectives.getCurrentObjective()==1){
+                objectives.objective1Reward();
+                guiOverlay.setRewardText("You have completed an Objective.\nYour reward is 50 points!");
+                objectives = new Objectives(1,4,player);
             }
-            
-            if(collision.getCollidingObject() instanceof Human)
-                guiOverlay.setBloodAmount(((Human)collision.getCollidingObject()).getBlood());
-            
-        }else{
-            
-            collision.setCollidingObject(null);
-            guiOverlay.getBloodText().setText("");
-        }            
+            //---//
+
+     */
+            player.increaseScore(3 * tpf);
+            player.decreaseEnergy(3 * tpf);
+
+
+            if(player.getEnergy() <= 0){
+                highscore.addScore(player.getScore());
+                reset();
+            }
+
+            guiOverlay.updateGUI(player.getEnergy(), player.getScore());
+            guiOverlay.updateEnergybar(-0.03f*tpf);
+
+            guiOverlay.getEnergyNode().updateGeometricState();
+            guiOverlay.getEnergyNode().updateLogicalState(tpf);
+
+            if(collision.getCollidingNode() != null){
+
+                for(int i = 0; i < msr.getObjectNodes().size(); i++){
+                    if(collision.getCollidingNode().equals(msr.getObjectNodes().get(i))){
+                        collision.setCollidingObject(world.getObjects().get(i));
+                        break;
+                    }
+                }
+
+                if(collision.getCollidingObject() instanceof Human)
+                    guiOverlay.setBloodAmount(((Human)collision.getCollidingObject()).getBlood());
+
+            }else{
+
+                collision.setCollidingObject(null);
+                guiOverlay.getBloodText().setText("");
+            }
+        }else{           
+            guiOverlay.getBloodText().setText("Press 'P' to unpause");
+        }
     }
 
     
@@ -200,90 +207,92 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         world.reset();
         msr.getMosquitoNode().setLocalRotation(Quaternion.IDENTITY);
         guiOverlay.resetUI();
+        isRunning = true;
         
     }
     
     @Override
     public void onAnalog(String binding, float value, float tpf) {
+      
+        if(isRunning){
+            directionForward.set(cam.getDirection()).normalizeLocal();
+            directionLeft.set(cam.getLeft()).normalizeLocal();
+            directionUp.set(directionLeft).crossLocal(directionForward).normalizeLocal();
 
-        /*if(inputManager.isCursorVisible())
-            inputManager.setCursorVisible(false);
-        */
-        
-        directionForward.set(cam.getDirection()).normalizeLocal();
-        directionLeft.set(cam.getLeft()).normalizeLocal();
-        directionUp.set(directionLeft).crossLocal(directionForward).normalizeLocal();
+            if (binding.equals("Forward")) {
+                directionForward.multLocal(5*tpf);
+                player.move(new Position3D(directionForward.x, directionForward.y, directionForward.z));
+            }
 
-        if (binding.equals("Forward")) {
-            directionForward.multLocal(5*tpf);
-            player.move(new Position3D(directionForward.x, directionForward.y, directionForward.z));
-        }
-        
-        if (binding.equals("Backward")) {
-            directionForward.multLocal(-5*tpf);
-            player.move(new Position3D(directionForward.x, directionForward.y, directionForward.z));
-        }
-                
-        if (binding.equals("Right")) {
-            directionLeft.multLocal(-5*tpf);
-            player.move(new Position3D(directionLeft.x, directionLeft.y, directionLeft.z));
-        }
-        
-        if (binding.equals("Left")) {
-            directionLeft.multLocal(5*tpf);
-            player.move(new Position3D(directionLeft.x, directionLeft.y, directionLeft.z));
-        }
+            if (binding.equals("Backward")) {
+                directionForward.multLocal(-5*tpf);
+                player.move(new Position3D(directionForward.x, directionForward.y, directionForward.z));
+            }
 
-        if(binding.equals("Up")){
-            directionUp.multLocal(-5*tpf);
-            player.move(new Position3D(directionUp.x, directionUp.y, directionUp.z));
+            if (binding.equals("Right")) {
+                directionLeft.multLocal(-5*tpf);
+                player.move(new Position3D(directionLeft.x, directionLeft.y, directionLeft.z));
+            }
+
+            if (binding.equals("Left")) {
+                directionLeft.multLocal(5*tpf);
+                player.move(new Position3D(directionLeft.x, directionLeft.y, directionLeft.z));
+            }
+
+            if(binding.equals("Up")){
+                directionUp.multLocal(-5*tpf);
+                player.move(new Position3D(directionUp.x, directionUp.y, directionUp.z));
+            }
+
+            if(binding.equals("Down")){
+                directionUp.multLocal(5*tpf);
+                player.move(new Position3D(directionUp.x, directionUp.y, directionUp.z));
+            }
+
+            if (binding.equals("rotateRight")) {
+                msr.getMosquitoNode().rotate(0, -tpf, 0);
+            }
+
+            if (binding.equals("rotateLeft")) {
+                msr.getMosquitoNode().rotate(0, tpf, 0);
+            }
+
+            if(binding.equals("rotateUp")){
+                if (msr.getMosquitoNode().getLocalRotation().getX() > -0.70){
+                    msr.getMosquitoNode().rotate(-tpf, 0, 0);
+                }
+            }
+
+            if(binding.equals("rotateDown")){
+                if (msr.getMosquitoNode().getLocalRotation().getX() < 0.70){
+                    msr.getMosquitoNode().rotate(tpf, 0, 0);
+                }
+            }
+
+            if(binding.equals("SuckBlood") && collision.getCollidingObject() instanceof Human){
+                Human temp = (Human)collision.getCollidingObject();
+                if(temp.getBlood() > 0){
+                    temp.decreaseBlood(24*tpf);
+                    player.increaseEnergy(15 * tpf);
+                    guiOverlay.updateEnergybar(0.15f*tpf);
+                    guiOverlay.setBloodAmount(temp.getBlood());
+                }
+
+            }
         }
         
-        if(binding.equals("Down")){
-            directionUp.multLocal(5*tpf);
-            player.move(new Position3D(directionUp.x, directionUp.y, directionUp.z));
+        if(binding.equals("Pause")){
+            isRunning = !isRunning;
         }
         
         if(binding.equals("Escape")){
-            
             showMenu();
-            
-        }
-        
-        if (binding.equals("rotateRight")) {
-            msr.getMosquitoNode().rotate(0, -tpf, 0);
-        }
-        
-        if (binding.equals("rotateLeft")) {
-            msr.getMosquitoNode().rotate(0, tpf, 0);
-        }
-        
-        if(binding.equals("rotateUp")){
-            if (msr.getMosquitoNode().getLocalRotation().getX() > -0.70){
-                msr.getMosquitoNode().rotate(-tpf, 0, 0);
-            }
-        }
-        
-        if(binding.equals("rotateDown")){
-            if (msr.getMosquitoNode().getLocalRotation().getX() < 0.70){
-                msr.getMosquitoNode().rotate(tpf, 0, 0);
-            }
         }
         
         if(binding.equals("Reset")){
             reset();         
         }
         
-        if(binding.equals("SuckBlood") && collision.getCollidingObject() instanceof Human){
-            Human temp = (Human)collision.getCollidingObject();
-            if(temp.getBlood() > 0){
-                temp.decreaseBlood(24*tpf);
-                player.increaseEnergy(15 * tpf);
-                guiOverlay.updateEnergybar(0.15f*tpf);
-                guiOverlay.setBloodAmount(temp.getBlood());
-            }
-            
-        }
 
     }   
     
@@ -292,7 +301,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         
         inputManager.addMapping("Reset", new KeyTrigger(KeyInput.KEY_R));
         inputManager.addMapping("SuckBlood", new KeyTrigger(KeyInput.KEY_Q));       
-        inputManager.addMapping("Escape", new KeyTrigger(KeyInput.KEY_ESCAPE));
+        inputManager.addMapping("Escape", new KeyTrigger(KeyInput.KEY_ESCAPE));       
+        inputManager.addMapping("Pause", new KeyTrigger(KeyInput.KEY_P));
         
         inputManager.addMapping("Forward", new KeyTrigger(KeyInput.KEY_W));
         inputManager.addMapping("Right", new KeyTrigger(KeyInput.KEY_D));
@@ -314,7 +324,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         inputManager.addMapping("rotateUp", new MouseAxisTrigger(MouseInput.AXIS_Y, false));
         */
         
-        inputManager.addListener(this, "Left", "Forward", "Right", "Backward", "Up", "Down", "Reset", "SuckBlood", "Escape");
+        inputManager.addListener(this, "Left", "Forward", "Right", "Backward", "Up", "Down", "Reset", "SuckBlood", "Escape", "Pause");
         inputManager.addListener(this, "rotateRight", "rotateLeft","rotateUp", "rotateDown", "toggleRotate");
        
     }
