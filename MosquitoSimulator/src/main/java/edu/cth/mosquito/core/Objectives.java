@@ -11,8 +11,6 @@ import java.util.Random;
  * @author rasmusdavidsson
  */
 public interface Objectives {
-    
-    public final static int maximumObj= 4;
 
     
     public int objectiveReward();

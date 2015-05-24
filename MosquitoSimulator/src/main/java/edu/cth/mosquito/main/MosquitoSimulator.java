@@ -1,6 +1,5 @@
 package edu.cth.mosquito.main;
 
-import edu.cth.mosquito.controller.FileController;
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.ZipLocator;
 import com.jme3.audio.AudioNode;
@@ -16,14 +15,11 @@ import edu.cth.mosquito.controller.MenuController;
 import edu.cth.mosquito.core.Collision;
 import edu.cth.mosquito.core.Highscore;
 import edu.cth.mosquito.core.Human;
-import edu.cth.mosquito.core.Objectives;
-//import edu.cth.mosquito.core.Objectives;
 import edu.cth.mosquito.core.Player;
 import edu.cth.mosquito.core.Position3D;
 import edu.cth.mosquito.core.World;
 import edu.cth.mosquito.view.GuiOverlay;
 import edu.cth.mosquito.view.MosquitoSimulatorRenderer;
-import java.util.Random;
 
 public class MosquitoSimulator extends SimpleApplication implements AnalogListener {
     
@@ -44,7 +40,6 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     private Collision collision;
     private AudioNode audioMosquito;
     private MenuController menu;
-    private Objectives objectives;
     private boolean isRunning;
     
     @Override

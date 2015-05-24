@@ -108,7 +108,8 @@ public class Player {
         if(currentObj == indexObj){
             setNewObjective();
         } else{
-        objectives = objList.get(indexObj);
+            currentObj = indexObj;
+            objectives = objList.get(indexObj);   
         }
     }
     
