@@ -13,12 +13,12 @@ import java.util.Timer;
 
 
 
-public class Objective1 implements Objectives {
+public class Objective2 implements Objectives {
 
     public int currentObj;
     private String objectiveText;
     
-    public Objective1(){
+    public Objective2(){
         currentObj = 1;
         objectiveText = "Gain blood from two different humans, and keep over 70% of your energy.\nReward 50 points";
     

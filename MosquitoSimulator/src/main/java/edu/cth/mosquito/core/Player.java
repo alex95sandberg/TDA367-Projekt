@@ -28,7 +28,7 @@ public class Player {
         this.pos = new Position3D();
         this.world  = world;
         objList = new ArrayList<Objectives>();
-        rand = new Random();
+        currentObj = 0;
         
     }
     
@@ -104,6 +104,7 @@ public class Player {
     
     //OBJ!!---------//
     public void setNewObjective(){
+        rand = new Random();
         indexObj = rand.nextInt(objList.size());
         if(currentObj == indexObj){
             setNewObjective();

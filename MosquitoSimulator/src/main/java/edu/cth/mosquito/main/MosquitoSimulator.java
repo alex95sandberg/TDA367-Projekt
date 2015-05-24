@@ -64,6 +64,10 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         world = new World(30, 10, 60);
         
         player = new Player(world);
+        //OBJ
+        player.setNewObjective();
+        player.startObjective();
+        
         msr = new MosquitoSimulatorRenderer(assetManager, cam);
         
         guiOverlay = new GuiOverlay(assetManager, cam, renderManager);
