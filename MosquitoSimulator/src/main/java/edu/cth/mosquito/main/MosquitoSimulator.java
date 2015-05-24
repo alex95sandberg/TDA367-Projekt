@@ -182,6 +182,18 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         audioMosquito.play();
     }
     
+    public void showMenu(){
+        inputManager.setCursorVisible(true);
+        menu.switchScreen("start");
+        audioMosquito.pause();
+        
+        guiNode.detachChild(guiOverlay.getObjectiveText());
+        guiNode.detachChild(guiOverlay.getBloodText());
+        guiNode.detachChild(guiOverlay.getScoreText());
+        guiNode.detachChild(guiOverlay.getEnergyText());
+        guiNode.detachChild(guiOverlay.getRewardText());
+    }
+    
     public void reset(){
         
         player.reset();
@@ -234,8 +246,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         
         if(binding.equals("Escape")){
             
-            inputManager.setCursorVisible(true);
-            menu.switchScreen("start");
+            showMenu();
             
         }
         
