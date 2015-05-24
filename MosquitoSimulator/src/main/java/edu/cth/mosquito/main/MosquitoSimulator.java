@@ -288,8 +288,11 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     }   
     
     private void initKeys(){
+        inputManager.deleteMapping(INPUT_MAPPING_EXIT);
+        
         inputManager.addMapping("Reset", new KeyTrigger(KeyInput.KEY_R));
-        inputManager.addMapping("SuckBlood", new KeyTrigger(KeyInput.KEY_Q));
+        inputManager.addMapping("SuckBlood", new KeyTrigger(KeyInput.KEY_Q));       
+        inputManager.addMapping("Escape", new KeyTrigger(KeyInput.KEY_ESCAPE));
         
         inputManager.addMapping("Forward", new KeyTrigger(KeyInput.KEY_W));
         inputManager.addMapping("Right", new KeyTrigger(KeyInput.KEY_D));
@@ -297,7 +300,6 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         inputManager.addMapping("Backward", new KeyTrigger(KeyInput.KEY_S));
         inputManager.addMapping("Down", new KeyTrigger(KeyInput.KEY_LSHIFT));
         inputManager.addMapping("Up", new KeyTrigger(KeyInput.KEY_SPACE));
-        inputManager.addMapping("Escape", new KeyTrigger(KeyInput.KEY_P));
         
         inputManager.addMapping("rotateUp", new KeyTrigger(KeyInput.KEY_UP));
         inputManager.addMapping("rotateDown", new KeyTrigger(KeyInput.KEY_DOWN));
