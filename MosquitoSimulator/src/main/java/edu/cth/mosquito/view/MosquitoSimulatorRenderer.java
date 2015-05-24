@@ -97,6 +97,7 @@ public class MosquitoSimulatorRenderer {
         room.setMaterial(m);
     }
     
+    //Skapar hela rummet
     public void renderPlaneRoom(float width, float height, float length){
         createMaterials();
         renderPlaneFloor(width, height, length);
@@ -108,13 +109,36 @@ public class MosquitoSimulatorRenderer {
         
     }
     
+    
     public void createLights(float width, float height, float length){
-        addLight(0, height-2, 0);
+        
+        for (int i = -30; i < 30; i=i+5){
+            //addLight(i, height-1, 0);
+        }
+        
+        for (int i = -60; i < 60; i=i+5){
+            //addLight(0, height-1, i);
+        }
+        
+        addLight(0, height-1, 0);
+        addLight(0, height-1, 50);
+        addLight(0, height-1, -50);        
+        
+        int space = 10;
+        int xLights = ((int)(width/space)-1);
+        int zLights = ((int)(length/space)-1);
+        for (int x = 0; x < xLights; x++){
+            for (int z = 0; z < zLights; z++){
+                //addLight(x*space - width, height-1, z*space - length);
+            }
+        }
     }
     
+    //Lägger till en lampa på positionen (w,h,l)
     public void addLight(float width, float height, float length){
         PointLight lamp = new PointLight();
         lamp.setColor(ColorRGBA.White);
+        lamp.setRadius(100f);
         lamp.setPosition(new Vector3f(width, height, length));
         lights.add(lamp);
     }
@@ -228,7 +252,13 @@ public class MosquitoSimulatorRenderer {
             SolidObject object = objects.get(i);
             
             if(object instanceof Human){
+                
+                Human instance = (Human)object;
+                
                 h = assetManager.loadModel("assets/human.j3o");
+                h.scale(instance.getWidth(), instance.getHeight(), instance.getLength());
+                
+                
                 m = new Material(assetManager,"Common/MatDefs/Light/Lighting.j3md");
                 h.setMaterial(m);
                 tempNode = new Node("Human");
