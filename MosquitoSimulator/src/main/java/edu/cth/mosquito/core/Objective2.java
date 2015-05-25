@@ -20,7 +20,7 @@ public class Objective2 implements Objectives {
     
     public Objective2(){
         currentObj = 2;
-        objectiveText = "Gain blood from two different humans, and keep over 70% of your energy.\nReward 50 points";
+        objectiveText = "";
     
     }
     @Override
