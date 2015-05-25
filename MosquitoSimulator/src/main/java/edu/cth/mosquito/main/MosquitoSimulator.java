@@ -123,7 +123,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
 
             if(player.getEnergy() <= 0){
                 highscore.addScore(player.getScore());
-                showMenu();
+                showMenu("start");
                 reset();
             }
 
@@ -192,9 +192,24 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         audioMosquito.play();
     }
     
-    public void showMenu(){
+    public void returnFromPause(boolean flag){
+        
+        isRunning = flag;
+        
+    }
+    
+    public void showMenu(String menuId){
+        
+        if(menuId.equals("start")){
+            
+            highscore.addScore(player.getScore());
+            menu.setHighscore(highscore.getHighscore());
+            
+        }
+        
+        
         inputManager.setCursorVisible(true);
-        menu.switchScreen("start");
+        menu.switchScreen(menuId);
         
         if(audioMosquito != null)
             audioMosquito.pause();
@@ -287,11 +302,17 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         }
         
         if(binding.equals("Pause")){
-            isRunning = !isRunning;
+            
+            showMenu("pauseMenu");
+            
+            if(isRunning = true){
+                isRunning = false;
+            }
+            
         }
         
         if(binding.equals("Escape")){
-            showMenu();
+            showMenu("start");
         }
         
         if(binding.equals("Reset")){

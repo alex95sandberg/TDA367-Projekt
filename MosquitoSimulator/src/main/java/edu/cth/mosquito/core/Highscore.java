@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  *
@@ -16,7 +17,7 @@ import java.util.Collections;
  */
 public class Highscore {
     
-    private ArrayList<Integer> highscores;
+    private List<Integer> highscores;
     private FileController file;
     
     public Highscore(){
@@ -47,10 +48,11 @@ public class Highscore {
      * Returns the high score arrayList
      * @return score list
      */
-    public ArrayList<Integer> getHighscore(){
+    public List<Integer> getHighscore(){
         
         try {
             this.highscores = file.getHighscores();
+            
         } catch(IOException e){
            System.out.println("Error: IOException");
         }

@@ -38,13 +38,13 @@ public class MenuController extends AbstractAppState implements ScreenController
         super.initialize(asm, app);
         ms = (MosquitoSimulator)app;
         
-        app.getAssetManager().registerLocator("assets.zip", ZipLocator.class);
         ourScreen = new NiftyJmeDisplay(app.getAssetManager(), app.getInputManager(), app.getAudioRenderer(), app.getGuiViewPort());
        
         nifty = ourScreen.getNifty();
         
         app.getGuiViewPort().addProcessor(ourScreen);
         
+        app.getAssetManager().registerLocator("assets.zip", ZipLocator.class);
         nifty.fromXml("assets/mainMenu.xml", "start", this);
         
     }
@@ -89,6 +89,21 @@ public class MenuController extends AbstractAppState implements ScreenController
         
     }
     
+    public void setHighscore(List<Integer> highscore){
+        
+        this.highscore = highscore;
+        
+    }
+    
+    public void returnFromPause(){
+        
+        nifty.exit();
+        ms.initGUI();
+        ms.initAudio();
+        ms.returnFromPause(true);
+        
+    }
+    
     public String getPlayerScore(String stringIndex){
         
         int index = Integer.parseInt(stringIndex);
@@ -105,6 +120,8 @@ public class MenuController extends AbstractAppState implements ScreenController
         } else if (size == 4 && index <= 4){
             return String.valueOf(highscore.get(size-index));
         } else if (size == 5){
+            return String.valueOf(highscore.get(size-index));
+        } else if (size > 5){
             return String.valueOf(highscore.get(size-index));
         }
         
