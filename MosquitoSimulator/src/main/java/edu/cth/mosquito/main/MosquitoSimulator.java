@@ -193,7 +193,9 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     public void showMenu(){
         inputManager.setCursorVisible(true);
         menu.switchScreen("start");
-        audioMosquito.pause();
+        
+        if(audioMosquito != null)
+            audioMosquito.pause();
         
         guiNode.detachChild(guiOverlay.getObjectiveText());
         guiNode.detachChild(guiOverlay.getBloodText());
