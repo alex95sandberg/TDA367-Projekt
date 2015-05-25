@@ -19,7 +19,7 @@ public class Objective3 implements Objectives {
     private String objectiveText;
     
     public Objective3(){
-        currentObj = 1;
+        currentObj = 3;
         objectiveText = "Gain blood from two different humans, and keep over 70% of your energy.\nReward 50 points";
     
     }
@@ -33,5 +33,10 @@ public class Objective3 implements Objectives {
       
         
         
+    }
+
+    @Override
+    public int getProgress() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

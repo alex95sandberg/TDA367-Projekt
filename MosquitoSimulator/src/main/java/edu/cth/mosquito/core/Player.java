@@ -20,15 +20,15 @@ public class Player {
     private Objectives objectives;
     private ArrayList<Objectives> objList;
     private Random rand;
-    private int currentObj;
+    private Objectives currentObj;
     private int indexObj;
+    private Objectives testrandobj;
+
     
     public Player(World world){
         this.energy = maxEnergy;
         this.pos = new Position3D();
         this.world  = world;
-        objList = new ArrayList<Objectives>();
-        currentObj = 0;
         
     }
     
@@ -103,17 +103,17 @@ public class Player {
     }
     
     //OBJ!!---------//
-    public void setNewObjective(){
+     public void setNewObjective(Objectives objectives){
         rand = new Random();
-        indexObj = rand.nextInt(objList.size());
-        if(currentObj == indexObj){
-            setNewObjective();
+        //indexObj = rand.nextInt(objList.size());
+        System.out.println(objList.size());
+        if(currentObj == testrandobj){
+            //setNewObjective(object);
         } else{
-            currentObj = indexObj;
-            objectives = objList.get(indexObj);   
+            currentObj = testrandobj;
         }
     }
-    
+
     public Objectives getObjectives(){
         return objectives;
     }

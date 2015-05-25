@@ -34,4 +34,9 @@ public class Objective1 implements Objectives {
         
         
     }
+
+    @Override
+    public int getProgress() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

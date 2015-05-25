@@ -15,6 +15,7 @@ import edu.cth.mosquito.controller.MenuController;
 import edu.cth.mosquito.core.Collision;
 import edu.cth.mosquito.core.Highscore;
 import edu.cth.mosquito.core.Human;
+import edu.cth.mosquito.core.Objectives;
 import edu.cth.mosquito.core.Player;
 import edu.cth.mosquito.core.Position3D;
 import edu.cth.mosquito.core.World;
@@ -41,6 +42,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     private AudioNode audioMosquito;
     private MenuController menu;
     private boolean isRunning;
+    private Objectives objectives;
     
     @Override
     public void simpleInitApp(){
@@ -65,8 +67,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         
         player = new Player(world);
         //OBJ
-        player.setNewObjective();
-        player.startObjective();
+        //player.setNewObjective();
+   //     player.startObjective();
         
         msr = new MosquitoSimulatorRenderer(assetManager, cam);
         
@@ -153,6 +155,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         }
     }
 
+   
     
    
     @Override

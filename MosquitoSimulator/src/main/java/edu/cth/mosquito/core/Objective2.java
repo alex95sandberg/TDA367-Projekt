@@ -19,7 +19,7 @@ public class Objective2 implements Objectives {
     private String objectiveText;
     
     public Objective2(){
-        currentObj = 1;
+        currentObj = 2;
         objectiveText = "Gain blood from two different humans, and keep over 70% of your energy.\nReward 50 points";
     
     }
@@ -32,6 +32,10 @@ public class Objective2 implements Objectives {
     public void objectiveGoal() {
       
         
-        
+    }
+
+    @Override
+    public int getProgress() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

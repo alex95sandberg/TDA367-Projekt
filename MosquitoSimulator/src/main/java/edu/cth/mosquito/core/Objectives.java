@@ -13,6 +13,7 @@ import java.util.Random;
 public interface Objectives {
 
     
+    public int getProgress();
     public int objectiveReward();
     public void objectiveGoal();
     
