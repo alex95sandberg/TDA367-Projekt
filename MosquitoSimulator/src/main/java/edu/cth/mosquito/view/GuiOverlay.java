@@ -34,7 +34,7 @@ public class GuiOverlay {
     private BitmapText objectiveText;
     private BitmapText rewardText;
     private BillboardControl billboard;
-    Geometry geom;
+    Geometry geom, geom2;
     Node barNode = new Node("energybar");
     private Camera energyCam;
     private Box barBox;
@@ -86,6 +86,14 @@ public class GuiOverlay {
         
         updateGUI(100f,0f);
         setBloodAmount(100f);
+        
+        Material mat13 = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        mat13.setColor("Color", ColorRGBA.DarkGray);
+        geom2 = new Geometry("Box2", barBox);
+        geom2.setMaterial(mat13);
+        barNode.attachChild(geom2);
+        geom2.setLocalScale(1.1f, 1.025f, 0);
+        view2.attachScene(barNode.getChild("Box2"));
         
     }
  

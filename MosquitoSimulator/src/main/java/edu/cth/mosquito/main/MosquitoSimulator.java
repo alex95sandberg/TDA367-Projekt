@@ -63,7 +63,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         // Disable the default flyby cam
         flyCam.setEnabled(false);
         initKeys();   
-        world = new World(30, 10, 60);
+        world = new World(45, 10, 60);
         
         player = new Player(world);
         //OBJ
@@ -85,9 +85,10 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         
         msr.createLights(world.getWidth(), world.getHeight(), world.getLength());
         
-        for (int i = 0; i < msr.getLights().size(); i++){
-            rootNode.addLight((PointLight)msr.getLights().get(i));
+        for (int i = 0; i < msr.getPointLights().size(); i++){
+            rootNode.addLight((PointLight)msr.getPointLights().get(i));
         }
+        rootNode.addLight(msr.getAmbientLight());
 
         
         //Renders all the objects in world
@@ -120,7 +121,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             player.increaseScore(3 * tpf);
             player.decreaseEnergy(3 * tpf);
 
-
+            
+            
             if(player.getEnergy() <= 0){
                 highscore.addScore(player.getScore());
                 showMenu("start");
@@ -133,6 +135,12 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             guiOverlay.getEnergyNode().updateGeometricState();
             guiOverlay.getEnergyNode().updateLogicalState(tpf);
 
+            for(int i = 0; i < world.getObjects().size(); i++){
+                if(world.getObjects().get(i) instanceof Human){
+                    ((Human)world.getObjects().get(i)).increaseBlood(1*tpf);
+                }
+            }
+            
             if(collision.getCollidingNode() != null){
 
                 for(int i = 0; i < msr.getObjectNodes().size(); i++){
@@ -291,7 +299,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
 
             if(binding.equals("SuckBlood") && collision.getCollidingObject() instanceof Human){
                 Human temp = (Human)collision.getCollidingObject();
-                if(temp.getBlood() > 0){
+                if(temp.getBlood() >= 24*tpf){
                     temp.decreaseBlood(24*tpf);
                     player.increaseEnergy(15 * tpf);
                     guiOverlay.updateEnergybar(0.15f*tpf);
