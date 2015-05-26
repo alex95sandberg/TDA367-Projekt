@@ -259,7 +259,7 @@ public class MenuController extends AbstractAppState implements ScreenController
                     
                 }});
                 
-                panel(new PanelBuilder("numberOne"){{
+                panel(new PanelBuilder("exiGame"){{
                     alignCenter();
                     childLayoutCenter();
                     width("75%");
@@ -338,7 +338,7 @@ public class MenuController extends AbstractAppState implements ScreenController
                     childLayoutCenter();
                     width("75%");
                     height("25%");
-                    interactOnClick("exitGame");
+                    interactOnClick("exitGame()");
                     visibleToMouse(true);
                     
                     text(new TextBuilder(){{
@@ -353,6 +353,7 @@ public class MenuController extends AbstractAppState implements ScreenController
             }});
         
         }}.build(nifty));
+        
         nifty.gotoScreen("start");
         
     }
@@ -413,6 +414,8 @@ public class MenuController extends AbstractAppState implements ScreenController
     }
     
     public String getPlayerScore(String stringIndex){
+        
+        System.out.println("Hej");
         
         int index = Integer.parseInt(stringIndex);
         int size = highscore.size();
