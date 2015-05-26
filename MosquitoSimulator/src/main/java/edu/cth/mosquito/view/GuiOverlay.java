@@ -32,8 +32,8 @@ public class GuiOverlay {
     private BitmapText objectiveText;
     private BitmapText rewardText;
     private BillboardControl billboard;
-    Geometry geom, geom2;
-    Node barNode = new Node("energybar");
+    private Geometry geom, geom2;
+    private Node barNode = new Node("energybar");
     private Geometry energygeom;
     private Geometry bloodgeom;
     private Node energybarNode = new Node("energybar");
@@ -69,7 +69,6 @@ public class GuiOverlay {
         rewardText.setColor(ColorRGBA.White);
         
         //energybar init
- 
         energybarBox = new Box( 0.15f, 0.2f, 0f); 
         energygeom = new Geometry("Box", energybarBox);    
         Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
@@ -82,8 +81,7 @@ public class GuiOverlay {
         final ViewPort view2 = renderManager.createMainView("energyview", energyCam); 
         view2.attachScene(energybarNode.getChild("Box"));  
         
-        //bloodbar init
-        
+        //bloodbar init       
         bloodbarBox = new Box( 1f, 0.1f, 0f); 
         bloodgeom = new Geometry("Box", bloodbarBox);    
         Material mat2 = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
@@ -96,8 +94,7 @@ public class GuiOverlay {
         final ViewPort view3 = renderManager.createMainView("bloodview", bloodCam); 
         view3.attachScene(bloodbarNode.getChild("Box"));  
         
-        updateGUI(100f,0f);
-        
+        //backgroundbar init     
         Material mat13 = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
         mat13.setColor("Color", ColorRGBA.DarkGray);
         geom2 = new Geometry("Box2", energybarBox);
@@ -105,6 +102,9 @@ public class GuiOverlay {
         barNode.attachChild(geom2);
         geom2.setLocalScale(1.1f, 1.025f, 0);
         view2.attachScene(barNode.getChild("Box2"));
+        barNode.updateGeometricState();
+        
+        updateGUI(100f,0f);
         
     }
  
