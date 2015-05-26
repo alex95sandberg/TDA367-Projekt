@@ -6,6 +6,7 @@ package edu.cth.mosquito.view;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.asset.plugins.ZipLocator;
+import com.jme3.light.AmbientLight;
 import com.jme3.light.PointLight;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
@@ -43,6 +44,7 @@ public class MosquitoSimulatorRenderer {
     private Spatial floor, wallN, wallS, wallW, wallE, roof;
     private Material floorMaterial, wallMaterial, roofMaterial;
     private PointLight lamp;
+    private AmbientLight al;
     
     public MosquitoSimulatorRenderer(AssetManager assetManager, Camera cam){
         this.assetManager = assetManager;
@@ -71,7 +73,7 @@ public class MosquitoSimulatorRenderer {
         mosquito = assetManager.loadModel("assets/mosquito.j3o");
         mosquito.rotate(0f, (float)Math.PI/2, 0f);
         mosquito.scale(0.1f);
-        mosquito.setLocalTranslation(0, 0, 0);
+        mosquito.setLocalTranslation(0, -1, 0);
         
         Material m = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
         Texture tf = assetManager.loadTexture("assets/orange.png");
@@ -109,38 +111,27 @@ public class MosquitoSimulatorRenderer {
         
     }
     
-    
     public void createLights(float width, float height, float length){
         
-        for (int i = -30; i < 30; i=i+5){
-            //addLight(i, height-1, 0);
-        }
+        addPointLight(0, height-1, 0);
+        addPointLight(0, height-1, 50);
+        addPointLight(0, height-1, -50);
         
-        for (int i = -60; i < 60; i=i+5){
-            //addLight(0, height-1, i);
-        }
-        
-        addLight(0, height-1, 0);
-        addLight(0, height-1, 50);
-        addLight(0, height-1, -50);        
-        
-        int space = 10;
-        int xLights = ((int)(width/space)-1);
-        int zLights = ((int)(length/space)-1);
-        for (int x = 0; x < xLights; x++){
-            for (int z = 0; z < zLights; z++){
-                //addLight(x*space - width, height-1, z*space - length);
-            }
-        }
+        addAmbientLight(1f);
     }
     
     //Lägger till en lampa på positionen (w,h,l)
-    public void addLight(float width, float height, float length){
+    public void addPointLight(float width, float height, float length){
         PointLight lamp = new PointLight();
         lamp.setColor(ColorRGBA.White);
-        lamp.setRadius(100f);
+        lamp.setRadius(80f);
         lamp.setPosition(new Vector3f(width, height, length));
         lights.add(lamp);
+    }
+    
+    public void addAmbientLight(float brightness){
+        al = new AmbientLight();
+        al.setColor(ColorRGBA.White.mult(brightness));
     }
     
     public void createMaterials(){
@@ -302,8 +293,12 @@ public class MosquitoSimulatorRenderer {
         return roomNode;
     }
 
-    public List getLights(){
+    public List getPointLights(){
         return lights;
+    }
+    
+    public AmbientLight getAmbientLight(){
+        return al;
     }
     
     private Vector2f Vector2f(double d, double d0) {

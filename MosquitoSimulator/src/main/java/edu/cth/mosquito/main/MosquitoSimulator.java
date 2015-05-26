@@ -63,7 +63,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         // Disable the default flyby cam
         flyCam.setEnabled(false);
         initKeys();   
-        world = new World(30, 10, 60);
+        world = new World(45, 10, 60);
         
         player = new Player(world);
         //OBJ
@@ -85,9 +85,10 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         
         msr.createLights(world.getWidth(), world.getHeight(), world.getLength());
         
-        for (int i = 0; i < msr.getLights().size(); i++){
-            rootNode.addLight((PointLight)msr.getLights().get(i));
+        for (int i = 0; i < msr.getPointLights().size(); i++){
+            rootNode.addLight((PointLight)msr.getPointLights().get(i));
         }
+        rootNode.addLight(msr.getAmbientLight());
 
         
         //Renders all the objects in world
