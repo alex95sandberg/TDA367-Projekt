@@ -246,7 +246,11 @@ public class MosquitoSimulatorRenderer {
                 
                 Human instance = (Human)object;
                 
-                h = assetManager.loadModel("assets/human.j3o");
+                if (Math.random() > 0.5){
+                    h = assetManager.loadModel("assets/human.j3o");
+                } else {
+                    h = assetManager.loadModel("assets/humanWoman.j3o");
+                }
                 h.scale(instance.getWidth(), instance.getHeight(), instance.getLength());
                 
                 
