@@ -132,8 +132,6 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             guiOverlay.updateGUI(player.getEnergy(), player.getScore());
             guiOverlay.updateEnergybar(-0.03f*tpf);
 
-            guiOverlay.getEnergyNode().updateGeometricState();
-            guiOverlay.getEnergyNode().updateLogicalState(tpf);
 
             for(int i = 0; i < world.getObjects().size(); i++){
                 if(world.getObjects().get(i) instanceof Human){
@@ -151,16 +149,20 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
                 }
 
                 if(collision.getCollidingObject() instanceof Human)
-                    guiOverlay.setBloodAmount(((Human)collision.getCollidingObject()).getBlood());
+                    
+                        guiOverlay.updateBloodbar(((Human)collision.getCollidingObject()).getBlood()/100);
+                        
 
             }else{
-
                 collision.setCollidingObject(null);
-                guiOverlay.getBloodText().setText("");
+                guiOverlay.getbloodGeom().setLocalScale(0);
             }
-        }else{           
-            guiOverlay.getBloodText().setText("Press 'P' to unpause");
         }
+        
+            guiOverlay.getEnergyNode().updateGeometricState();
+            guiOverlay.getEnergyNode().updateLogicalState(tpf);
+            guiOverlay.getBloodNode().updateGeometricState();
+            guiOverlay.getBloodNode().updateLogicalState(tpf);
     }
 
    
@@ -178,12 +180,10 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         
         guiOverlay.setScoreTextPos(settings.getWidth()-guiOverlay.getScoreText().getLineWidth()-10,settings.getHeight()-10, 0f);
         guiOverlay.setEnergyTextPos(settings.getWidth()-guiOverlay.getEnergyText().getLineWidth()-10,(settings.getHeight()*0.9f), 0f);
-        guiOverlay.setBloodTextPos(settings.getWidth()/2 -guiOverlay.getBloodText().getLineWidth()/2, settings.getHeight()/2 - 20, 0f);
         guiOverlay.setObjectiveTextPos(settings.getWidth()*0.05f, settings.getHeight()-10, 0f);
         guiOverlay.setRewardTextPos(settings.getWidth()/2-guiOverlay.getRewardText().getLineWidth()/2, settings.getHeight()/1.5f, 0f);
         
         guiNode.attachChild(guiOverlay.getObjectiveText());
-        guiNode.attachChild(guiOverlay.getBloodText());
         guiNode.attachChild(guiOverlay.getScoreText());
         guiNode.attachChild(guiOverlay.getEnergyText());
         guiNode.attachChild(guiOverlay.getRewardText());
@@ -223,7 +223,6 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             audioMosquito.pause();
         
         guiNode.detachChild(guiOverlay.getObjectiveText());
-        guiNode.detachChild(guiOverlay.getBloodText());
         guiNode.detachChild(guiOverlay.getScoreText());
         guiNode.detachChild(guiOverlay.getEnergyText());
         guiNode.detachChild(guiOverlay.getRewardText());
@@ -303,7 +302,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
                     temp.decreaseBlood(24*tpf);
                     player.increaseEnergy(15 * tpf);
                     guiOverlay.updateEnergybar(0.15f*tpf);
-                    guiOverlay.setBloodAmount(temp.getBlood());
+                    guiOverlay.updateBloodbar(-0.24f*tpf);
                 }
 
             }
