@@ -262,6 +262,8 @@ public class MosquitoSimulatorRenderer {
                 m = new Material(assetManager,"Common/MatDefs/Light/Lighting.j3md");
                 h.setMaterial(m);
                 tempNode = new Node("Human");
+                float rotation = (float)Math.random()*(float)Math.PI*2f;
+                tempNode.rotate(0f, rotation, 0f);
                 tempNode.attachChild(h);
                 
             } else{
