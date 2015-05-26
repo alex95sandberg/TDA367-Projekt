@@ -11,6 +11,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -25,7 +26,7 @@ public class FileHandler {
      * Loads the highscore.txt with the scores found in the ArrayList containing the scores
      * @throws FileNotFoundException if the file which to write to is not found
      */
-    public void loadScoreFile(ArrayList<Integer> highScores) throws FileNotFoundException {
+    public void loadScoreFile(List<Integer> highScores) throws FileNotFoundException {
             
         ops = new PrintWriter(fileName);
             
@@ -43,9 +44,9 @@ public class FileHandler {
     * Loads and returns an ArrayList with the saved scores in the highscore file
     * @throws IOException
     */
-    public ArrayList<Integer> loadHighscoreList() throws IOException {
+    public List<Integer> loadHighscoreList() throws IOException {
         
-        ArrayList<Integer> tempHighscore = new ArrayList<>();
+        List<Integer> tempHighscore = new ArrayList<>();
         
         for(String s : Files.readAllLines(Paths.get(fileName), Charset.defaultCharset())){
             

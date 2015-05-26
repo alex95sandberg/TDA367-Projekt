@@ -7,7 +7,7 @@ package edu.cth.mosquito.controller;
 import edu.cth.mosquito.filehandler.FileHandler;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -23,13 +23,13 @@ public class FileController {
         
     }
     
-    public void saveHighscoreToFile(ArrayList<Integer> highscore) throws FileNotFoundException {
+    public void saveHighscoreToFile(List<Integer> highscore) throws FileNotFoundException {
         
         fileHandler.loadScoreFile(highscore);
         
     }
     
-    public ArrayList<Integer> getHighscores() throws IOException {
+    public List<Integer> getHighscores() throws IOException {
         
        return fileHandler.loadHighscoreList();
         

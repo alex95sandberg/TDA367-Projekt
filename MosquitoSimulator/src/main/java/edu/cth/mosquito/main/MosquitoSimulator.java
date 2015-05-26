@@ -63,7 +63,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         // Disable the default flyby cam
         flyCam.setEnabled(false);
         initKeys();   
-        world = new World(30, 10, 60);
+        world = new World(45, 10, 60);
         
         player = new Player(world);
         //OBJ
@@ -85,9 +85,10 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         
         msr.createLights(world.getWidth(), world.getHeight(), world.getLength());
         
-        for (int i = 0; i < msr.getLights().size(); i++){
-            rootNode.addLight((PointLight)msr.getLights().get(i));
+        for (int i = 0; i < msr.getPointLights().size(); i++){
+            rootNode.addLight((PointLight)msr.getPointLights().get(i));
         }
+        rootNode.addLight(msr.getAmbientLight());
 
         
         //Renders all the objects in world
@@ -124,7 +125,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             
             if(player.getEnergy() <= 0){
                 highscore.addScore(player.getScore());
-                showMenu();
+                showMenu("start");
                 reset();
             }
 
@@ -199,9 +200,24 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         audioMosquito.play();
     }
     
-    public void showMenu(){
+    public void returnFromPause(boolean flag){
+        
+        isRunning = flag;
+        
+    }
+    
+    public void showMenu(String menuId){
+        
+        if(menuId.equals("start")){
+            
+            highscore.addScore(player.getScore());
+            menu.setHighscore(highscore.getHighscore());
+            
+        }
+        
+        
         inputManager.setCursorVisible(true);
-        menu.switchScreen("start");
+        menu.switchScreen(menuId);
         
         if(audioMosquito != null)
             audioMosquito.pause();
@@ -294,11 +310,17 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         }
         
         if(binding.equals("Pause")){
-            isRunning = !isRunning;
+            
+            showMenu("pauseMenu");
+            
+            if(isRunning = true){
+                isRunning = false;
+            }
+            
         }
         
         if(binding.equals("Escape")){
-            showMenu();
+            showMenu("start");
         }
         
         if(binding.equals("Reset")){
