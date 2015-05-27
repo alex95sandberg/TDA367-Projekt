@@ -4,6 +4,7 @@
  */
 package edu.cth.mosquito.core;
 
+import edu.cth.mosquito.util.Position3D;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -87,8 +87,9 @@ public class GuiOverlay {
         updateGUI(100f,0f);
         setBloodAmount(100f);
         
+        //Creates the background for the energybar
         Material mat13 = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        mat13.setColor("Color", ColorRGBA.DarkGray);
+        mat13.setColor("Color", ColorRGBA.Black);
         geom2 = new Geometry("Box2", barBox);
         geom2.setMaterial(mat13);
         barNode.attachChild(geom2);
