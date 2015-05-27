@@ -26,18 +26,22 @@ public class GuiOverlay {
     
     private AssetManager assetManager;
     private RenderManager renderManager;
-    private Material guiMat;
     private BitmapFont font;
     private BitmapText energyText;
     private BitmapText scoreText;
-    private BitmapText bloodText;
     private BitmapText objectiveText;
     private BitmapText rewardText;
     private BillboardControl billboard;
-    Geometry geom, geom2;
-    Node barNode = new Node("energybar");
+    private Geometry geom, geom2;
+    private Node barNode = new Node("energybar");
+    private Geometry energygeom;
+    private Geometry bloodgeom;
+    private Node energybarNode = new Node("energybar");
+    private Node bloodbarNode = new Node("bloodbar");
     private Camera energyCam;
-    private Box barBox;
+    private Camera bloodCam;
+    private Box bloodbarBox;
+    private Box energybarBox;
      
      
     public GuiOverlay(AssetManager assetManager, Camera cam, RenderManager renderManager) {
@@ -46,15 +50,9 @@ public class GuiOverlay {
         font = assetManager.loadFont("Interface/Fonts/Console.fnt");
         energyText = new BitmapText(font, false);
         scoreText = new BitmapText(font, false);
-        bloodText = new BitmapText(font, false);
         objectiveText = new BitmapText(font, false);
         rewardText = new BitmapText(font, false);
-        
-        //blood init
-        bloodText.setSize(font.getCharSet().getRenderedSize());      // font size
-        bloodText.setColor(ColorRGBA.White);
-        
-        //energy init
+
         energyText.setSize(font.getCharSet().getRenderedSize());      // font size
         energyText.setColor(ColorRGBA.White);                             // font color
         
@@ -71,30 +69,44 @@ public class GuiOverlay {
         rewardText.setColor(ColorRGBA.White);
         
         //energybar init
- 
-        barBox = new Box( 0.15f, 0.2f, 0f); 
-        geom = new Geometry("Box", barBox);    
-        Material mat12 = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        mat12.setColor("Color", ColorRGBA.Yellow);
-        geom.setMaterial(mat12);
-        barNode.attachChild(geom);
+        energybarBox = new Box( 0.15f, 0.2f, 0f); 
+        energygeom = new Geometry("Box", energybarBox);    
+        Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        mat.setColor("Color", ColorRGBA.Yellow);
+        energygeom.setMaterial(mat);
+        energybarNode.attachChild(energygeom);
         energyCam = cam.clone();
         energyCam.setViewPort(0.8f, 1.05f, 0f, 1f);  
         energyCam.setLocation(new Vector3f(-0.1f, -0.1f, 1f));       
         final ViewPort view2 = renderManager.createMainView("energyview", energyCam); 
-        view2.attachScene(barNode.getChild("Box"));  
+        view2.attachScene(energybarNode.getChild("Box"));  
         
-        updateGUI(100f,0f);
-        setBloodAmount(100f);
+        //bloodbar init       
+        bloodbarBox = new Box( 1f, 0.1f, 0f); 
+        bloodgeom = new Geometry("Box", bloodbarBox);    
+        Material mat2 = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        mat2.setColor("Color", ColorRGBA.Red);
+        bloodgeom.setMaterial(mat2);
+        bloodbarNode.attachChild(bloodgeom);
+        bloodCam = cam.clone();
+        bloodCam.setViewPort(0.422f, 0.622f, 0.3f, 0.5f);  
+        bloodCam.setLocation(new Vector3f(0.3f, 0.3f,2f));       
+        final ViewPort view3 = renderManager.createMainView("bloodview", bloodCam); 
+        view3.attachScene(bloodbarNode.getChild("Box"));  
         
+
         //Creates the background for the energybar
-        Material mat13 = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        mat13.setColor("Color", ColorRGBA.Black);
-        geom2 = new Geometry("Box2", barBox);
-        geom2.setMaterial(mat13);
+        Material mat3 = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        mat3.setColor("Color", ColorRGBA.Black);
+        geom2 = new Geometry("Box2", energybarBox);
+
+        geom2.setMaterial(mat3);
         barNode.attachChild(geom2);
         geom2.setLocalScale(1.1f, 1.025f, 0);
         view2.attachScene(barNode.getChild("Box2"));
+        barNode.updateGeometricState();
+        
+        updateGUI(100f,0f);
         
     }
  
@@ -140,40 +152,45 @@ public class GuiOverlay {
      
      //All score methods ends here.
     
-     //blood start
+     //bloodbar
      
-     public void setBloodAmount(float amount){
-         bloodText.setText("Blood: " + Math.round(amount) + "%");
+     
+     public Node getBloodNode(){
+     
+         return bloodbarNode;
      }
      
-     public void setBloodTextPos(float x, float y, float z){
-         bloodText.setLocalTranslation(x, y, z);
+     public void updateBloodbar(float x){
+     
+         bloodgeom.setLocalScale(x, 1, 1);
+     }
+     public Geometry getbloodGeom(){
+     
+         return bloodgeom;
      }
      
-     public BitmapText getBloodText(){
-         return bloodText;
+     public void resetUI(){
+         energygeom.setLocalScale(1);
+         energygeom.setLocalTranslation(0, 0, 0);
+         bloodgeom.setLocalScale(1);
+         bloodgeom.setLocalTranslation(0,0,0);
      }
      
-     //blood end
-     
+     //
+
      
      //Energybar methods
      
      public Node getEnergyNode(){
      
-         return barNode;
+         return energybarNode;
      }
      public void updateEnergybar(float y){
 
-         if((y > 0 && geom.getLocalScale().getY() < 1) || (y < 0 && geom.getLocalScale().getY() > 0)){
-            geom.setLocalScale(geom.getLocalScale().getX(), geom.getLocalScale().getY()+y, geom.getLocalScale().getZ());
-            geom.setLocalTranslation(geom.getLocalTranslation().getX(), geom.getLocalTranslation().getY()+y/5, geom.getLocalTranslation().getZ());
+         if((y > 0 && energygeom.getLocalScale().getY() < 1) || (y < 0 && energygeom.getLocalScale().getY() > 0)){
+            energygeom.setLocalScale(energygeom.getLocalScale().getX(), energygeom.getLocalScale().getY()+y, energygeom.getLocalScale().getZ());
+            energygeom.setLocalTranslation(energygeom.getLocalTranslation().getX(), energygeom.getLocalTranslation().getY()+y/5, energygeom.getLocalTranslation().getZ());
          }
-     }
-     
-     public void resetUI(){
-         geom.setLocalScale(1);
-         geom.setLocalTranslation(0, 0, 0);
      }
      
      //energybar methods end
