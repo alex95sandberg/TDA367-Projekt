@@ -94,11 +94,13 @@ public class GuiOverlay {
         final ViewPort view3 = renderManager.createMainView("bloodview", bloodCam); 
         view3.attachScene(bloodbarNode.getChild("Box"));  
         
-        //backgroundbar init     
-        Material mat13 = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        mat13.setColor("Color", ColorRGBA.DarkGray);
+
+        //Creates the background for the energybar
+        Material mat3 = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        mat3.setColor("Color", ColorRGBA.Black);
         geom2 = new Geometry("Box2", energybarBox);
-        geom2.setMaterial(mat13);
+
+        geom2.setMaterial(mat3);
         barNode.attachChild(geom2);
         geom2.setLocalScale(1.1f, 1.025f, 0);
         view2.attachScene(barNode.getChild("Box2"));
