@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  *
- * @author Alexander
+ * @author Mosquito
  */
 public class MosquitoSimulatorRenderer {
     
@@ -47,16 +47,20 @@ public class MosquitoSimulatorRenderer {
     
     
     //Filenames
+    //The zipped assets map
     private static final String ASSET_MAP = "assets.zip";
     
+    //Spatials
     private static final String MOSQUITO_MODEL = "assets/mosquito.j3o";
     private static final String MALE_HUMAN_MODEL = "assets/human.j3o";
     private static final String FEMALE_HUMAN_MODEL = "assets/humanWoman.j3o";
     private static final String PLANE_MODEL = "assets/plane.j3o";
     
+    //Materials
     private static final String LIGHTING_MATERIAL = "Common/MatDefs/Light/Lighting.j3md";
     private static final String UNSHADED_MATERIAL = "Common/MatDefs/Misc/Unshaded.j3md";
     
+    //Textures
     private static final String HUMAN_TEXTURE = "assets/human.png";
     private static final String MOSQUITO_TEXTURE = "assets/orange.png";
     private static final String FLOOR_TEXTURE = "assets/floor.jpg";
@@ -66,7 +70,7 @@ public class MosquitoSimulatorRenderer {
     
     
     
-    
+    //OKOMMENTERAD
     public MosquitoSimulatorRenderer(AssetManager assetManager, Camera cam){
         this.assetManager = assetManager;
         
@@ -79,6 +83,7 @@ public class MosquitoSimulatorRenderer {
         cameraSetup();
     }
     
+    //OKOMMENTERAD
     private void cameraSetup(){
         camNode = new CameraNode("Camera Node", cam);
         camNode.setControlDir(CameraControl.ControlDirection.SpatialToCamera);
@@ -89,6 +94,7 @@ public class MosquitoSimulatorRenderer {
         mosquitoNode.setLocalTranslation(0, 0, 0);
     }
     
+    //OKOMMENTERAD
     private void renderMosquito(){
         assetManager.registerLocator(ASSET_MAP, ZipLocator.class);
         mosquito = assetManager.loadModel(MOSQUITO_MODEL);
@@ -104,9 +110,11 @@ public class MosquitoSimulatorRenderer {
         mosquitoNode.attachChild(mosquito);
     }
     
-    //Skapar hela rummet
+    //Creates the entire room
     public void renderRoom(float width, float height, float length){
         createMaterials();
+        
+        //Renders all 4 walls, roof and floor
         renderPlaneFloor(width, height, length);
         renderPlaneWallNorth(width, height, length);
         renderPlaneWallEast(width, height, length);
@@ -116,18 +124,17 @@ public class MosquitoSimulatorRenderer {
         
     }
     
-    //Skapar alla ljuskällor i rummet
+    //Creates all lightsources in the room
     public void createLights(float width, float height, float length){
-        //Lägger till tre "lampor" i taket
+        //Adds three "lamps" to the room
         addPointLight(0, height-1, 0);
         addPointLight(0, height-1, 50);
         addPointLight(0, height-1, -50);
         
-        //Lägger till ett ljus som lyser på allt i rummet
         addAmbientLight(1f);
     }
     
-    //Lägger till en lampa på positionen (w,h,l)
+    //Adds a lamp at the position (w,h,l)
     public void addPointLight(float width, float height, float length){
         lamp = new PointLight();
         lamp.setColor(ColorRGBA.White);
@@ -136,18 +143,20 @@ public class MosquitoSimulatorRenderer {
         lights.add(lamp);
     }
     
-    //Lägger till ljus med styrkan brightness i hela rummet
+    //Adds a light that lights up everything in the room equally
     public void addAmbientLight(float brightness){
         al = new AmbientLight();
         al.setColor(ColorRGBA.White.mult(brightness));
     }
     
-    //Skapar materialet för väggar, tak och golv
+    //Creates the materials for walls, roof and floor
     public void createMaterials(){
+        //Sets the type of material
         floorMaterial = new Material(assetManager, LIGHTING_MATERIAL);
         wallMaterial = new Material(assetManager, LIGHTING_MATERIAL);
         roofMaterial = new Material(assetManager, LIGHTING_MATERIAL);
         
+        //Adds a texture to the materials
         Texture tf = assetManager.loadTexture(FLOOR_TEXTURE);
         floorMaterial.setTexture("DiffuseMap", tf);
         
@@ -158,10 +167,13 @@ public class MosquitoSimulatorRenderer {
         roofMaterial.setTexture("DiffuseMap", tr);
     }   
     
+    //Creates the floor
     public void renderPlaneFloor(float width, float height, float length){
+        //Loads in the plane spatial
         assetManager.registerLocator(ASSET_MAP, ZipLocator.class);
         floor = assetManager.loadModel(PLANE_MODEL);
         
+        //Scales the plane and gives it a position
         floor.scale(width, 1, length);
         floor.setLocalTranslation(0, -height, 0);
         
@@ -170,10 +182,13 @@ public class MosquitoSimulatorRenderer {
         roomNode.attachChild(floor);
     }
     
+    //Creates the wall that is in front of you when the game starts
     public void renderPlaneWallNorth(float width, float height, float length){
+        //Loads in the plane spatial
         assetManager.registerLocator(ASSET_MAP, ZipLocator.class);
         wallN = assetManager.loadModel(PLANE_MODEL);
         
+        //Rotates the plane, scales it and gives it a position
         wallN.rotate((float)-Math.PI/2, 0, 0);
         wallN.scale(width, 1, height);
         wallN.setLocalTranslation(0, 0, length);
@@ -182,11 +197,14 @@ public class MosquitoSimulatorRenderer {
         
         roomNode.attachChild(wallN);
     }
-      
+    
+    //Creates the wall that is behind you when the game starts
     public void renderPlaneWallSouth(float width, float height, float length){
+        //Loads in the plane spatial
         assetManager.registerLocator(ASSET_MAP, ZipLocator.class);
         wallS = assetManager.loadModel(PLANE_MODEL);
         
+        //Rotates the plane, scales it and gives it a position
         wallS.rotate((float)Math.PI/2, 0, 0);
         wallS.scale(width, 1, height);
         wallS.setLocalTranslation(0, 0, -length);
@@ -196,10 +214,13 @@ public class MosquitoSimulatorRenderer {
         roomNode.attachChild(wallS);
     }
     
+    //Creates the wall that is to your right when the game starts
     public void renderPlaneWallEast(float width, float height, float length){
+        //Loads in the plane spatial
         assetManager.registerLocator(ASSET_MAP, ZipLocator.class);
         wallE = assetManager.loadModel(PLANE_MODEL);
         
+        //Rotates the plane, scales it and gives it a position
         wallE.rotate(0, 0, (float)-Math.PI/2);
         wallE.scale(height, 1, length);
         wallE.setLocalTranslation(-width, 0, 0);
@@ -209,10 +230,13 @@ public class MosquitoSimulatorRenderer {
         roomNode.attachChild(wallE);
     }
     
+    //Creates the wall that is to your left when the game starts
     public void renderPlaneWallWest(float width, float height, float length){
+        //Loads in the plane spatial
         assetManager.registerLocator(ASSET_MAP, ZipLocator.class);
         wallW = assetManager.loadModel(PLANE_MODEL);
         
+        //Rotates the plane, scales it and gives it a position
         wallW.rotate(0, 0, (float)Math.PI/2);
         wallW.scale(height, 1, length);
         wallW.setLocalTranslation(width, 0, 0);
@@ -222,10 +246,13 @@ public class MosquitoSimulatorRenderer {
         roomNode.attachChild(wallW);
     }
     
+    //Creates the roof
     public void renderPlaneRoof(float width, float height, float length){
+        //Loads in the plane spatial
         assetManager.registerLocator(ASSET_MAP, ZipLocator.class);
         roof = assetManager.loadModel(PLANE_MODEL);
         
+        //Rotates the plane, scales it and gives it a position
         roof.rotate((float)Math.PI, 0, 0);
         roof.scale(width, 1, length);
         roof.setLocalTranslation(0, height, 0);
@@ -235,6 +262,7 @@ public class MosquitoSimulatorRenderer {
         roomNode.attachChild(roof);
     }
     
+    //OKOMMENTERAD
     public void renderWorldObjects(List<SolidObject> objects){
         Box b;
         Material m;       
@@ -283,6 +311,7 @@ public class MosquitoSimulatorRenderer {
         
     }
     
+    //Returns a male or female human spatial by random
     private Spatial getRandomGenderHuman(){
         if (Math.random() > 0.5){
              return assetManager.loadModel(MALE_HUMAN_MODEL);

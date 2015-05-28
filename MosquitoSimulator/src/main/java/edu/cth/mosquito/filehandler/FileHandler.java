@@ -15,9 +15,9 @@ import java.util.List;
 
 /**
  *
- * @author Anton
+ * @author Mosquito
  */
-public class FileHandler {
+public class FileHandler implements IFileHandler{
     
     private static final String FILENAME = "highscore.txt";
     private PrintWriter ops;
