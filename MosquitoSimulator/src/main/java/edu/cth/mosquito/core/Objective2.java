@@ -15,30 +15,47 @@ import java.util.Timer;
 
 public class Objective2 implements Objectives {
 
+    private float progress = 0;
+    private static final int GOAL = 20;
     private static final int REWARD = 50;
-    private static final String OBJECTIVETEXT = "Gain blood from two different humans, and keep over 70% of your energy.\nReward 50 points";
+    private static final String OBJECTIVETEXT = "Stay above 80% energy for 20 seconds\nReward 50 points";
     
     public Objective2(){
 
     
     }
     @Override
-    public int objectiveReward() {
+    public float getObjectiveReward() {
          return REWARD;
     }
 
     @Override
-    public void objectiveGoal() {
+    public float getObjectiveGoal() {
 
+        return GOAL;
     }
 
     @Override
-    public int getProgress() {
-        return 1;
+    public float getProgress() {  
+        return progress;
     }
 
     @Override
     public String getObjectiveText() {
         return OBJECTIVETEXT;
+    }
+
+    @Override
+    public void increaseProgress(float amount) {
+      progress += amount;  
+      if(progress >= GOAL)
+          progress = GOAL;
+          
+    }
+
+    @Override
+    public void setProgress(float amount) {
+        
+        progress = amount;
     }
 }

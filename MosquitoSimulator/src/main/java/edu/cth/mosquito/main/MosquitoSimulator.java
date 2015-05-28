@@ -15,6 +15,7 @@ import edu.cth.mosquito.controller.MenuController;
 import edu.cth.mosquito.core.Collision;
 import edu.cth.mosquito.core.Highscore;
 import edu.cth.mosquito.core.Human;
+import edu.cth.mosquito.core.Objective1;
 import edu.cth.mosquito.core.ObjectiveGenerator;
 import edu.cth.mosquito.core.Objectives;
 import edu.cth.mosquito.core.Player;
@@ -95,7 +96,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         
         //OBJ
         player.setNewObjective(objGen.getnextObjective());
-        guiOverlay.setObjectiveText(player.getObjectiveText());
+        guiOverlay.setObjectiveText(player.getObjective().getObjectiveText());
         
     }
     
@@ -147,8 +148,15 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
                 //Hides the blood bar
                 guiOverlay.getbloodGeom().setLocalScale(0);
             }
+            
+            //Objectives
+            player.updateObjective(tpf);
         }
         
+            
+           
+            
+            
             guiOverlay.getEnergyNode().updateGeometricState();
             guiOverlay.getEnergyNode().updateLogicalState(tpf);
             guiOverlay.getBloodNode().updateGeometricState();

@@ -106,16 +106,26 @@ public class Player {
     }
     
     //OBJ!!---------//
+    
+    public Objectives getObjective(){
+        return objectives;
+        
+    }
     public void setNewObjective(Objectives objectives){
         this.objectives = objectives;
     }
-    public void startObjective(){
-        
-        objectives.objectiveGoal();
+    
+    public void updateObjective(float tpf){
+        if(getObjective() instanceof Objective1){
+                if(getEnergy() >= 80){
+                    getObjective().increaseProgress(tpf);
+                    if(getObjective().getProgress() >= getObjective().getObjectiveGoal())
+                        increaseScore(getObjective().getObjectiveReward());
+                        getObjective().setProgress(0);
+                }else{
+                    getObjective().setProgress(0);
+                }
+            }
     }
     
-    public String getObjectiveText(){
-        
-        return objectives.getObjectiveText();
-    }
 }
