@@ -20,11 +20,7 @@ public class Player {
     private final float maxEnergy = 100;
     private float score;
     private Objectives objectives;
-    private ArrayList<Objectives> objList;
-    private Random rand;
-    private Objectives currentObj;
-    private int indexObj;
-    private Objectives testrandobj;
+    private ObjectiveGenerator objGen = new ObjectiveGenerator();
 
     
     public Player(World world){
@@ -121,12 +117,17 @@ public class Player {
                     getObjective().increaseProgress(tpf);
                     if(getObjective().getProgress() >= getObjective().getObjectiveGoal()){
                         increaseScore(getObjective().getObjectiveReward());
+                        setNewObjective(generateObjective());
                         getObjective().setProgress(0);
                     }
                 }else{
                     getObjective().setProgress(0);
                 }
             }
+    }
+    public Objectives generateObjective(){
+    
+        return objGen.getnextObjective();
     }
     
 }

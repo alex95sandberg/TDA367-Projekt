@@ -15,9 +15,6 @@ import edu.cth.mosquito.controller.MenuController;
 import edu.cth.mosquito.core.Collision;
 import edu.cth.mosquito.core.Highscore;
 import edu.cth.mosquito.core.Human;
-import edu.cth.mosquito.core.Objective1;
-import edu.cth.mosquito.core.ObjectiveGenerator;
-import edu.cth.mosquito.core.Objectives;
 import edu.cth.mosquito.core.Player;
 import edu.cth.mosquito.util.Position3D;
 import edu.cth.mosquito.core.World;
@@ -44,8 +41,6 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     private AudioNode audioMosquito;
     private MenuController menu;
     private boolean isRunning;
-    private Objectives objectives;
-    private ObjectiveGenerator objGen = new ObjectiveGenerator();
     
     @Override
     public void simpleInitApp(){
@@ -95,7 +90,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         collision = new Collision(bulletAppState, msr.getMosquitoNode(), msr.getObjectNodes());
         
         //OBJ
-        player.setNewObjective(objGen.getnextObjective());
+        player.setNewObjective(player.generateObjective());
         guiOverlay.setObjectiveText(player.getObjective().getObjectiveText());
         
     }

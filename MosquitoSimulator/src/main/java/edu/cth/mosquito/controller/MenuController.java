@@ -34,30 +34,36 @@ public class MenuController extends AbstractAppState implements ScreenController
     private static final String FONTPATH = "assets/font.fnt";
     private static final String IMAGEPATH = "assets/mosquitoTwo.jpg";
     private static final String ASSETS = "assets.zip";
+    
     private static final String START = "start";
-    private static final String NIFTYSCREEN = "NiftyScree";
-    private static final String BACKGROUND = "background";
-    private static final String HEIGHT1 = "100%";
-    private static final String WIDTH1 = "100%";
-    private static final String FOREGROUND = "foreground";
-    private static final String STARTHEADING = "startHeading";
-    private static final String HEIGHT2 = "25%";
-    private static final String WIDTH2 = "75%";
-    private static final String MOSQUITOSIMTEXT = "Mosquito Simulator";
     private static final String STARTGAME = "startGame";
     private static final String STARTGAMETEXT = "Start Game";
+    private static final String STARTHEADING = "startHeading";
+    
+    private static final String NIFTYSCREEN = "NiftyScree";
+    private static final String BACKGROUND = "background";
+    private static final String FOREGROUND = "foreground";
+    private static final String HUD = "hud";
+    
+    private static final String HEIGHT1 = "100%";
+    private static final String WIDTH1 = "100%";
+    private static final String HEIGHT2 = "25%";
+    private static final String WIDTH2 = "75%";
+
+
     private static final String HIGHSCORE = "highscore";
     private static final String HIGHSCORETEXT = "Highscore";
-    private static final String EXIT = "exit";
-    private static final String EXITINTERACT = "exitGame()";
-    private static final String EXITGAMETEXT = "Exit Game";
     private static final String NBRONEHIGHSCORE = "numberOne";
     private static final String NBRTWOHIGHSCORE = "numberTwo";
     private static final String NBRTHREEHIGHSCORE = "numberThree";
     private static final String NBRFOURHIGHSCORE = "numberFour";
     private static final String NBRFIVEHIGHSCORE = "numberFive";
+    
+    private static final String EXIT = "exit";
+    private static final String EXITINTERACT = "exitGame()";
+    private static final String EXITGAMETEXT = "Exit Game";
     private static final String BACKTOMENUTEXT = "Back to menu";
-    private static final String HUD = "hud";
+    private static final String MOSQUITOSIMTEXT = "Mosquito Simulator";
     
     public MenuController(List<Integer> highscore){
         
