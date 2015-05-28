@@ -354,6 +354,18 @@ public class MenuController extends AbstractAppState implements ScreenController
         
         }}.build(nifty));
         
+        nifty.addScreen("hud", new ScreenBuilder("ingameScreen"){{
+            controller(controller);
+        
+            layer(new LayerBuilder("hud"){{
+                childLayoutVertical();
+                
+            }});
+            
+        }}.build(nifty));
+        
+        
+        
         nifty.gotoScreen("start");
         
     }
@@ -379,7 +391,7 @@ public class MenuController extends AbstractAppState implements ScreenController
     
     public void startGame(){
         
-        nifty.exit();
+        nifty.gotoScreen("hud");
         ms.reset();
         ms.initGUI();
         ms.initAudio();
@@ -406,7 +418,7 @@ public class MenuController extends AbstractAppState implements ScreenController
     
     public void returnFromPause(){
         
-        nifty.exit();
+        nifty.gotoScreen("hud");
         ms.initGUI();
         ms.initAudio();
         ms.returnFromPause(true);
@@ -414,8 +426,6 @@ public class MenuController extends AbstractAppState implements ScreenController
     }
     
     public String getPlayerScore(String stringIndex){
-        
-        System.out.println("Hej");
         
         int index = Integer.parseInt(stringIndex);
         int size = highscore.size();

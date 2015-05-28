@@ -25,10 +25,10 @@ public class Collision {
     
     private BulletAppState bulletAppState;
     private List<Node> solidObjectNodes;
-    private List<RigidBody> rbArray;
+    private List<RigidBodyControl> rbArray;
     private GhostControl playerGhost;
     private Node mosquitoNode;
-    private RigidBody rb;
+    private RigidBodyControl rb;
     private SolidObject collidingObject;
     
     public Collision(BulletAppState bulletAppState, Node mosquitoNode, List<Node> solidObjectNodes){
@@ -61,7 +61,7 @@ public class Collision {
         for(Node a : solidObjectNodes){
             
             CollisionShape solidObjectShape = CollisionShapeFactory.createMeshShape(a);
-            rb = new RigidBody(solidObjectShape, 0, a.getName());
+            rb = new RigidBodyControl(solidObjectShape, 0);
             
             a.addControl(rb);
             rbArray.add(rb);
@@ -112,7 +112,7 @@ public class Collision {
             
             for(PhysicsCollisionObject a : playerGhost.getOverlappingObjects()){
                 
-                if(a.getClass().equals(RigidBody.class)){
+                if(a.getClass().equals(RigidBodyControl.class)){
                      
                     return (Node)a.getUserObject();
                     
