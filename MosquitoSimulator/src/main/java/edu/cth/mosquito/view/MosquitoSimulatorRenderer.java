@@ -57,6 +57,7 @@ public class MosquitoSimulatorRenderer {
     private static final String LIGHTING_MATERIAL = "Common/MatDefs/Light/Lighting.j3md";
     private static final String UNSHADED_MATERIAL = "Common/MatDefs/Misc/Unshaded.j3md";
     
+    private static final String HUMAN_TEXTURE = "assets/human.png";
     private static final String MOSQUITO_TEXTURE = "assets/orange.png";
     private static final String FLOOR_TEXTURE = "assets/floor.jpg";
     private static final String WALL_TEXTURE = "assets/wall.jpg";
@@ -69,7 +70,7 @@ public class MosquitoSimulatorRenderer {
     public MosquitoSimulatorRenderer(AssetManager assetManager, Camera cam){
         this.assetManager = assetManager;
         
-        assetManager.registerLocator("assets.zip", ZipLocator.class);
+        assetManager.registerLocator(ASSET_MAP, ZipLocator.class);
         this.cam = cam;
         mosquitoNode = new Node();
         roomNode = new Node();
@@ -253,8 +254,11 @@ public class MosquitoSimulatorRenderer {
                 
                 h = getRandomGenderHuman();
                 h.scale(instance.getWidth(), instance.getHeight(), instance.getLength());
-                              
+
                 m = new Material(assetManager,LIGHTING_MATERIAL);
+                Texture t = assetManager.loadTexture(HUMAN_TEXTURE);
+                
+                m.setTexture("DiffuseMap", t);
                 h.setMaterial(m);
                 tempNode = new Node("Human");
                 tempNode.rotate(0f, rotation, 0f);
