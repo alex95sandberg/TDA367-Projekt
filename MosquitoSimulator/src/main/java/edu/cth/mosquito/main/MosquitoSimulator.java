@@ -41,6 +41,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     private AudioNode audioMosquito;
     private MenuController menu;
     private boolean isRunning;
+    private float energyLossSpeed = 3;
     
     @Override
     public void simpleInitApp(){
@@ -104,7 +105,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
                     player.getPosition().getY(), player.getPosition().getZ());
                       
             player.increaseScore(3 * tpf);
-            player.decreaseEnergy(3 * tpf);
+            player.decreaseEnergy(energyLossSpeed * tpf);
+            energyLossSpeed += tpf/100;
             
             if(player.getEnergy() <= 0){
                 highscore.addScore(player.getScore());
@@ -114,7 +116,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
 
             guiOverlay.updateGUI(player.getEnergy(), player.getScore(), 
                     player.getObjective().getProgress(), player.getObjective().getObjectiveGoal());
-            guiOverlay.updateEnergybar(-0.03f*tpf);
+            guiOverlay.updateEnergybar(-energyLossSpeed/100*tpf);
 
 
             //Increases the blood of humans over time
