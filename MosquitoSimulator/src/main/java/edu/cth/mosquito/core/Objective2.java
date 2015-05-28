@@ -18,7 +18,7 @@ public class Objective2 implements Objectives {
     private float progress = 0;
     private static final int GOAL = 20;
     private static final int REWARD = 50;
-    private static final String OBJECTIVETEXT = "Stay above 80% energy for 20 seconds\nReward 50 points";
+    private static final String OBJECTIVETEXT = "Have below 10% Energy when you hit 100 points.\nReward 50 points";
     
     public Objective2(){
 
