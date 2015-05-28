@@ -20,7 +20,7 @@ public class Player {
     private final float maxEnergy = 100;
     private float score;
     private Objectives objectives;
-    private ObjectiveGenerator objGen;
+    private ObjectiveGenerator objGen = new ObjectiveGenerator();
 
     
     public Player(World world){
