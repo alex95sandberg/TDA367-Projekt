@@ -221,7 +221,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     public void reset(){
         
         player.reset();
-        world.reset();
+        world.resetHumans();
         msr.getMosquitoNode().setLocalRotation(Quaternion.IDENTITY);
         guiOverlay.resetUI();
         isRunning = true;

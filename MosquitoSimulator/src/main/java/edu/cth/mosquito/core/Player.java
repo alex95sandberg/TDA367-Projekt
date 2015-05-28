@@ -9,8 +9,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- *
- * @author Alexander
+ * Handles all the logic and data for the player
+ * 
+ * @author Mosquito
  */
 public class Player {
     private World world;
@@ -44,6 +45,7 @@ public class Player {
         float tempY = pos.getY();
         float tempZ = pos.getZ();
         
+        //Checks if the player collides with the edges of the world
         if(pos.getX() < world.getWidth() && distance.getX() > 0)
             tempX += distance.getX();
         else if(pos.getX() > -world.getWidth() && distance.getX() < 0)
