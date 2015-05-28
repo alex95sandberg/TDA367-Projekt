@@ -233,6 +233,12 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     }
     
     @Override
+    public void stop(){
+        super.stop();
+        System.exit(0);
+    }
+    
+    @Override
     public void onAnalog(String binding, float value, float tpf) {
       
         //The keys that can't be pressed while game is paused
