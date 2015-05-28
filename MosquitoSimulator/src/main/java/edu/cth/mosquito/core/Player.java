@@ -9,8 +9,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- *
- * @author Alexander
+ * Handles all the logic and data for the player
+ * 
+ * @author Mosquito
  */
 public class Player {
     private World world;
@@ -44,6 +45,7 @@ public class Player {
         float tempY = pos.getY();
         float tempZ = pos.getZ();
         
+        //Checks if the player collides with the edges of the world
         if(pos.getX() < world.getWidth() && distance.getX() > 0)
             tempX += distance.getX();
         else if(pos.getX() > -world.getWidth() && distance.getX() < 0)
@@ -104,23 +106,16 @@ public class Player {
     }
     
     //OBJ!!---------//
-     public void setNewObjective(Objectives objectives){
-        rand = new Random();
-        //indexObj = rand.nextInt(objList.size());
-        System.out.println(objList.size());
-        if(currentObj == testrandobj){
-            //setNewObjective(object);
-        } else{
-            currentObj = testrandobj;
-        }
+    public void setNewObjective(Objectives objectives){
+        this.objectives = objectives;
     }
-
-    public Objectives getObjectives(){
-        return objectives;
-    }
-    
     public void startObjective(){
         
         objectives.objectiveGoal();
+    }
+    
+    public String getObjectiveText(){
+        
+        return objectives.getObjectiveText();
     }
 }

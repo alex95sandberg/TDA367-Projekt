@@ -7,11 +7,11 @@ package edu.cth.mosquito.core;
 import edu.cth.mosquito.util.Position3D;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
- *
- * @author Johan
+ * Contains all the world objects and the size of the world
+ * 
+ * @author Mosquito
  */
 
 public class World {
@@ -37,13 +37,10 @@ public class World {
         addHuman(new Position3D(-8, -10, -50));
         addHuman(new Position3D(-28, -10, -37));
         addHuman(new Position3D(10, -10, 0));
-        addHuman(new Position3D(14, -10, 34));
-        
-        
-        
+        addHuman(new Position3D(14, -10, 34));        
     }
     
-    public void reset(){
+    public void resetHumans(){
         for(int i = 0; i < objects.size(); i++){
             if(objects.get(i) instanceof Human){
                 ((Human)objects.get(i)).increaseBlood(100);

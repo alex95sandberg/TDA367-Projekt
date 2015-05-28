@@ -33,6 +33,31 @@ public class MenuController extends AbstractAppState implements ScreenController
     private MenuController controller = this;
     private static final String FONTPATH = "assets/font.fnt";
     private static final String IMAGEPATH = "assets/mosquitoTwo.jpg";
+    private static final String ASSETS = "assets.zip";
+    private static final String START = "start";
+    private static final String NIFTYSCREEN = "NiftyScree";
+    private static final String BACKGROUND = "background";
+    private static final String HEIGHT1 = "100%";
+    private static final String WIDTH1 = "100%";
+    private static final String FOREGROUND = "foreground";
+    private static final String STARTHEADING = "startHeading";
+    private static final String HEIGHT2 = "25%";
+    private static final String WIDTH2 = "75%";
+    private static final String MOSQUITOSIMTEXT = "Mosquito Simulator";
+    private static final String STARTGAME = "startGame";
+    private static final String STARTGAMETEXT = "Start Game";
+    private static final String HIGHSCORE = "highscore";
+    private static final String HIGHSCORETEXT = "Highscore";
+    private static final String EXIT = "exit";
+    private static final String EXITINTERACT = "exitGame()";
+    private static final String EXITGAMETEXT = "Exit Game";
+    private static final String NBRONEHIGHSCORE = "numberOne";
+    private static final String NBRTWOHIGHSCORE = "numberTwo";
+    private static final String NBRTHREEHIGHSCORE = "numberThree";
+    private static final String NBRFOURHIGHSCORE = "numberFour";
+    private static final String NBRFIVEHIGHSCORE = "numberFive";
+    private static final String BACKTOMENUTEXT = "Back to menu";
+    private static final String HUD = "hud";
     
     public MenuController(List<Integer> highscore){
         
@@ -52,85 +77,85 @@ public class MenuController extends AbstractAppState implements ScreenController
         
         app.getGuiViewPort().addProcessor(ourScreen);
         
-        app.getAssetManager().registerLocator("assets.zip", ZipLocator.class);
-        nifty.addScreen("start", new ScreenBuilder("NiftyScree"){{
+        app.getAssetManager().registerLocator(ASSETS, ZipLocator.class);
+        nifty.addScreen(START, new ScreenBuilder(NIFTYSCREEN){{
             controller(controller);
             
-            layer(new LayerBuilder("background"){{
+            layer(new LayerBuilder(BACKGROUND){{
                 childLayoutCenter();
                 
                 image(new ImageBuilder(){{            
                     filename(IMAGEPATH);
-                    height("100%");
-                    width("100%");
+                    height(HEIGHT1);
+                    width(WIDTH1);
                 
                 }});
             }});
             
-            layer(new LayerBuilder("foreground"){{
+            layer(new LayerBuilder(FOREGROUND){{
                 childLayoutVertical();
                 
-                panel(new PanelBuilder("startHeading"){{
+                panel(new PanelBuilder(STARTHEADING){{
                     alignCenter();
                     childLayoutCenter();
-                    width("75%");
-                    height("25%");
+                    width(WIDTH2);
+                    height(HEIGHT2);
                     
                     text(new TextBuilder(){{
                         valignCenter();
                         alignCenter();
-                        text("Mosquito Simulator");
+                        text(MOSQUITOSIMTEXT);
                         font(FONTPATH);
                         
                     }});
                 }});
                 
-                panel(new PanelBuilder("startGame"){{
+                panel(new PanelBuilder(STARTGAME){{
                     alignCenter();
                     childLayoutCenter();
-                    width("75%");
-                    height("25%");
+                    width(WIDTH2);
+                    height(HEIGHT2);
                     visibleToMouse(true);
-                    interactOnClick("startGame()");
+                    interactOnClick(STARTGAME+"()");
                     
                     text(new TextBuilder(){{
                         valignCenter();
                         alignCenter();
-                        text("Start Game");
+                        text(STARTGAMETEXT);
                         font(FONTPATH);
                         
                     }});
                 }});
                 
-                panel(new PanelBuilder("highscore"){{
+                panel(new PanelBuilder(HIGHSCORE){{
                     alignCenter();
                     childLayoutCenter();
-                    width("75%");
-                    height("25%");
+                    width(WIDTH2);
+                    height(HEIGHT2);
                     visibleToMouse(true);
                     interactOnClick("switchScreen(highscore)");
                     
                     text(new TextBuilder(){{
                         valignCenter();
                         alignCenter();
-                        text("Highscore");
+                        text(HIGHSCORETEXT);
                         font(FONTPATH);
                         
                     }});
                 }});
                 
-                panel(new PanelBuilder("exit"){{
+                panel(new PanelBuilder(EXIT){{
                     alignCenter();
                     childLayoutCenter();
-                    width("75%");
-                    height("25%");
+                    width(WIDTH2);
+                    height(HEIGHT2);
                     visibleToMouse(true);
-                    interactOnClick("exitGame()");
+                    interactOnClick(EXITINTERACT);
                     
                     text(new TextBuilder(){{
                         valignCenter();
                         alignCenter();
-                        text("Exit game");
+                        text(EXITGAMETEXT);
                         font(FONTPATH);
                         
                     }});
@@ -138,42 +163,42 @@ public class MenuController extends AbstractAppState implements ScreenController
             }});
         }}.build(nifty));
         
-        nifty.addScreen("highscore", new ScreenBuilder("NiftyScree"){{
+        nifty.addScreen(HIGHSCORE, new ScreenBuilder(NIFTYSCREEN){{
             controller(controller);
             
-            layer(new LayerBuilder("background"){{
+            layer(new LayerBuilder(BACKGROUND){{
                 childLayoutCenter();
                 
                 image(new ImageBuilder(){{    
                     filename(IMAGEPATH);
-                    height("100%");
-                    width("100%");
+                    height(HEIGHT1);
+                    width(WIDTH1);
                 
                 }});
             }});
             
-            layer(new LayerBuilder("foreground"){{
+            layer(new LayerBuilder(FOREGROUND){{
                 childLayoutVertical();
                 
                 panel(new PanelBuilder("highscoreText"){{
                     alignCenter();
                     childLayoutCenter();
-                    width("75%");
+                    width(WIDTH2);
                     height("14%");
                     
                     text(new TextBuilder(){{
                         valignCenter();
                         alignCenter();
-                        text("Highscore");
+                        text(HIGHSCORETEXT);
                         font(FONTPATH);
                         
                     }});
                 }});
                 
-                panel(new PanelBuilder("numberOne"){{
+                panel(new PanelBuilder(NBRONEHIGHSCORE){{
                     alignCenter();
                     childLayoutCenter();
-                    width("75%");
+                    width(WIDTH2);
                     height("14%");
                     
                     text(new TextBuilder(){{
@@ -185,10 +210,10 @@ public class MenuController extends AbstractAppState implements ScreenController
                     }});
                 }});
                 
-                panel(new PanelBuilder("numberTwo"){{
+                panel(new PanelBuilder(NBRTWOHIGHSCORE){{
                     alignCenter();
                     childLayoutCenter();
-                    width("75%");
+                    width(WIDTH2);
                     height("14%");
                     
                     text(new TextBuilder(){{
@@ -200,10 +225,10 @@ public class MenuController extends AbstractAppState implements ScreenController
                     }});
                 }});
                 
-                panel(new PanelBuilder("numberThree"){{
+                panel(new PanelBuilder(NBRTHREEHIGHSCORE){{
                     alignCenter();
                     childLayoutCenter();
-                    width("75%");
+                    width(WIDTH2);
                     height("14%");
                     
                     text(new TextBuilder(){{
@@ -215,10 +240,10 @@ public class MenuController extends AbstractAppState implements ScreenController
                     }});
                 }});
                 
-                panel(new PanelBuilder("numberFour"){{
+                panel(new PanelBuilder(NBRFOURHIGHSCORE){{
                     alignCenter();
                     childLayoutCenter();
-                    width("75%");
+                    width(WIDTH2);
                     height("14%");
                     
                     text(new TextBuilder(){{
@@ -230,10 +255,10 @@ public class MenuController extends AbstractAppState implements ScreenController
                     }});
                 }});
                 
-                panel(new PanelBuilder("numberFive"){{
+                panel(new PanelBuilder(NBRFIVEHIGHSCORE){{
                     alignCenter();
                     childLayoutCenter();
-                    width("75%");
+                    width(WIDTH2);
                     height("14%");
                     
                     text(new TextBuilder(){{
@@ -248,7 +273,7 @@ public class MenuController extends AbstractAppState implements ScreenController
                 panel(new PanelBuilder("exiGame"){{
                     alignCenter();
                     childLayoutCenter();
-                    width("75%");
+                    width(WIDTH2);
                     height("14%");
                     visibleToMouse(true);
                     interactOnClick("switchScreen(start)");
@@ -256,7 +281,7 @@ public class MenuController extends AbstractAppState implements ScreenController
                     text(new TextBuilder(){{
                         valignCenter();
                         alignCenter();
-                        text("Back to menu");
+                        text(BACKTOMENUTEXT);
                         font(FONTPATH);
                         
                     }});
@@ -267,25 +292,25 @@ public class MenuController extends AbstractAppState implements ScreenController
         nifty.addScreen("pauseMenu", new ScreenBuilder("PauseMenu"){{
             controller(controller);
             
-            layer(new LayerBuilder("background"){{
+            layer(new LayerBuilder(BACKGROUND){{
                 childLayoutCenter();
                 
                 image(new ImageBuilder(){{    
                     filename(IMAGEPATH);
-                    height("100%");
-                    width("100%");
+                    height(HEIGHT1);
+                    width(WIDTH1);
                 
                 }});
             
             }});
             
-            layer(new LayerBuilder("foreground"){{
+            layer(new LayerBuilder(FOREGROUND){{
                 childLayoutVertical();
                 
                 panel(new PanelBuilder("pauseMenuHeading"){{
                     alignCenter();
                     childLayoutCenter();
-                    width("75%");
+                    width(WIDTH2);
                     height("50%");
                     
                     text(new TextBuilder(){{
@@ -301,8 +326,8 @@ public class MenuController extends AbstractAppState implements ScreenController
                 panel(new PanelBuilder("pauseMenuHeading2"){{
                     alignCenter();
                     childLayoutCenter();
-                    width("75%");
-                    height("25%");
+                    width(WIDTH2);
+                    height(HEIGHT2);
                     interactOnClick("returnFromPause()");
                     visibleToMouse(true);
                     
@@ -319,15 +344,15 @@ public class MenuController extends AbstractAppState implements ScreenController
                 panel(new PanelBuilder("pauseMenuHeading2"){{
                     alignCenter();
                     childLayoutCenter();
-                    width("75%");
-                    height("25%");
-                    interactOnClick("exitGame()");
+                    width(WIDTH2);
+                    height(HEIGHT2);
+                    interactOnClick(EXITINTERACT);
                     visibleToMouse(true);
                     
                     text(new TextBuilder(){{
                         valignCenter();
                         alignCenter();
-                        text("Exit game");
+                        text(EXITGAMETEXT);
                         font(FONTPATH);
                         
                     }});
@@ -337,17 +362,17 @@ public class MenuController extends AbstractAppState implements ScreenController
         
         }}.build(nifty));
         
-        nifty.addScreen("hud", new ScreenBuilder("ingameScreen"){{
+        nifty.addScreen(HUD, new ScreenBuilder("ingameScreen"){{
             controller(controller);
         
-            layer(new LayerBuilder("hud"){{
+            layer(new LayerBuilder(HUD){{
                 childLayoutVertical();
                 
             }});
             
         }}.build(nifty));
         
-        nifty.gotoScreen("start");
+        nifty.gotoScreen(START);
         
     }
 
@@ -372,7 +397,7 @@ public class MenuController extends AbstractAppState implements ScreenController
     
     public void startGame(){
         
-        nifty.gotoScreen("hud");
+        nifty.gotoScreen(HUD);
         ms.reset();
         ms.initGUI();
         ms.initAudio();
@@ -399,7 +424,7 @@ public class MenuController extends AbstractAppState implements ScreenController
     
     public void returnFromPause(){
         
-        nifty.gotoScreen("hud");
+        nifty.gotoScreen(HUD);
         ms.initGUI();
         ms.initAudio();
         ms.returnFromPause(true);

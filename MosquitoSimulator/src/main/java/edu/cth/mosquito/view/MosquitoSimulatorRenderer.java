@@ -241,6 +241,7 @@ public class MosquitoSimulatorRenderer {
         objectNodes = new ArrayList<>();
         Node tempNode;
         Spatial h;
+        final float rotation = (float)Math.random()*(float)Math.PI*2f;
         
         assetManager.registerLocator(ASSET_MAP, ZipLocator.class);
         for(int i = 0; i < objects.size(); i++){
@@ -252,16 +253,14 @@ public class MosquitoSimulatorRenderer {
                 
                 h = getRandomGenderHuman();
                 h.scale(instance.getWidth(), instance.getHeight(), instance.getLength());
-                
-                
+                              
                 m = new Material(assetManager,LIGHTING_MATERIAL);
                 h.setMaterial(m);
                 tempNode = new Node("Human");
-                float rotation = (float)Math.random()*(float)Math.PI*2f;
                 tempNode.rotate(0f, rotation, 0f);
                 tempNode.attachChild(h);
                 
-            } else{
+            }else{
                 m = new Material(assetManager,
                 UNSHADED_MATERIAL);
                 m.setColor("Color", ColorRGBA.Blue);
@@ -273,9 +272,6 @@ public class MosquitoSimulatorRenderer {
                 g.setMaterial(m);
                 tempNode.attachChild(g);
             }
-            
-            
-            
             
             tempNode.setLocalTranslation(object.getPosition().getX(), object.getPosition().getY(), object.getPosition().getZ());
             objectNodes.add(tempNode);

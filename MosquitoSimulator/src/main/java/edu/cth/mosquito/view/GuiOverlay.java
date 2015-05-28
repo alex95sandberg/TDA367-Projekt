@@ -31,6 +31,7 @@ public class GuiOverlay {
     private BitmapText scoreText;
     private BitmapText objectiveText;
     private BitmapText rewardText;
+    private BitmapText instructionText;
     private BillboardControl billboard;
     private Geometry geom, geom2;
     private Node barNode = new Node("energybar");
@@ -52,7 +53,9 @@ public class GuiOverlay {
         scoreText = new BitmapText(font, false);
         objectiveText = new BitmapText(font, false);
         rewardText = new BitmapText(font, false);
+        instructionText = new BitmapText(font, false);
 
+        //energy init
         energyText.setSize(font.getCharSet().getRenderedSize());      // font size
         energyText.setColor(ColorRGBA.White);                             // font color
         
@@ -67,6 +70,14 @@ public class GuiOverlay {
         //reward init
         rewardText.setSize(font.getCharSet().getRenderedSize());
         rewardText.setColor(ColorRGBA.White);
+        
+        //intruction init
+        instructionText.setSize(font.getCharSet().getRenderedSize());
+        instructionText.setColor(ColorRGBA.White);
+        instructionText.setText("Esc - Main menu \nP - Pause game \n\n"
+                + "Q - Suck blood \nWASD - Move around \n"
+                + "Shift/Space - Ascend/Descend \n"
+                + "Arrowkeys - Rotate");
         
         //energybar init
         energybarBox = new Box( 0.15f, 0.2f, 0f); 
@@ -90,7 +101,7 @@ public class GuiOverlay {
         bloodbarNode.attachChild(bloodgeom);
         bloodCam = cam.clone();
         bloodCam.setViewPort(0.422f, 0.622f, 0.3f, 0.5f);  
-        bloodCam.setLocation(new Vector3f(0.3f, 0.3f,2f));       
+        bloodCam.setLocation(new Vector3f(0.3f, 0.6f,2f));       
         final ViewPort view3 = renderManager.createMainView("bloodview", bloodCam); 
         view3.attachScene(bloodbarNode.getChild("Box"));  
         
@@ -228,4 +239,12 @@ public class GuiOverlay {
      
      
      //objectives methods end
+     
+     public BitmapText getInstructionText(){
+         return instructionText;
+     }
+     
+     public void setInstructionTextPosition(float x, float y, float z){
+         instructionText.setLocalTranslation(x, y, z);
+     }
 }

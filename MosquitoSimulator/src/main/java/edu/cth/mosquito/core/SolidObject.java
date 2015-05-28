@@ -7,8 +7,9 @@ package edu.cth.mosquito.core;
 import edu.cth.mosquito.util.Position3D;
 
 /**
- *
- * @author Alexander
+ * A simple object that can be placed in the world
+ * 
+ * @author Mosquito
  */
 public class SolidObject {
     private Position3D position;
