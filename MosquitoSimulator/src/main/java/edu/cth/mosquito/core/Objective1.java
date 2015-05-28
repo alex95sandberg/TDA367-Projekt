@@ -15,28 +15,30 @@ import java.util.Timer;
 
 public class Objective1 implements Objectives {
 
-    public int currentObj;
-    private String objectiveText;
+    private static final int REWARD = 50;
+    private static final String OBJECTIVETEXT = "Gain blood from two different humans, and keep over 70% of your energy.\nReward 50 points";
     
     public Objective1(){
-        currentObj = 1;
-        objectiveText = "Gain blood from two different humans, and keep over 70% of your energy.\nReward 50 points";
+
     
     }
     @Override
     public int objectiveReward() {
-         return 50;
+         return REWARD;
     }
 
     @Override
     public void objectiveGoal() {
-      
-        
-        
+
     }
 
     @Override
     public int getProgress() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return 1;
+    }
+
+    @Override
+    public String getObjectiveText() {
+        return OBJECTIVETEXT;
     }
 }
