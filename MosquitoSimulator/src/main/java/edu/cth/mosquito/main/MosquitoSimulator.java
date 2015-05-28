@@ -238,62 +238,53 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         
     }
     
+    private void movePlayer(Vector3f direction, float speed){
+        
+        direction.multLocal(speed);
+        player.move(new Position3D(direction.x, direction.y, direction.z));
+        
+    }
+    
     @Override
     public void onAnalog(String binding, float value, float tpf) {
       
+        //The keys that can't be pressed while game is paused
+        //Is not if else so that you can move in 2 directions at the same time
         if(isRunning){
             directionForward.set(cam.getDirection()).normalizeLocal();
             directionLeft.set(cam.getLeft()).normalizeLocal();
             directionUp.set(directionLeft).crossLocal(directionForward).normalizeLocal();
 
             if (binding.equals("Forward")) {
-                directionForward.multLocal(5*tpf);
-                player.move(new Position3D(directionForward.x, directionForward.y, directionForward.z));
+                movePlayer(directionForward, 5*tpf);
             }
 
             if (binding.equals("Backward")) {
-                directionForward.multLocal(-5*tpf);
-                player.move(new Position3D(directionForward.x, directionForward.y, directionForward.z));
+                movePlayer(directionForward, -5*tpf);
             }
-
+            
             if (binding.equals("Right")) {
-                directionLeft.multLocal(-5*tpf);
-                player.move(new Position3D(directionLeft.x, directionLeft.y, directionLeft.z));
+                movePlayer(directionLeft, -5*tpf);
             }
 
             if (binding.equals("Left")) {
-                directionLeft.multLocal(5*tpf);
-                player.move(new Position3D(directionLeft.x, directionLeft.y, directionLeft.z));
+                movePlayer(directionLeft, 5*tpf);
             }
 
             if(binding.equals("Up")){
-                directionUp.multLocal(-5*tpf);
-                player.move(new Position3D(directionUp.x, directionUp.y, directionUp.z));
+                movePlayer(directionUp, -5*tpf);
             }
 
             if(binding.equals("Down")){
-                directionUp.multLocal(5*tpf);
-                player.move(new Position3D(directionUp.x, directionUp.y, directionUp.z));
+                movePlayer(directionUp, 5*tpf);
             }
-
+            
             if (binding.equals("rotateRight")) {
                 msr.getMosquitoNode().rotate(0, -tpf, 0);
             }
 
             if (binding.equals("rotateLeft")) {
                 msr.getMosquitoNode().rotate(0, tpf, 0);
-            }
-
-            if(binding.equals("rotateUp")){
-                if (msr.getMosquitoNode().getLocalRotation().getX() > -0.70){
-                    msr.getMosquitoNode().rotate(-tpf, 0, 0);
-                }
-            }
-
-            if(binding.equals("rotateDown")){
-                if (msr.getMosquitoNode().getLocalRotation().getX() < 0.70){
-                    msr.getMosquitoNode().rotate(tpf, 0, 0);
-                }
             }
 
             if(binding.equals("SuckBlood") && collision.getCollidingObject() instanceof Human){
@@ -308,25 +299,23 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             }
         }
         
-        if(binding.equals("Pause")){
-            
-            showMenu("pauseMenu");
-            
-            if(isRunning = true){
-                isRunning = false;
-            }
-            
+        //The keys that can still be pressed while game is paused
+        switch(binding){
+            case "Pause":
+                showMenu("pauseMenu");
+                if(isRunning = true)
+                    isRunning = false;
+                break;
+                
+            case "Escape":
+                highscore.addScore(player.getScore());
+                showMenu("start");
+                break;
+                
+            case "Reset":
+                reset();
+                break;
         }
-        
-        if(binding.equals("Escape")){
-            showMenu("start");
-        }
-        
-        if(binding.equals("Reset")){
-            reset();         
-        }
-        
-
     }   
     
     private void initKeys(){
@@ -348,14 +337,6 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         inputManager.addMapping("rotateDown", new KeyTrigger(KeyInput.KEY_DOWN));
         inputManager.addMapping("rotateLeft", new KeyTrigger(KeyInput.KEY_LEFT));
         inputManager.addMapping("rotateRight", new KeyTrigger(KeyInput.KEY_RIGHT));
-        
-        /*
-        inputManager.addMapping("toggleRotate", new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
-        inputManager.addMapping("rotateLeft", new MouseAxisTrigger(MouseInput.AXIS_X, true));
-        inputManager.addMapping("rotateRight", new MouseAxisTrigger(MouseInput.AXIS_X, false));
-        inputManager.addMapping("rotateDown", new MouseAxisTrigger(MouseInput.AXIS_Y, true));
-        inputManager.addMapping("rotateUp", new MouseAxisTrigger(MouseInput.AXIS_Y, false));
-        */
         
         inputManager.addListener(this, "Left", "Forward", "Right", "Backward", "Up", "Down", "Reset", "SuckBlood", "Escape", "Pause");
         inputManager.addListener(this, "rotateRight", "rotateLeft","rotateUp", "rotateDown", "toggleRotate");
