@@ -117,7 +117,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
                 reset();
             }
 
-            guiOverlay.updateGUI(player.getEnergy(), player.getScore());
+            guiOverlay.updateGUI(player.getEnergy(), player.getScore(), 
+                    player.getObjective().getProgress(), player.getObjective().getObjectiveGoal());
             guiOverlay.updateEnergybar(-0.03f*tpf);
 
 
@@ -181,12 +182,14 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         guiOverlay.setObjectiveTextPos(10f, settings.getHeight()*0.5f, 0f);
         guiOverlay.setRewardTextPos(settings.getWidth()/2-guiOverlay.getRewardText().getLineWidth()/2, settings.getHeight()/1.5f, 0f);
         guiOverlay.setInstructionTextPosition(10f, settings.getHeight() - 10f, 0f);
+        guiOverlay.setProgressTextPosition(10f, settings.getHeight()*0.4f, 0f);
         
         guiNode.attachChild(guiOverlay.getObjectiveText());
         guiNode.attachChild(guiOverlay.getScoreText());
         guiNode.attachChild(guiOverlay.getEnergyText());
         guiNode.attachChild(guiOverlay.getRewardText());
         guiNode.attachChild(guiOverlay.getInstructionText());
+        guiNode.attachChild(guiOverlay.getProgressText());
     
     }
     
@@ -221,6 +224,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         guiNode.detachChild(guiOverlay.getEnergyText());
         guiNode.detachChild(guiOverlay.getRewardText());
         guiNode.detachChild(guiOverlay.getInstructionText());
+        guiNode.detachChild(guiOverlay.getProgressText());
     }
     
     public void reset(){

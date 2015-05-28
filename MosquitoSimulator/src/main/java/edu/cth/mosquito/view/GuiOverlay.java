@@ -30,6 +30,7 @@ public class GuiOverlay {
     private BitmapText energyText;
     private BitmapText scoreText;
     private BitmapText objectiveText;
+    private BitmapText progressText;
     private BitmapText rewardText;
     private BitmapText instructionText;
     private BillboardControl billboard;
@@ -54,6 +55,7 @@ public class GuiOverlay {
         objectiveText = new BitmapText(font, false);
         rewardText = new BitmapText(font, false);
         instructionText = new BitmapText(font, false);
+        progressText = new BitmapText(font, false);
 
         //energy init
         energyText.setSize(font.getCharSet().getRenderedSize());      // font size
@@ -66,6 +68,10 @@ public class GuiOverlay {
         //objective init
         objectiveText.setSize(font.getCharSet().getRenderedSize());
         objectiveText.setColor(ColorRGBA.White);
+        
+        //progress init
+        progressText.setSize(font.getCharSet().getRenderedSize());
+        progressText.setColor(ColorRGBA.White);
         
         //reward init
         rewardText.setSize(font.getCharSet().getRenderedSize());
@@ -117,14 +123,15 @@ public class GuiOverlay {
         view2.attachScene(barNode.getChild("Box2"));
         barNode.updateGeometricState();
         
-        updateGUI(100f,0f);
+        updateGUI(100f,0f, 0f, 1);
         
     }
  
-    public void updateGUI(float currentEnergy, float currentScore){
+    public void updateGUI(float currentEnergy, float currentScore, float objectiveProgress, float objectiveGoal){
         
         setEnergyAmount(currentEnergy);
         setScoreAmount(currentScore);
+        updateProgressText(objectiveProgress, objectiveGoal);
     
     }
     
@@ -246,5 +253,17 @@ public class GuiOverlay {
      
      public void setInstructionTextPosition(float x, float y, float z){
          instructionText.setLocalTranslation(x, y, z);
+     }
+     
+     public BitmapText getProgressText(){
+         return progressText;
+     }
+     
+     public void updateProgressText(float current, float goal){
+         progressText.setText("Progress: " + Math.round(current) + "/" + goal);
+     }
+     
+     public void setProgressTextPosition(float x, float y, float z){
+         progressText.setLocalTranslation(x, y, z);
      }
 }

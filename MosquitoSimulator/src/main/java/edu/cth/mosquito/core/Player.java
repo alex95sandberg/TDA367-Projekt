@@ -119,9 +119,10 @@ public class Player {
         if(getObjective() instanceof Objective1){
                 if(getEnergy() >= 80){
                     getObjective().increaseProgress(tpf);
-                    if(getObjective().getProgress() >= getObjective().getObjectiveGoal())
+                    if(getObjective().getProgress() >= getObjective().getObjectiveGoal()){
                         increaseScore(getObjective().getObjectiveReward());
                         getObjective().setProgress(0);
+                    }
                 }else{
                     getObjective().setProgress(0);
                 }
