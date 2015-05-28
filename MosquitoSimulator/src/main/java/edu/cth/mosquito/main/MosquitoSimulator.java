@@ -46,41 +46,31 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     
     @Override
     public void simpleInitApp(){
-        
+        initKeys();
         
         //Removes the stats in the lower left corner that are shown by default
         setDisplayStatView(false);  
         setDisplayFps(false);
         
+        // Disable the default flyby cam
+        flyCam.setEnabled(false);
+        
         isRunning = true;
+        
+        msr = new MosquitoSimulatorRenderer(assetManager, cam);
+        guiOverlay = new GuiOverlay(assetManager, cam, renderManager);
+        world = new World(45, 10, 60);
+        player = new Player(world);
         highscore = new Highscore();
         menu = new MenuController(highscore.getHighscore());
         
         stateManager.attach(menu);
         bulletAppState = new BulletAppState();
         stateManager.attach(bulletAppState);
-        
-        // Disable the default flyby cam
-        flyCam.setEnabled(false);
-        initKeys();   
-        world = new World(45, 10, 60);
-        
-        player = new Player(world);
-        //OBJ
-        //player.setNewObjective();
-   //     player.startObjective();
-        
-        msr = new MosquitoSimulatorRenderer(assetManager, cam);
-        
-        guiOverlay = new GuiOverlay(assetManager, cam, renderManager);
-        msr.renderRoom(world.getWidth(), world.getHeight());
-        
+                
         msr.renderPlaneRoom(world.getWidth(), world.getHeight(), world.getLength());
-        
-        
-        
-        rootNode.attachChild(msr.getRoomNode());
-        
+              
+        rootNode.attachChild(msr.getRoomNode());       
         rootNode.attachChild(msr.getMosquitoNode());
         
         msr.createLights(world.getWidth(), world.getHeight(), world.getLength());
@@ -97,6 +87,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             rootNode.attachChild(msr.getObjectNodes().get(i));
         }
 
+        //Adds collision to all the objects in the world
         collision = new Collision(bulletAppState, msr.getMosquitoNode(), msr.getObjectNodes());
         
     }
@@ -104,6 +95,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     @Override
     public void simpleUpdate(float tpf) {
         if(isRunning){
+            
+            //Updates the mosquito based on the position in player
             msr.getMosquitoNode().setLocalTranslation(player.getPosition().getX(), 
                     player.getPosition().getY(), player.getPosition().getZ());
 
@@ -118,10 +111,10 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             //---//
 
      */
+            
+            
             player.increaseScore(3 * tpf);
             player.decreaseEnergy(3 * tpf);
-
-            
             
             if(player.getEnergy() <= 0){
                 highscore.addScore(player.getScore());
@@ -133,6 +126,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             guiOverlay.updateEnergybar(-0.03f*tpf);
 
 
+            //Increases the blood of humans over time
             for(int i = 0; i < world.getObjects().size(); i++){
                 if(world.getObjects().get(i) instanceof Human){
                     ((Human)world.getObjects().get(i)).increaseBlood(1*tpf);
@@ -141,6 +135,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             
             if(collision.getCollidingNode() != null){
 
+                //Checks for a colliding object and adds it
                 for(int i = 0; i < msr.getObjectNodes().size(); i++){
                     if(collision.getCollidingNode().equals(msr.getObjectNodes().get(i))){
                         collision.setCollidingObject(world.getObjects().get(i));
@@ -148,13 +143,14 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
                     }
                 }
 
-                if(collision.getCollidingObject() instanceof Human)
-                    
-                        guiOverlay.updateBloodbar(((Human)collision.getCollidingObject()).getBlood()/100);
+                if(collision.getCollidingObject() instanceof Human)                    
+                    guiOverlay.updateBloodbar(((Human)collision.getCollidingObject()).getBlood()/100);
                         
 
             }else{
                 collision.setCollidingObject(null);
+                
+                //Hides the blood bar
                 guiOverlay.getbloodGeom().setLocalScale(0);
             }
         }
@@ -200,21 +196,15 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         audioMosquito.play();
     }
     
-    public void returnFromPause(boolean flag){
-        
-        isRunning = flag;
-        
+    public void returnFromPause(boolean flag){       
+        isRunning = flag;       
     }
     
     public void showMenu(String menuId){
         
         if(menuId.equals("start")){
-            
-            highscore.addScore(player.getScore());
-            menu.setHighscore(highscore.getHighscore());
-            
-        }
-        
+            menu.setHighscore(highscore.getHighscore());           
+        }       
         
         inputManager.setCursorVisible(true);
         menu.switchScreen(menuId);
