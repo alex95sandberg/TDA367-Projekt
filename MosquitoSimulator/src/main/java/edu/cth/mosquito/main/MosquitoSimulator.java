@@ -15,6 +15,7 @@ import edu.cth.mosquito.controller.MenuController;
 import edu.cth.mosquito.core.Collision;
 import edu.cth.mosquito.core.Highscore;
 import edu.cth.mosquito.core.Human;
+import edu.cth.mosquito.core.MenuState;
 import edu.cth.mosquito.core.Player;
 import edu.cth.mosquito.util.Position3D;
 import edu.cth.mosquito.core.World;
@@ -42,6 +43,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     private MenuController menu;
     private boolean isRunning;
     private float energyLossSpeed = 3;
+    private MenuState menuState;
     
     @Override
     public void simpleInitApp(){
@@ -67,6 +69,9 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         stateManager.attach(menu);
         bulletAppState = new BulletAppState();
         stateManager.attach(bulletAppState);
+        
+        menuState = new MenuState();
+        menu.addObserver(menuState);
                 
         msr.renderRoom(world.getWidth(), world.getHeight(), world.getLength());
               
@@ -97,6 +102,18 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     
     @Override
     public void simpleUpdate(float tpf) {
+        
+        if(menuState.okToInitGraphics()){
+            if(!isRunning)
+                isRunning = true;
+            else
+                reset();
+            
+            initGUI();
+            initAudio();
+            menuState.graphicsInitailized(true);
+        }
+        
         if(isRunning){
             
             //Updates the mosquito based on the position in player

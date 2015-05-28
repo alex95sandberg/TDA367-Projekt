@@ -5,6 +5,7 @@
 package edu.cth.mosquito.controller;
 
 import com.jme3.app.Application;
+import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.plugins.ZipLocator;
@@ -15,9 +16,13 @@ import de.lessvoid.nifty.builder.LayerBuilder;
 import de.lessvoid.nifty.builder.PanelBuilder;
 import de.lessvoid.nifty.builder.ScreenBuilder;
 import de.lessvoid.nifty.builder.TextBuilder;
+import de.lessvoid.nifty.elements.Element;
+import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import edu.cth.mosquito.main.MosquitoSimulator;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.List;
 
 /**
@@ -26,11 +31,12 @@ import java.util.List;
  */
 public class MenuController extends AbstractAppState implements ScreenController{
     
-    private MosquitoSimulator ms;
+    private SimpleApplication rootApp;
     private NiftyJmeDisplay ourScreen;
     private Nifty nifty;
     private List<Integer> highscore;
     private MenuController controller = this;
+    private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private static final String FONTPATH = "assets/font.fnt";
     private static final String IMAGEPATH = "assets/mosquitoTwo.jpg";
     private static final String ASSETS = "assets.zip";
@@ -53,17 +59,23 @@ public class MenuController extends AbstractAppState implements ScreenController
 
     private static final String HIGHSCORE = "highscore";
     private static final String HIGHSCORETEXT = "Highscore";
-    private static final String NBRONEHIGHSCORE = "numberOne";
-    private static final String NBRTWOHIGHSCORE = "numberTwo";
-    private static final String NBRTHREEHIGHSCORE = "numberThree";
-    private static final String NBRFOURHIGHSCORE = "numberFour";
-    private static final String NBRFIVEHIGHSCORE = "numberFive";
+    private static final String NBRONE = "nbrOne";
+    private static final String NBRTWO = "nbrTwo";
+    private static final String NBRTHREE = "nbrThree";
+    private static final String NBRFOUR = "nbrFour";
+    private static final String NBRFIVE = "nbrFive";
     
     private static final String EXIT = "exit";
     private static final String EXITINTERACT = "exitGame()";
     private static final String EXITGAMETEXT = "Exit Game";
     private static final String BACKTOMENUTEXT = "Back to menu";
     private static final String MOSQUITOSIMTEXT = "Mosquito Simulator";
+    
+    private Element placeOne;
+    private Element placeTwo;
+    private Element placeThree;
+    private Element placeFour;
+    private Element placeFive;
     
     public MenuController(List<Integer> highscore){
         
@@ -75,7 +87,7 @@ public class MenuController extends AbstractAppState implements ScreenController
     public void initialize(AppStateManager asm, Application app){
         
         super.initialize(asm, app);
-        ms = (MosquitoSimulator)app;
+        rootApp = (SimpleApplication)app;
         
         ourScreen = new NiftyJmeDisplay(app.getAssetManager(), app.getInputManager(), app.getAudioRenderer(), app.getGuiViewPort());
        
@@ -84,7 +96,7 @@ public class MenuController extends AbstractAppState implements ScreenController
         app.getGuiViewPort().addProcessor(ourScreen);
         
         app.getAssetManager().registerLocator(ASSETS, ZipLocator.class);
-        nifty.addScreen(START, new ScreenBuilder(NIFTYSCREEN){{
+        nifty.addScreen(START, new ScreenBuilder("startScreen"){{
             controller(controller);
             
             layer(new LayerBuilder(BACKGROUND){{
@@ -169,7 +181,7 @@ public class MenuController extends AbstractAppState implements ScreenController
             }});
         }}.build(nifty));
         
-        nifty.addScreen(HIGHSCORE, new ScreenBuilder(NIFTYSCREEN){{
+        nifty.addScreen(HIGHSCORE, new ScreenBuilder("highscoreScreen"){{
             controller(controller);
             
             layer(new LayerBuilder(BACKGROUND){{
@@ -201,76 +213,81 @@ public class MenuController extends AbstractAppState implements ScreenController
                     }});
                 }});
                 
-                panel(new PanelBuilder(NBRONEHIGHSCORE){{
+                panel(new PanelBuilder(){{
                     alignCenter();
                     childLayoutCenter();
                     width(WIDTH2);
                     height("14%");
                     
                     text(new TextBuilder(){{
+                        id(NBRONE);
                         valignCenter();
                         alignCenter();
-                        text("1. ${CALL.getPlayerScore(1)}");
+                        text("");
                         font(FONTPATH);
                         
                     }});
                 }});
                 
-                panel(new PanelBuilder(NBRTWOHIGHSCORE){{
+                panel(new PanelBuilder(){{
                     alignCenter();
                     childLayoutCenter();
                     width(WIDTH2);
                     height("14%");
                     
                     text(new TextBuilder(){{
+                        id(NBRTWO);
                         valignCenter();
                         alignCenter();
-                        text("2. ${CALL.getPlayerScore(2)}");
+                        text("");
                         font(FONTPATH);
                         
                     }});
                 }});
                 
-                panel(new PanelBuilder(NBRTHREEHIGHSCORE){{
+                panel(new PanelBuilder(){{
                     alignCenter();
                     childLayoutCenter();
                     width(WIDTH2);
                     height("14%");
                     
                     text(new TextBuilder(){{
+                        id(NBRTHREE);
                         valignCenter();
                         alignCenter();
-                        text("3. ${CALL.getPlayerScore(3)}");
+                        text("");
                         font(FONTPATH);
                         
                     }});
                 }});
                 
-                panel(new PanelBuilder(NBRFOURHIGHSCORE){{
+                panel(new PanelBuilder(){{
                     alignCenter();
                     childLayoutCenter();
                     width(WIDTH2);
                     height("14%");
                     
                     text(new TextBuilder(){{
+                        id(NBRFOUR);
                         valignCenter();
                         alignCenter();
-                        text("4. ${CALL.getPlayerScore(4)}");
+                        text("");
                         font(FONTPATH);
                         
                     }});
                 }});
                 
-                panel(new PanelBuilder(NBRFIVEHIGHSCORE){{
+                panel(new PanelBuilder(){{
                     alignCenter();
                     childLayoutCenter();
                     width(WIDTH2);
                     height("14%");
                     
                     text(new TextBuilder(){{
+                        id(NBRFIVE);
                         valignCenter();
                         alignCenter();
-                        text("5. ${CALL.getPlayerScore(5)}");
+                        text("");
                         font(FONTPATH);
                         
                     }});
@@ -295,7 +312,7 @@ public class MenuController extends AbstractAppState implements ScreenController
             }});
         }}.build(nifty));
         
-        nifty.addScreen("pauseMenu", new ScreenBuilder("PauseMenu"){{
+        nifty.addScreen("pauseMenu", new ScreenBuilder("pauseMenu"){{
             controller(controller);
             
             layer(new LayerBuilder(BACKGROUND){{
@@ -382,7 +399,8 @@ public class MenuController extends AbstractAppState implements ScreenController
         
     }
 
-    public void cleanUp(){
+    @Override
+    public void cleanup(){
         nifty.exit();
     }
     
@@ -401,12 +419,18 @@ public class MenuController extends AbstractAppState implements ScreenController
         
     }
     
+    private void initElements(){
+        placeOne = nifty.getCurrentScreen().findElementByName(NBRONE);
+        placeTwo = nifty.getCurrentScreen().findElementByName(NBRTWO);
+        placeThree = nifty.getCurrentScreen().findElementByName(NBRTHREE);
+        placeFour = nifty.getCurrentScreen().findElementByName(NBRFOUR);
+        placeFive = nifty.getCurrentScreen().findElementByName(NBRFIVE);
+    }
+    
     public void startGame(){
         
         nifty.gotoScreen(HUD);
-        ms.reset();
-        ms.initGUI();
-        ms.initAudio();
+        pcs.firePropertyChange("startGame", 0, 1);
         
     }
     
@@ -418,7 +442,7 @@ public class MenuController extends AbstractAppState implements ScreenController
     
     public void exitGame(){
         
-        ms.stop();
+        rootApp.stop();
         
     }
     
@@ -431,15 +455,12 @@ public class MenuController extends AbstractAppState implements ScreenController
     public void returnFromPause(){
         
         nifty.gotoScreen(HUD);
-        ms.initGUI();
-        ms.initAudio();
-        ms.returnFromPause(true);
+        pcs.firePropertyChange("unPause", 0, 1);
         
     }
     
-    public String getPlayerScore(String stringIndex){
+    public String getPlayerScore(int index){
         
-        int index = Integer.parseInt(stringIndex);
         int size = highscore.size();
         
         if(this.highscore.isEmpty()){
@@ -461,4 +482,30 @@ public class MenuController extends AbstractAppState implements ScreenController
         return "-";
     }
     
+    private void setHighscoreText(){
+        placeOne.getRenderer(TextRenderer.class).setText("1. " + getPlayerScore(1));
+        placeTwo.getRenderer(TextRenderer.class).setText("2. " + getPlayerScore(2));
+        placeThree.getRenderer(TextRenderer.class).setText("3. " + getPlayerScore(3));
+        placeFour.getRenderer(TextRenderer.class).setText("4. " + getPlayerScore(4));
+        placeFive.getRenderer(TextRenderer.class).setText("5. " + getPlayerScore(5));
+    }
+    
+    @Override
+    public void update(float tpf){
+        
+        if(nifty.getCurrentScreen().getScreenId().equals("highscoreScreen")){
+            initElements();
+            setHighscoreText();
+        }
+        
+    }
+    
+    public void addObserver(PropertyChangeListener observer){
+        pcs.addPropertyChangeListener(observer);
+        
+    }
+    
+    public void removeObserver(PropertyChangeListener observer){
+        pcs.removePropertyChangeListener(observer);
+    }
 }
