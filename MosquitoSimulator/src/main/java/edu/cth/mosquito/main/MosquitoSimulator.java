@@ -90,9 +90,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         //Adds collision to all the objects in the world
         collision = new Collision(bulletAppState, msr.getMosquitoNode(), msr.getObjectNodes());
         
-        //OBJ
+        //Objective
         player.setNewObjective(player.generateObjective());
-        guiOverlay.setObjectiveText(player.getObjective().getObjectiveText());
         
     }
     
@@ -149,6 +148,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             
             //Objectives
             player.updateObjective(tpf);
+            guiOverlay.setObjectiveText(player.getObjective().getObjectiveText());
         }
         
             

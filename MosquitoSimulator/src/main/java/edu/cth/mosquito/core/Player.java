@@ -117,11 +117,36 @@ public class Player {
                     getObjective().increaseProgress(tpf);
                     if(getObjective().getProgress() >= getObjective().getObjectiveGoal()){
                         increaseScore(getObjective().getObjectiveReward());
-                        setNewObjective(generateObjective());
                         getObjective().setProgress(0);
+                        setNewObjective(generateObjective());
+                        
+                    
                     }
+                       
                 }else{
                     getObjective().setProgress(0);
+                }
+            }else if(getObjective() instanceof Objective2){
+                if(getEnergy() <= 8){
+                    getObjective().increaseProgress(tpf);
+                    if(getObjective().getProgress() >= getObjective().getObjectiveGoal()){
+                        
+                        increaseScore(getObjective().getObjectiveReward());
+                        setNewObjective(generateObjective());
+                    }
+                       
+                }else{
+                    getObjective().setProgress(0);
+                }
+            }else if(getObjective() instanceof Objective3){
+                if(getEnergy() >= 100){
+                    getObjective().increaseProgress(tpf);
+                    if(getObjective().getProgress() >= getObjective().getObjectiveGoal()){
+                        
+                        increaseScore(getObjective().getObjectiveReward());
+                        setNewObjective(generateObjective());
+                    }
+                       
                 }
             }
     }
