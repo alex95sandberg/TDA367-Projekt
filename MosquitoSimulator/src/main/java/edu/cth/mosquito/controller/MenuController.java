@@ -20,7 +20,6 @@ import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
-import edu.cth.mosquito.main.MosquitoSimulator;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.List;
@@ -59,6 +58,7 @@ public class MenuController extends AbstractAppState implements ScreenController
 
     private static final String HIGHSCORE = "highscore";
     private static final String HIGHSCORETEXT = "Highscore";
+    
     private static final String NBRONE = "nbrOne";
     private static final String NBRTWO = "nbrTwo";
     private static final String NBRTHREE = "nbrThree";

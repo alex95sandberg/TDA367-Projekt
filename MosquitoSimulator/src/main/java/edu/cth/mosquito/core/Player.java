@@ -5,8 +5,6 @@
 package edu.cth.mosquito.core;
 
 import edu.cth.mosquito.util.Position3D;
-import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Handles all the logic and data for the player
@@ -68,6 +66,10 @@ public class Player {
         energy = maxEnergy;
         score = 0;
         pos = new Position3D();
+        //reset objectives
+        getObjective().setProgress(0);
+        objGen.resetObjectives();
+        setNewObjective(objGen.getnextObjective());
     }
     
     public float getEnergy(){
@@ -132,18 +134,21 @@ public class Player {
                     if(getObjective().getProgress() >= getObjective().getObjectiveGoal()){
                         
                         increaseScore(getObjective().getObjectiveReward());
+                        getObjective().setProgress(0);
                         setNewObjective(generateObjective());
+                        
                     }
                        
                 }else{
                     getObjective().setProgress(0);
                 }
             }else if(getObjective() instanceof Objective3){
-                if(getEnergy() >= 100){
+                if(Math.round(getEnergy()) >= 100){
                     getObjective().increaseProgress(tpf);
                     if(getObjective().getProgress() >= getObjective().getObjectiveGoal()){
                         
                         increaseScore(getObjective().getObjectiveReward());
+                        getObjective().setProgress(0);
                         setNewObjective(generateObjective());
                     }
                        

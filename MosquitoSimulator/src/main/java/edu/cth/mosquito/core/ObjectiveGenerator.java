@@ -22,7 +22,7 @@ public class ObjectiveGenerator {
     
     }
     public Objectives getnextObjective(){
-         if(objIndex < objList.size()){          
+         if(objIndex < objList.size()-1){   
             objIndex++;
         }else{
             objIndex = 0;        
@@ -31,4 +31,9 @@ public class ObjectiveGenerator {
          
         return obj;
     }  
+    
+    public void resetObjectives(){
+        objIndex = -1;
+
+    }
 }   

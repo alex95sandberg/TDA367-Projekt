@@ -17,9 +17,8 @@ public class Objective3 implements Objectives {
 
     private float progress = 0;
     private static final int GOAL = 10;
-    private static final int REWARD = 50;
-    private static final String OBJECTIVETEXT = "Hold your energy at 100% for 10 seconds\n"
-            + "Note:Your progress will not be lost\nReward 60 points";
+    private static final int REWARD = 60;
+    private static final String OBJECTIVETEXT = "Hold your energy at 100% for a total of 10 seconds\nReward 60 points";
     
     
     public Objective3(){
