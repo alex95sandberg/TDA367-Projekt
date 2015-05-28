@@ -31,6 +31,8 @@ public class MenuController extends AbstractAppState implements ScreenController
     private Nifty nifty;
     private List<Integer> highscore;
     private MenuController controller = this;
+    private static final String FONTPATH = "assets/font.fnt";
+    private static final String IMAGEPATH = "assets/mosquitoTwo.jpg";
     
     public MenuController(List<Integer> highscore){
         
@@ -57,14 +59,12 @@ public class MenuController extends AbstractAppState implements ScreenController
             layer(new LayerBuilder("background"){{
                 childLayoutCenter();
                 
-                image(new ImageBuilder(){{
-                    
-                    filename("assets/mosquitoTwo.jpg");
+                image(new ImageBuilder(){{            
+                    filename(IMAGEPATH);
                     height("100%");
                     width("100%");
                 
                 }});
-            
             }});
             
             layer(new LayerBuilder("foreground"){{
@@ -80,10 +80,9 @@ public class MenuController extends AbstractAppState implements ScreenController
                         valignCenter();
                         alignCenter();
                         text("Mosquito Simulator");
-                        font("assets/font.fnt");
+                        font(FONTPATH);
                         
                     }});
-                    
                 }});
                 
                 panel(new PanelBuilder("startGame"){{
@@ -98,10 +97,9 @@ public class MenuController extends AbstractAppState implements ScreenController
                         valignCenter();
                         alignCenter();
                         text("Start Game");
-                        font("assets/font.fnt");
+                        font(FONTPATH);
                         
                     }});
-                    
                 }});
                 
                 panel(new PanelBuilder("highscore"){{
@@ -116,10 +114,9 @@ public class MenuController extends AbstractAppState implements ScreenController
                         valignCenter();
                         alignCenter();
                         text("Highscore");
-                        font("assets/font.fnt");
+                        font(FONTPATH);
                         
                     }});
-                    
                 }});
                 
                 panel(new PanelBuilder("exit"){{
@@ -134,14 +131,11 @@ public class MenuController extends AbstractAppState implements ScreenController
                         valignCenter();
                         alignCenter();
                         text("Exit game");
-                        font("assets/font.fnt");
+                        font(FONTPATH);
                         
                     }});
-                    
                 }});
-                
             }});
-        
         }}.build(nifty));
         
         nifty.addScreen("highscore", new ScreenBuilder("NiftyScree"){{
@@ -150,14 +144,12 @@ public class MenuController extends AbstractAppState implements ScreenController
             layer(new LayerBuilder("background"){{
                 childLayoutCenter();
                 
-                image(new ImageBuilder(){{
-                    
-                    filename("assets/mosquitoTwo.jpg");
+                image(new ImageBuilder(){{    
+                    filename(IMAGEPATH);
                     height("100%");
                     width("100%");
                 
                 }});
-            
             }});
             
             layer(new LayerBuilder("foreground"){{
@@ -173,10 +165,9 @@ public class MenuController extends AbstractAppState implements ScreenController
                         valignCenter();
                         alignCenter();
                         text("Highscore");
-                        font("assets/font.fnt");
+                        font(FONTPATH);
                         
                     }});
-                    
                 }});
                 
                 panel(new PanelBuilder("numberOne"){{
@@ -189,10 +180,9 @@ public class MenuController extends AbstractAppState implements ScreenController
                         valignCenter();
                         alignCenter();
                         text("1. ${CALL.getPlayerScore(1)}");
-                        font("assets/font.fnt");
+                        font(FONTPATH);
                         
                     }});
-                    
                 }});
                 
                 panel(new PanelBuilder("numberTwo"){{
@@ -205,10 +195,9 @@ public class MenuController extends AbstractAppState implements ScreenController
                         valignCenter();
                         alignCenter();
                         text("2. ${CALL.getPlayerScore(2)}");
-                        font("assets/font.fnt");
+                        font(FONTPATH);
                         
                     }});
-                    
                 }});
                 
                 panel(new PanelBuilder("numberThree"){{
@@ -221,10 +210,9 @@ public class MenuController extends AbstractAppState implements ScreenController
                         valignCenter();
                         alignCenter();
                         text("3. ${CALL.getPlayerScore(3)}");
-                        font("assets/font.fnt");
+                        font(FONTPATH);
                         
                     }});
-                    
                 }});
                 
                 panel(new PanelBuilder("numberFour"){{
@@ -237,10 +225,9 @@ public class MenuController extends AbstractAppState implements ScreenController
                         valignCenter();
                         alignCenter();
                         text("4. ${CALL.getPlayerScore(4)}");
-                        font("assets/font.fnt");
+                        font(FONTPATH);
                         
                     }});
-                    
                 }});
                 
                 panel(new PanelBuilder("numberFive"){{
@@ -253,10 +240,9 @@ public class MenuController extends AbstractAppState implements ScreenController
                         valignCenter();
                         alignCenter();
                         text("5. ${CALL.getPlayerScore(5)}");
-                        font("assets/font.fnt");
+                        font(FONTPATH);
                         
                     }});
-                    
                 }});
                 
                 panel(new PanelBuilder("exiGame"){{
@@ -271,13 +257,11 @@ public class MenuController extends AbstractAppState implements ScreenController
                         valignCenter();
                         alignCenter();
                         text("Back to menu");
-                        font("assets/font.fnt");
+                        font(FONTPATH);
                         
                     }});
-                    
                 }});
             }});
-        
         }}.build(nifty));
         
         nifty.addScreen("pauseMenu", new ScreenBuilder("PauseMenu"){{
@@ -286,9 +270,8 @@ public class MenuController extends AbstractAppState implements ScreenController
             layer(new LayerBuilder("background"){{
                 childLayoutCenter();
                 
-                image(new ImageBuilder(){{
-                    
-                    filename("assets/mosquitoTwo.jpg");
+                image(new ImageBuilder(){{    
+                    filename(IMAGEPATH);
                     height("100%");
                     width("100%");
                 
@@ -309,7 +292,7 @@ public class MenuController extends AbstractAppState implements ScreenController
                         valignCenter();
                         alignCenter();
                         text("game is paused");
-                        font("assets/font.fnt");
+                        font(FONTPATH);
                         
                     }});
                     
@@ -327,7 +310,7 @@ public class MenuController extends AbstractAppState implements ScreenController
                         valignCenter();
                         alignCenter();
                         text("Return to game");
-                        font("assets/font.fnt");
+                        font(FONTPATH);
                         
                     }});
                     
@@ -345,7 +328,7 @@ public class MenuController extends AbstractAppState implements ScreenController
                         valignCenter();
                         alignCenter();
                         text("Exit game");
-                        font("assets/font.fnt");
+                        font(FONTPATH);
                         
                     }});
                     
@@ -363,8 +346,6 @@ public class MenuController extends AbstractAppState implements ScreenController
             }});
             
         }}.build(nifty));
-        
-        
         
         nifty.gotoScreen("start");
         

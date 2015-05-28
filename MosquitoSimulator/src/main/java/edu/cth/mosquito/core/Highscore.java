@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,6 +21,8 @@ public class Highscore {
     
     private List<Integer> highscores;
     private FileController file;
+    private final JOptionPane errorMsg = new JOptionPane("Error!" +  "\nHighscorefile not found!", JOptionPane.ERROR_MESSAGE);
+    private final JDialog errorDialog = errorMsg.createDialog("Failure");
     
     public Highscore(){
         
@@ -40,7 +44,8 @@ public class Highscore {
         try{
             file.saveHighscoreToFile(highscores);
         } catch(FileNotFoundException e){
-            System.out.println("Error! FileNotFoundException");
+            errorDialog.setAlwaysOnTop(true);
+            errorDialog.setVisible(true);
         }
     }
     
@@ -54,7 +59,8 @@ public class Highscore {
             this.highscores = file.getHighscores();
             
         } catch(IOException e){
-           System.out.println("Error: IOException");
+            errorDialog.setAlwaysOnTop(true);
+            errorDialog.setVisible(true);
         }
         
         sortArray();
@@ -73,9 +79,6 @@ public class Highscore {
         
     }
     
-     /**
-     * Sort the ArrayList to have the scores in a acending order
-     */
     private void sortArray(){
         
         Collections.sort(highscores);
@@ -87,7 +90,8 @@ public class Highscore {
         try {
             file.deleteHighscore();
         } catch(FileNotFoundException e){
-            System.out.println("Error: FileNotFoundException");
+            errorDialog.setAlwaysOnTop(true);
+            errorDialog.setVisible(true);
         }
         
     }
