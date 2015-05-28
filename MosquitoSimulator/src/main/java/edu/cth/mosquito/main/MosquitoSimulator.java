@@ -59,6 +59,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         
         msr = new MosquitoSimulatorRenderer(assetManager, cam);
         guiOverlay = new GuiOverlay(assetManager, cam, renderManager);
+
         world = new World(45, 10, 60);
         player = new Player(world);
         highscore = new Highscore();
@@ -68,9 +69,9 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         bulletAppState = new BulletAppState();
         stateManager.attach(bulletAppState);
                 
-        msr.renderPlaneRoom(world.getWidth(), world.getHeight(), world.getLength());
+        msr.renderRoom(world.getWidth(), world.getHeight(), world.getLength());
               
-        rootNode.attachChild(msr.getRoomNode());       
+        rootNode.attachChild(msr.getRoomNode());
         rootNode.attachChild(msr.getMosquitoNode());
         
         msr.createLights(world.getWidth(), world.getHeight(), world.getLength());

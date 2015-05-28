@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class FileHandler {
     
-    private static final String fileName = "highscore.txt";
+    private static final String FILENAME = "highscore.txt";
     private PrintWriter ops;
     
      /**
@@ -28,7 +28,7 @@ public class FileHandler {
      */
     public void loadScoreFile(List<Integer> highScores) throws FileNotFoundException {
             
-        ops = new PrintWriter(fileName);
+        ops = new PrintWriter(FILENAME);
             
         for(Integer a : highScores){
                 
@@ -48,7 +48,7 @@ public class FileHandler {
         
         List<Integer> tempHighscore = new ArrayList<>();
         
-        for(String s : Files.readAllLines(Paths.get(fileName), Charset.defaultCharset())){
+        for(String s : Files.readAllLines(Paths.get(FILENAME), Charset.defaultCharset())){
             
             tempHighscore.add(Integer.parseInt(s));
         
@@ -65,7 +65,7 @@ public class FileHandler {
      */
     public void deleteHighscores() throws FileNotFoundException {
         
-        ops = new PrintWriter(fileName);
+        ops = new PrintWriter(FILENAME);
         
         ops.print("");
         
