@@ -104,6 +104,10 @@ public class Highscore {
             errorDialog.setAlwaysOnTop(true);
             errorDialog.setVisible(true);
         }
+        
+        for (int i = 0; i < highscores.length; i++){
+            highscores[i] = 0;
+        }
     }
     
 }

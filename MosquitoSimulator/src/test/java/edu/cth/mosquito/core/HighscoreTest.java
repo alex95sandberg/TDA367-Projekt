@@ -12,6 +12,9 @@ import junit.framework.TestCase;
  */
 public class HighscoreTest extends TestCase {
     
+    int[] highscores = new int[5];
+    Highscore h = new Highscore();
+    
     public HighscoreTest(String testName) {
         super(testName);
     }
@@ -19,14 +22,25 @@ public class HighscoreTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
+        
+        highscores = h.getHighscore().clone();
+        h.resetHighscore();
     }
     
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
+        
+        h.resetHighscore();
+        
+        for (int i = 0;i < highscores.length; i++){
+            h.addHighscore(highscores[i]);
+        }
+        
+        
     }
 
-    public void testAddScore() {
+    public void testAddHighscore() {
         
         Highscore h1 = new Highscore();
         
@@ -40,7 +54,11 @@ public class HighscoreTest extends TestCase {
             
         }
         
-        assertTrue(h1.getSize() == 25 && h1.getHighscore()[0] == 50);
+        assertTrue(h1.getHighscore()[4] == 21 && 
+                    h1.getHighscore()[3] == 22 &&
+                     h1.getHighscore()[2] == 23 &&
+                      h1.getHighscore()[1] == 24 &&
+                       h1.getHighscore()[0] == 50);
         
     }
     

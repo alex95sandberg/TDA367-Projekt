@@ -63,13 +63,13 @@ public class FileHandler implements IFileHandler{
      */
     @Override
     public void deleteHighscores() throws FileNotFoundException {
-        
         ops = new PrintWriter(FILENAME);
         
-        ops.print("");
+        for (int i = 0; i < 5; i++){
+            ops.println("0");
+        }
         
         ops.close();
-        
     }
     
 }
