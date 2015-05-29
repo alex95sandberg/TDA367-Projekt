@@ -33,14 +33,14 @@ public class HighscoreTest extends TestCase {
         for(int i = 0; i < 25; i++){
             
             if(i == 5){
-                h1.addScore(50);
+                h1.addHighscore(50);
             } else {
-                h1.addScore(i);
+                h1.addHighscore(i);
             }
             
         }
         
-        assertTrue(h1.getSize() == 25 && h1.getHighscore().get(h1.getSize()-1) == 50);
+        assertTrue(h1.getSize() == 25 && h1.getHighscore()[0] == 50);
         
     }
     
@@ -50,13 +50,17 @@ public class HighscoreTest extends TestCase {
         
         for(int i = 0; i < 20; i++){
             
-            h.addScore(i);
+            h.addHighscore(i);
             
         }
         
         h.resetHighscore();
         
-        assertTrue(h.getHighscore().isEmpty());
+        assertTrue(h.getHighscore()[0] == 0 &&
+                    h.getHighscore()[1] == 0 &&
+                     h.getHighscore()[2] == 0 &&
+                      h.getHighscore()[3] == 0 &&
+                       h.getHighscore()[4] == 0);
         
     }
 
