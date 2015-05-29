@@ -41,11 +41,11 @@ public class HumanTest extends TestCase {
 
     public void testIncreaseBlood() {
         Human h1 = new Human();
-        
-        float blood = h1.getBlood()/2;
+        h1.setBlood(50);
+        float blood = 50;
         float bloodDiff = rnd.nextFloat();
         
         h1.increaseBlood(bloodDiff);
-        assertTrue(h1.getBlood()/2 == blood + bloodDiff);
+        assertTrue(h1.getBlood() == blood + bloodDiff);
     }
 }

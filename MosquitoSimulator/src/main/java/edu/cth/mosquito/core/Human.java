@@ -38,6 +38,10 @@ public class Human extends SolidObject{
         return blood;
     }
     
+    public void setBlood(float value){
+        blood = value;
+    }
+    
     public void decreaseBlood(float amount){
         blood -= amount;
         

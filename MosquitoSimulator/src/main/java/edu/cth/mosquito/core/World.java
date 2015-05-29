@@ -49,23 +49,23 @@ public class World {
         }
     }
     
-    private void addHuman(float width, float height, float length){
+    public void addHuman(float width, float height, float length){
         objects.add(new Human(width,height,length));
     }
     
-    private void addHuman(Position3D position, float width, float height, float length){
+    public void addHuman(Position3D position, float width, float height, float length){
         objects.add(new Human(position,width,height,length));
     }
     
-    private void addHuman(Position3D position){
+    public void addHuman(Position3D position){
         objects.add(new Human(position, ((float)Math.random()+1), ((float)Math.random()+1), ((float)Math.random()+1)));
     }
     
-    private void addSolidObject(float width, float height, float length){
+    public void addSolidObject(float width, float height, float length){
         objects.add(new SolidObject(width, height, length));
     }
     
-    private void addSolidObject(Position3D position, float width, float height, float length){
+    public void addSolidObject(Position3D position, float width, float height, float length){
         objects.add(new SolidObject(position, width, height, length));
     }
     
@@ -85,7 +85,7 @@ public class World {
         return objects;
     }
     
-        public SolidObject getCollidingObject(){
+    public SolidObject getCollidingObject(){
         return collidingObject;
     }
     

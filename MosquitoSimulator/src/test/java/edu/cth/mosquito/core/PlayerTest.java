@@ -84,7 +84,7 @@ public class PlayerTest extends TestCase {
     public void testReset(){
         Player p5 = new Player(new World(10, 10, 10));
         
-        p5.decreaseEnergy(p5.getMaxEnergy()/2);
+        p5.decreaseEnergy(50f);
         p5.increaseScore(100);
         p5.move(new Position3D(1,2,3));
         
