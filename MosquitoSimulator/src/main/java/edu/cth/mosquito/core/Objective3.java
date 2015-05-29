@@ -4,8 +4,6 @@
  */
 package edu.cth.mosquito.core;
 
-import java.util.Timer;
-
 /**
  *
  * @author rasmusdavidsson
