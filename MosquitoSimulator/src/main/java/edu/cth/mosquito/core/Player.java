@@ -25,6 +25,7 @@ public class Player {
         this.energy = maxEnergy;
         this.pos = new Position3D();
         this.world  = world;
+        setNewObjective();
         
     }
     
@@ -69,7 +70,7 @@ public class Player {
         //reset objectives
         getObjective().setProgress(0);
         objGen.resetObjectives();
-        setNewObjective(objGen.getnextObjective());
+        setNewObjective();
     }
     
     public float getEnergy(){
@@ -106,11 +107,11 @@ public class Player {
     //OBJ!!---------//
     
     public Objectives getObjective(){
-        return objectives;
+        return this.objectives;
         
     }
-    public void setNewObjective(Objectives objectives){
-        this.objectives = objectives;
+    private void setNewObjective(){
+        this.objectives = objGen.getnextObjective();
     }
     
     public void updateObjective(float tpf){
@@ -120,9 +121,7 @@ public class Player {
                     if(getObjective().getProgress() >= getObjective().getObjectiveGoal()){
                         increaseScore(getObjective().getObjectiveReward());
                         getObjective().setProgress(0);
-                        setNewObjective(generateObjective());
-                        
-                    
+                        setNewObjective();
                     }
                        
                 }else{
@@ -135,7 +134,7 @@ public class Player {
                         
                         increaseScore(getObjective().getObjectiveReward());
                         getObjective().setProgress(0);
-                        setNewObjective(generateObjective());
+                        setNewObjective();
                         
                     }
                        
@@ -149,15 +148,10 @@ public class Player {
                         
                         increaseScore(getObjective().getObjectiveReward());
                         getObjective().setProgress(0);
-                        setNewObjective(generateObjective());
+                        setNewObjective();
                     }
                        
                 }
             }
-    }
-    public Objectives generateObjective(){
-    
-        return objGen.getnextObjective();
-    }
-    
+    } 
 }

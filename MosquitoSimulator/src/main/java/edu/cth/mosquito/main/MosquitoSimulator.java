@@ -94,9 +94,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
 
         //Adds collision to all the objects in the world
         collision = new Collision(bulletAppState, msr.getMosquitoNode(), msr.getObjectNodes());
-        
-        //Objective
-        player.setNewObjective(player.generateObjective());
+
         
     }
     
@@ -126,12 +124,13 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             
             if(player.getEnergy() <= 0){
                 highscore.addScore(player.getScore());
-                showMenu("start");
+                menu.setScore((int)player.getScore());
+                showMenu("gameOverScreen");
                 reset();
             }
 
             guiOverlay.updateGUI(player.getEnergy(), player.getScore(), 
-                    player.getObjective().getProgress(), player.getObjective().getObjectiveGoal());
+            player.getObjective().getProgress(), player.getObjective().getObjectiveGoal());
             guiOverlay.updateEnergybar(-energyLossSpeed/100*tpf);
 
 
@@ -224,7 +223,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     public void showMenu(String menuId){
         
         if(menuId.equals("start")){
-            menu.setHighscore(highscore.getHighscore());           
+            menu.setHighscore(highscore.getHighscore()); 
+            reset();
         }       
         
         inputManager.setCursorVisible(true);
@@ -271,7 +271,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
       
         //The keys that can't be pressed while game is paused
         //Is not if else so that you can move in 2 directions at the same time
-        if(isRunning){
+        if(isRunning && menu.getCurrentScreen().equals("ingameScreen")){
+            audioMosquito.play();
             directionForward.set(cam.getDirection()).normalizeLocal();
             directionLeft.set(cam.getLeft()).normalizeLocal();
             directionUp.set(directionLeft).crossLocal(directionForward).normalizeLocal();
@@ -315,6 +316,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
                     player.increaseEnergy(15 * tpf);
                     guiOverlay.updateEnergybar(0.15f*tpf);
                     guiOverlay.updateBloodbar(-0.24f*tpf);
+                    audioMosquito.pause();
                 }
 
             }
@@ -343,7 +345,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         inputManager.deleteMapping(INPUT_MAPPING_EXIT);
         
         inputManager.addMapping("Reset", new KeyTrigger(KeyInput.KEY_R));
-        inputManager.addMapping("SuckBlood", new KeyTrigger(KeyInput.KEY_Q));       
+        inputManager.addMapping("SuckBlood", new KeyTrigger(KeyInput.KEY_Q)); 
         inputManager.addMapping("Escape", new KeyTrigger(KeyInput.KEY_ESCAPE));       
         inputManager.addMapping("Pause", new KeyTrigger(KeyInput.KEY_P));
         
