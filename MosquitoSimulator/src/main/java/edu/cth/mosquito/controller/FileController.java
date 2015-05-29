@@ -5,6 +5,8 @@
 package edu.cth.mosquito.controller;
 
 import edu.cth.mosquito.filehandler.FileHandler;
+import edu.cth.mosquito.filehandler.FileHandlerFactory;
+import edu.cth.mosquito.filehandler.IFileHandler;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
@@ -15,29 +17,22 @@ import java.util.List;
  */
 public class FileController {
     
-    private FileHandler fileHandler;
+    private IFileHandler fileHandler;
+    private static final FileHandlerFactory factory = new FileHandlerFactory();
     
     public FileController(){
-        
-        fileHandler = new FileHandler();
-        
+        fileHandler = factory.getFileHandler("FileHandler");
     }
     
-    public void saveHighscoreToFile(List<Integer> highscore) throws FileNotFoundException {
-        
-        fileHandler.loadScoreFile(highscore);
-        
+    public void writeHighscore(int[] highscore) throws FileNotFoundException {
+        fileHandler.writeHighscore(highscore);
     }
     
-    public List<Integer> getHighscores() throws IOException {
-        
-       return fileHandler.loadHighscoreList();
-        
+    public int[] readHighscore() throws IOException {
+       return fileHandler.readHighscore();
     }
     
     public void deleteHighscore() throws FileNotFoundException {
-        
         fileHandler.deleteHighscores();
-        
     }
 }

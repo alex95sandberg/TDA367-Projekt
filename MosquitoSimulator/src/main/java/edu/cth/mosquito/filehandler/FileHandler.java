@@ -10,8 +10,6 @@ import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -21,21 +19,21 @@ public class FileHandler implements IFileHandler{
     
     private static final String FILENAME = "highscore.txt";
     private PrintWriter ops;
+    private int[] highscoreList = new int[5];
     
      /**
      * Loads the highscore.txt with the scores found in the ArrayList containing the scores
      * @throws FileNotFoundException if the file which to write to is not found
      */
-    public void loadScoreFile(List<Integer> highScores) throws FileNotFoundException {
+    @Override
+    public void writeHighscore(int[] highscores) throws FileNotFoundException {
             
         ops = new PrintWriter(FILENAME);
             
-        for(Integer a : highScores){
-                
-            ops.println(a.toString());
-                
+        for(int i = 0; i < highscores.length; i++){   
+            ops.println(highscores[i]);  
         }
-            
+        
         ops.close();
         
     }
@@ -44,14 +42,14 @@ public class FileHandler implements IFileHandler{
     * Loads and returns an ArrayList with the saved scores in the highscore file
     * @throws IOException
     */
-    public List<Integer> loadHighscoreList() throws IOException {
+    @Override
+    public int[] readHighscore() throws IOException {
         
-        List<Integer> tempHighscore = new ArrayList<>();
-        
+        int[] tempHighscore = new int[5];
+        int i = 0;
         for(String s : Files.readAllLines(Paths.get(FILENAME), Charset.defaultCharset())){
-            
-            tempHighscore.add(Integer.parseInt(s));
-        
+            tempHighscore[i] = Integer.parseInt(s);
+            i++;
         }
             
         return tempHighscore;
@@ -63,6 +61,7 @@ public class FileHandler implements IFileHandler{
      * thus removing the previous highscore from the file
      * @throws FileNotFoundException if the file which to write to is not found.
      */
+    @Override
     public void deleteHighscores() throws FileNotFoundException {
         
         ops = new PrintWriter(FILENAME);

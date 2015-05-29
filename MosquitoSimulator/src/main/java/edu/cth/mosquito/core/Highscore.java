@@ -19,54 +19,74 @@ import javax.swing.JOptionPane;
  */
 public class Highscore {
     
-    private List<Integer> highscores;
-    private FileController file;
+    private int[] highscores;
+    private FileController fileController;
     private final JOptionPane errorMsg = new JOptionPane("Error!" +  "\nHighscorefile not found!", JOptionPane.ERROR_MESSAGE);
     private final JDialog errorDialog = errorMsg.createDialog("Failure");
     
     public Highscore(){
-        
-        highscores = new ArrayList<>();
-        
-        file = new FileController();
+        highscores = new int[5];
+        fileController = new FileController();
     }
     
     /**
      * Adds a score to the score list
      * @param newScore the score to be added
      */
-    public void addScore(float newScore){
+    public void sortNewScore(int newScore){
         
-        highscores.add(Math.round(newScore));
-        
-        sortArray();
-        
-        try{
-            file.saveHighscoreToFile(highscores);
-        } catch(FileNotFoundException e){
-            errorDialog.setAlwaysOnTop(true);
-            errorDialog.setVisible(true);
-        }
+        if (newScore > highscores[4]){
+            highscores[4] = newScore;
+            
+            if (newScore > highscores[3]){
+                highscores[4] = highscores[3];
+                highscores[3] = newScore;
+                
+                if (newScore > highscores[2]){
+                    highscores[3] = highscores[2];
+                    highscores[2] = newScore;
+                    
+                    if (newScore > highscores[1]){
+                        highscores[2] = highscores[1];
+                        highscores[1] = newScore;
+                        
+                        if (newScore > highscores[0]){
+                            highscores[1] = highscores[0];
+                            highscores[0] = newScore;
+                        }
+                    }
+                }
+            }
+        }//end if
+    
     }
     
+    public void writeHighscore(int[] highscores){
+        try {
+                fileController.writeHighscore(highscores);
+            } catch (FileNotFoundException e){
+                errorDialog.setAlwaysOnTop(true);
+                errorDialog.setVisible(true);
+            }
+    }
+    
+    public void addHighscore(int newScore){
+        sortNewScore(newScore);
+        writeHighscore(highscores);
+    }
     /**
      * Returns the high score arrayList
      * @return score list
      */
-    public List<Integer> getHighscore(){
-        
+    public int[] getHighscore(){
         try {
-            this.highscores = file.getHighscores();
-            
+            highscores = fileController.readHighscore();
         } catch(IOException e){
             errorDialog.setAlwaysOnTop(true);
             errorDialog.setVisible(true);
         }
         
-        sortArray();
-        
         return highscores;
-        
     }
     
     /**
@@ -74,26 +94,16 @@ public class Highscore {
      * @return the size of the highscore Array.
      */
     public int getSize(){
-        
-        return highscores.size();
-        
-    }
-    
-    private void sortArray(){
-        
-        Collections.sort(highscores);
-        
+        return highscores.length;
     }
     
     public void resetHighscore(){
-        
         try {
-            file.deleteHighscore();
+            fileController.deleteHighscore();
         } catch(FileNotFoundException e){
             errorDialog.setAlwaysOnTop(true);
             errorDialog.setVisible(true);
         }
-        
     }
     
 }
