@@ -260,7 +260,7 @@ public class GuiOverlay {
      }
      
      public void updateProgressText(float current, float goal){
-         progressText.setText("Progress: " + Math.round(current) + "/" + goal);
+         progressText.setText("Progress: " + Math.round(current*10f)/10f + "/" + goal);
      }
      
      public void setProgressTextPosition(float x, float y, float z){
