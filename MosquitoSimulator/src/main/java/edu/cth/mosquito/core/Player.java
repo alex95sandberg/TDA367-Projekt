@@ -161,7 +161,7 @@ public class Player {
                         
                         increaseScore(getObjective().getObjectiveReward());
                         getObjective().setProgress(0);
-                        setNewObjective();
+                        generateNewObjective();
                     }
                        
                 }
