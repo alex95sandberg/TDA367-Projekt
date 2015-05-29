@@ -24,13 +24,12 @@ public class FileController {
         fileHandler = factory.getFileHandler("FileHandler");
     }
     
-    public void saveHighscoreToFile(List<Integer> highscore) throws FileNotFoundException {
-        fileHandler.loadScoreFile(highscore);
-        
+    public void writeHighscore(int[] highscore) throws FileNotFoundException {
+        fileHandler.writeHighscore(highscore);
     }
     
-    public List<Integer> getHighscores() throws IOException {
-       return fileHandler.loadHighscoreList();
+    public int[] readHighscore() throws IOException {
+       return fileHandler.readHighscore();
     }
     
     public void deleteHighscore() throws FileNotFoundException {

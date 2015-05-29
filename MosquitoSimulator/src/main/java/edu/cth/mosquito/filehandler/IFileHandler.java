@@ -14,9 +14,9 @@ import java.util.List;
  */
 public interface IFileHandler {
     
-    public void loadScoreFile(List<Integer> highScores) throws FileNotFoundException;
+    public void writeHighscore(int[] highScores) throws FileNotFoundException;
     
-    public List<Integer> loadHighscoreList() throws IOException;
+    public int[] readHighscore() throws IOException;
     
     public void deleteHighscores() throws FileNotFoundException;
     

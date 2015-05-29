@@ -123,7 +123,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             energyLossSpeed += tpf/100;
             
             if(player.getEnergy() <= 0){
-                highscore.addScore(player.getScore());
+                highscore.addHighscore(Math.round(player.getScore()));
                 menu.setScore((int)player.getScore());
                 showMenu("gameOverScreen");
                 reset();
@@ -331,7 +331,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
                 break;
                 
             case "Escape":
-                highscore.addScore(player.getScore());
+                highscore.addHighscore(Math.round(player.getScore()));
                 showMenu("start");
                 break;
                 

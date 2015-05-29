@@ -33,7 +33,7 @@ public class MenuController extends AbstractAppState implements ScreenController
     private SimpleApplication rootApp;
     private NiftyJmeDisplay ourScreen;
     private Nifty nifty;
-    private List<Integer> highscore;
+    private int[] highscore;
     private MenuController controller = this;
     private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private int score = 1;
@@ -80,7 +80,7 @@ public class MenuController extends AbstractAppState implements ScreenController
     private Element placeFive;
     private Element currentScore;
     
-    public MenuController(List<Integer> highscore){
+    public MenuController(int[] highscore){
         
         this.highscore = highscore;
         
@@ -542,7 +542,7 @@ public class MenuController extends AbstractAppState implements ScreenController
         
     }
     
-    public void setHighscore(List<Integer> highscore){
+    public void setHighscore(int[] highscore){
         
         this.highscore = highscore;
         
@@ -556,8 +556,8 @@ public class MenuController extends AbstractAppState implements ScreenController
     }
     
     public String getPlayerScore(int index){
-        
-        int size = highscore.size();
+        /*
+        int size = highscore.size;
         
         if(this.highscore.isEmpty()){
             return "-";
@@ -574,16 +574,17 @@ public class MenuController extends AbstractAppState implements ScreenController
         } else if (size > 5){
             return String.valueOf(highscore.get(size-index));
         }
+        */
         
-        return "-";
+        return String.valueOf(highscore[index]);
     }
     
     private void setHighscoreText(){
-        placeOne.getRenderer(TextRenderer.class).setText("1. " + getPlayerScore(1));
-        placeTwo.getRenderer(TextRenderer.class).setText("2. " + getPlayerScore(2));
-        placeThree.getRenderer(TextRenderer.class).setText("3. " + getPlayerScore(3));
-        placeFour.getRenderer(TextRenderer.class).setText("4. " + getPlayerScore(4));
-        placeFive.getRenderer(TextRenderer.class).setText("5. " + getPlayerScore(5));
+        placeOne.getRenderer(TextRenderer.class).setText("1. " + getPlayerScore(0));
+        placeTwo.getRenderer(TextRenderer.class).setText("2. " + getPlayerScore(1));
+        placeThree.getRenderer(TextRenderer.class).setText("3. " + getPlayerScore(2));
+        placeFour.getRenderer(TextRenderer.class).setText("4. " + getPlayerScore(3));
+        placeFive.getRenderer(TextRenderer.class).setText("5. " + getPlayerScore(4));
     }
     
     @Override
