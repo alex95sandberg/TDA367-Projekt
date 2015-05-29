@@ -4,7 +4,6 @@
  */
 package edu.cth.mosquito.core;
 
-import edu.cth.mosquito.controller.MenuController;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 

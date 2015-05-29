@@ -36,6 +36,8 @@ public class MenuController extends AbstractAppState implements ScreenController
     private List<Integer> highscore;
     private MenuController controller = this;
     private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+    private int score = 1;
+    
     private static final String FONTPATH = "assets/font.fnt";
     private static final String IMAGEPATH = "assets/mosquitoTwo.jpg";
     private static final String ASSETS = "assets.zip";
@@ -76,6 +78,7 @@ public class MenuController extends AbstractAppState implements ScreenController
     private Element placeThree;
     private Element placeFour;
     private Element placeFive;
+    private Element currentScore;
     
     public MenuController(List<Integer> highscore){
         
@@ -385,6 +388,96 @@ public class MenuController extends AbstractAppState implements ScreenController
         
         }}.build(nifty));
         
+         nifty.addScreen("gameOverScreen", new ScreenBuilder("gameOverMenu"){{
+            controller(controller);
+            
+            layer(new LayerBuilder(BACKGROUND){{
+                childLayoutCenter();
+                
+                image(new ImageBuilder(){{    
+                    filename(IMAGEPATH);
+                    height(HEIGHT1);
+                    width(WIDTH1);
+                
+                }});
+            
+            }});
+            
+            layer(new LayerBuilder(FOREGROUND){{
+                childLayoutVertical();
+                
+                panel(new PanelBuilder("gameOverHeading"){{
+                    alignCenter();
+                    childLayoutCenter();
+                    width(WIDTH2);
+                    height("25%");
+                    
+                    text(new TextBuilder(){{
+                        valignCenter();
+                        alignCenter();
+                        text("Game Over");
+                        font(FONTPATH);
+                        
+                    }});
+                    
+                }});
+                
+                panel(new PanelBuilder("gameOverHeading2"){{
+                    alignCenter();
+                    childLayoutCenter();
+                    width(WIDTH2);
+                    height("25%");
+                    visibleToMouse(true);
+                    
+                    text(new TextBuilder(){{
+                        valignCenter();
+                        alignCenter();
+                        id("currentScore");
+                        font(FONTPATH);
+                        
+                    }});
+                    
+                }});
+                
+                panel(new PanelBuilder("gameOverHeading3"){{
+                    alignCenter();
+                    childLayoutCenter();
+                    width(WIDTH2);
+                    height("25%");
+                    interactOnClick("startGame()");
+                    visibleToMouse(true);
+                    
+                    text(new TextBuilder(){{
+                        valignCenter();
+                        alignCenter();
+                        text("Try Again");
+                        font(FONTPATH);
+                        
+                    }});
+                    
+                }});
+                
+                    panel(new PanelBuilder("gameOverHeading4"){{
+                    alignCenter();
+                    childLayoutCenter();
+                    width(WIDTH2);
+                    height("25%");
+                    interactOnClick("switchScreen(start)");
+                    visibleToMouse(true);
+                    
+                    text(new TextBuilder(){{
+                        valignCenter();
+                        alignCenter();
+                        text("Main Menu");
+                        font(FONTPATH);
+                        
+                    }});
+                    
+                }});
+            }});
+        
+        }}.build(nifty));
+        
         nifty.addScreen(HUD, new ScreenBuilder("ingameScreen"){{
             controller(controller);
         
@@ -398,6 +491,9 @@ public class MenuController extends AbstractAppState implements ScreenController
         nifty.gotoScreen(START);
         
     }
+    
+    
+    
 
     @Override
     public void cleanup(){
@@ -497,7 +593,15 @@ public class MenuController extends AbstractAppState implements ScreenController
             initElements();
             setHighscoreText();
         }
-        
+        setScoreText();
+  
+    }
+    
+    private void setScoreText(){
+        if(nifty.getCurrentScreen().getScreenId().equals("gameOverMenu")){
+            currentScore = nifty.getCurrentScreen().findElementByName("currentScore");
+            currentScore.getRenderer(TextRenderer.class).setText("Your score "+getScore());
+        } 
     }
     
     public void addObserver(PropertyChangeListener observer){
@@ -507,5 +611,20 @@ public class MenuController extends AbstractAppState implements ScreenController
     
     public void removeObserver(PropertyChangeListener observer){
         pcs.removePropertyChangeListener(observer);
+    }
+    
+    public String getCurrentScreen(){
+    
+        return nifty.getCurrentScreen().getScreenId();
+    }
+    
+    public void setScore(int amount){
+        score = amount;
+    
+    }
+    
+    private String getScore(){
+    
+        return String.valueOf(score);
     }
 }
