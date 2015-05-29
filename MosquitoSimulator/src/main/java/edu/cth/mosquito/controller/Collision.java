@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.cth.mosquito.core;
+package edu.cth.mosquito.controller;
 
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.PhysicsSpace;
@@ -29,7 +29,6 @@ public class Collision {
     private GhostControl playerGhost;
     private Node mosquitoNode;
     private RigidBodyControl rb;
-    private SolidObject collidingObject;
     
     public Collision(BulletAppState bulletAppState, Node mosquitoNode, List<Node> solidObjectNodes){
         
@@ -39,14 +38,6 @@ public class Collision {
         this.mosquitoNode = mosquitoNode;
         
         initCollision();
-    }
-
-    public SolidObject getCollidingObject(){
-        return collidingObject;
-    }
-    
-    public void setCollidingObject(SolidObject collidingObject){
-        this.collidingObject = collidingObject;
     }
     
     private void addGhostControl(){

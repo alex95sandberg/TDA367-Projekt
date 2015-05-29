@@ -12,7 +12,7 @@ import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import edu.cth.mosquito.controller.MenuController;
-import edu.cth.mosquito.core.Collision;
+import edu.cth.mosquito.controller.Collision;
 import edu.cth.mosquito.core.Highscore;
 import edu.cth.mosquito.core.Human;
 import edu.cth.mosquito.core.MenuState;
@@ -147,17 +147,17 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
                 //Checks for a colliding object and adds it
                 for(int i = 0; i < msr.getObjectNodes().size(); i++){
                     if(collision.getCollidingNode().equals(msr.getObjectNodes().get(i))){
-                        collision.setCollidingObject(world.getObjects().get(i));
+                        world.setCollidingObject(world.getObjects().get(i));
                         break;
                     }
                 }
 
-                if(collision.getCollidingObject() instanceof Human)                    
-                    guiOverlay.updateBloodbar(((Human)collision.getCollidingObject()).getBlood()/100);
+                if(world.getCollidingObject() instanceof Human)                    
+                    guiOverlay.updateBloodbar(((Human)world.getCollidingObject()).getBlood()/100);
                         
 
             }else{
-                collision.setCollidingObject(null);
+                world.setCollidingObject(null);
                 
                 //Hides the blood bar
                 guiOverlay.getbloodGeom().setLocalScale(0);
@@ -308,8 +308,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
                 msr.getMosquitoNode().rotate(0, tpf, 0);
             }
 
-            if(binding.equals("SuckBlood") && collision.getCollidingObject() instanceof Human){
-                Human temp = (Human)collision.getCollidingObject();
+            if(binding.equals("SuckBlood") && world.getCollidingObject() instanceof Human){
+                Human temp = (Human)world.getCollidingObject();
                 if(temp.getBlood() >= 24*tpf){
                     temp.decreaseBlood(24*tpf);
                     player.increaseEnergy(15 * tpf);

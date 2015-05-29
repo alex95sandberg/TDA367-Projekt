@@ -18,6 +18,7 @@ public class World {
     
     private List<SolidObject> objects = new ArrayList<>();
     private float width, height, length;
+    private SolidObject collidingObject;
     
     public World(float width, float height, float length){
         this.width = width;
@@ -82,6 +83,14 @@ public class World {
     
     public List<SolidObject> getObjects(){
         return objects;
+    }
+    
+        public SolidObject getCollidingObject(){
+        return collidingObject;
+    }
+    
+    public void setCollidingObject(SolidObject collidingObject){
+        this.collidingObject = collidingObject;
     }
     
 }
