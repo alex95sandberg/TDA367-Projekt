@@ -11,7 +11,7 @@ package edu.cth.mosquito.core;
 
 
 
-public class Objective3 implements Objectives {
+public class Objective4 implements Objectives {
 
     private float progress = 0;
     private static final int GOAL = 10;
@@ -19,7 +19,7 @@ public class Objective3 implements Objectives {
     private static final String OBJECTIVETEXT = "Hold your energy at 100% for a total of 10 seconds\nReward 60 points";
     
     
-    public Objective3(){
+    public Objective4(){
 
     
     }

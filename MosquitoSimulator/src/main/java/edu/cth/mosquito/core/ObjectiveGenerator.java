@@ -19,6 +19,7 @@ public class ObjectiveGenerator {
         objList.add(new Objective1());
         objList.add(new Objective2());
         objList.add(new Objective3());
+        objList.add(new Objective4());
     
     }
     public Objectives getnextObjective(){

@@ -154,6 +154,17 @@ public class Player {
                     }
                        
                 }
+            }else if(getObjective() instanceof Objective4){
+                if(Math.round(getEnergy()) >= 70){
+                    getObjective().increaseProgress(tpf);
+                    if(getObjective().getProgress() >= getObjective().getObjectiveGoal()){
+                        
+                        increaseScore(getObjective().getObjectiveReward());
+                        getObjective().setProgress(0);
+                        generateNewObjective();
+                    }
+                       
+                }
             }
     } 
 }
