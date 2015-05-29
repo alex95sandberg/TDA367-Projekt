@@ -25,6 +25,7 @@ public class Player {
         this.energy = maxEnergy;
         this.pos = new Position3D();
         this.world  = world;
+        objectives = objGen.getnextObjective();
         
     }
     
@@ -120,7 +121,7 @@ public class Player {
                     if(getObjective().getProgress() >= getObjective().getObjectiveGoal()){
                         increaseScore(getObjective().getObjectiveReward());
                         getObjective().setProgress(0);
-                        setNewObjective(generateObjective());
+                        setNewObjective(objGen.getnextObjective());
                         
                     
                     }
@@ -135,7 +136,7 @@ public class Player {
                         
                         increaseScore(getObjective().getObjectiveReward());
                         getObjective().setProgress(0);
-                        setNewObjective(generateObjective());
+                        setNewObjective(objGen.getnextObjective());
                         
                     }
                        
@@ -149,15 +150,10 @@ public class Player {
                         
                         increaseScore(getObjective().getObjectiveReward());
                         getObjective().setProgress(0);
-                        setNewObjective(generateObjective());
+                        setNewObjective(objGen.getnextObjective());
                     }
                        
                 }
             }
-    }
-    public Objectives generateObjective(){
-    
-        return objGen.getnextObjective();
-    }
-    
+    } 
 }
