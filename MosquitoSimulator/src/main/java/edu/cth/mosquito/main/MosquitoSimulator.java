@@ -223,7 +223,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     public void showMenu(String menuId){
         
         if(menuId.equals("start")){
-            menu.setHighscore(highscore.getHighscore());           
+            menu.setHighscore(highscore.getHighscore()); 
+            reset();
         }       
         
         inputManager.setCursorVisible(true);
