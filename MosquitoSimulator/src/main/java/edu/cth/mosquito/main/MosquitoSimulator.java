@@ -15,7 +15,7 @@ import edu.cth.mosquito.controller.MenuController;
 import edu.cth.mosquito.controller.Collision;
 import edu.cth.mosquito.core.Highscore;
 import edu.cth.mosquito.core.Human;
-import edu.cth.mosquito.core.MenuState;
+import edu.cth.mosquito.util.MenuState;
 import edu.cth.mosquito.core.Player;
 import edu.cth.mosquito.util.Position3D;
 import edu.cth.mosquito.core.World;
