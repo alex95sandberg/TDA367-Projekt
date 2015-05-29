@@ -25,7 +25,7 @@ public class Player {
         this.energy = maxEnergy;
         this.pos = new Position3D();
         this.world  = world;
-        setNewObjective();
+        generateNewObjective();
         
     }
     
@@ -33,6 +33,7 @@ public class Player {
         this.energy = maxEnergy;
         this.pos = new Position3D(position);
         this.world = world;
+        generateNewObjective();
     }
     
     public void move(Position3D distance){
@@ -68,9 +69,9 @@ public class Player {
         score = 0;
         pos = new Position3D();
         //reset objectives
-        getObjective().setProgress(0);
         objGen.resetObjectives();
-        setNewObjective();
+        generateNewObjective();
+        
     }
     
     public float getEnergy(){
@@ -110,7 +111,8 @@ public class Player {
         return this.objectives;
         
     }
-    private void setNewObjective(){
+    
+    public void generateNewObjective(){
         this.objectives = objGen.getnextObjective();
     }
     
@@ -121,7 +123,7 @@ public class Player {
                     if(getObjective().getProgress() >= getObjective().getObjectiveGoal()){
                         increaseScore(getObjective().getObjectiveReward());
                         getObjective().setProgress(0);
-                        setNewObjective();
+                        generateNewObjective();
                     }
                        
                 }else{
@@ -134,7 +136,7 @@ public class Player {
                         
                         increaseScore(getObjective().getObjectiveReward());
                         getObjective().setProgress(0);
-                        setNewObjective();
+                        generateNewObjective();
                         
                     }
                        
@@ -148,7 +150,7 @@ public class Player {
                         
                         increaseScore(getObjective().getObjectiveReward());
                         getObjective().setProgress(0);
-                        setNewObjective();
+                        generateNewObjective();
                     }
                        
                 }

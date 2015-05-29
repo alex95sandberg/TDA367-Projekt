@@ -34,6 +34,10 @@ public class ObjectiveGenerator {
     
     public void resetObjectives(){
         objIndex = -1;
+        
+        for(int i = 0; i < objList.size(); i++){
+            objList.get(i).setProgress(0);
+        }
 
     }
 }   

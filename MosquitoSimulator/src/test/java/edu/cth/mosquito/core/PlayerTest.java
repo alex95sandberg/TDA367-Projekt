@@ -88,12 +88,18 @@ public class PlayerTest extends TestCase {
         p5.increaseScore(100);
         p5.move(new Position3D(1,2,3));
         
+        p5.getObjective().setProgress(1);
+        p5.generateNewObjective();
+        
         p5.reset();
         assertTrue(p5.getEnergy() == p5.getMaxEnergy() &&
                     p5.getPosition().getX() == 0 &&
                      p5.getPosition().getY() == 0 &&
                       p5.getPosition().getZ() == 0 &&
                        p5.getScore() == 0);
+        
+        assertTrue(p5.getObjective() instanceof Objective1 &&
+                         p5.getObjective().getProgress() == 0);
     }
     
     public void testWorldPositiveLimit(){
@@ -116,5 +122,13 @@ public class PlayerTest extends TestCase {
                         p7.getPosition().getY() > -7.1f &&
                          p7.getPosition().getZ() > -5.1f);
         }
+    }
+    
+    public void testGenerateNewObjective(){
+        Player p = new Player(new World(10,10,10));
+        Objectives o1 = p.getObjective();
+        p.generateNewObjective();
+        
+        assertTrue(o1 != p.getObjective());
     }
 }
