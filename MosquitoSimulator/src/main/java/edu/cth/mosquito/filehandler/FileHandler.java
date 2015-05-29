@@ -26,6 +26,7 @@ public class FileHandler implements IFileHandler{
      * Loads the highscore.txt with the scores found in the ArrayList containing the scores
      * @throws FileNotFoundException if the file which to write to is not found
      */
+    @Override
     public void loadScoreFile(List<Integer> highScores) throws FileNotFoundException {
             
         ops = new PrintWriter(FILENAME);
@@ -44,6 +45,7 @@ public class FileHandler implements IFileHandler{
     * Loads and returns an ArrayList with the saved scores in the highscore file
     * @throws IOException
     */
+    @Override
     public List<Integer> loadHighscoreList() throws IOException {
         
         List<Integer> tempHighscore = new ArrayList<>();
@@ -63,6 +65,7 @@ public class FileHandler implements IFileHandler{
      * thus removing the previous highscore from the file
      * @throws FileNotFoundException if the file which to write to is not found.
      */
+    @Override
     public void deleteHighscores() throws FileNotFoundException {
         
         ops = new PrintWriter(FILENAME);
