@@ -10,7 +10,6 @@ import com.jme3.light.AmbientLight;
 import com.jme3.light.PointLight;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
-import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.CameraNode;
@@ -270,7 +269,6 @@ public class MosquitoSimulatorRenderer {
         objectNodes = new ArrayList<>();
         Node tempNode;
         Spatial h;
-        final float rotation = (float)Math.random()*(float)Math.PI*2f;
         
         assetManager.registerLocator(ASSET_MAP, ZipLocator.class);
         for(int i = 0; i < objects.size(); i++){
@@ -288,7 +286,8 @@ public class MosquitoSimulatorRenderer {
                 
                 m.setTexture("DiffuseMap", t);
                 h.setMaterial(m);
-                tempNode = new Node("Human");
+                tempNode = new Node("Human");               
+                final float rotation = (float)Math.random()*(float)Math.PI*2f;
                 tempNode.rotate(0f, rotation, 0f);
                 tempNode.attachChild(h);
                 

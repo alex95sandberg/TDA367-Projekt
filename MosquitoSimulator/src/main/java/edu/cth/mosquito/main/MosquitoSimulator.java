@@ -229,6 +229,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         
         inputManager.setCursorVisible(true);
         menu.switchScreen(menuId);
+        isRunning = false;
         
         if(audioMosquito != null)
             audioMosquito.pause();
@@ -248,6 +249,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         msr.getMosquitoNode().setLocalRotation(Quaternion.IDENTITY);
         guiOverlay.resetUI();
         isRunning = true;
+        energyLossSpeed = 3;
         
     }
     
