@@ -7,20 +7,24 @@ package edu.cth.mosquito.core;
 import java.util.ArrayList;
 
 /**
- *
- * @author rasmusdavidsson
+ * Creating new objectives.
+ * 
+ * @author Mosquito
+ * 
+ * 
  */
+
+
 public class ObjectiveGenerator {
     private int objIndex = -1;
     private ArrayList<Objectives> objList = new ArrayList<Objectives>();
     private Objectives obj;
     
-    public ObjectiveGenerator(){
+    public ObjectiveGenerator(){      
         objList.add(new Objective1());
         objList.add(new Objective2());
         objList.add(new Objective3());
-        objList.add(new Objective4());
-    
+        objList.add(new Objective4()); 
     }
     public Objectives getnextObjective(){
          if(objIndex < objList.size()-1){   
@@ -39,6 +43,5 @@ public class ObjectiveGenerator {
         for(int i = 0; i < objList.size(); i++){
             objList.get(i).setProgress(0);
         }
-
     }
 }   

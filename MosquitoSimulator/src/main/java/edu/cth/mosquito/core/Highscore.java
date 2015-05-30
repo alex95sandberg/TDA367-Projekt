@@ -7,15 +7,13 @@ package edu.cth.mosquito.core;
 import edu.cth.mosquito.controller.FileController;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Anton
+ * Handles the highscore data
+ * 
+ * @author Mosquito
  */
 public class Highscore {
     

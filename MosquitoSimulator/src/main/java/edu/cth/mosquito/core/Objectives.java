@@ -5,8 +5,10 @@
 package edu.cth.mosquito.core;
 
 /**
- *
- * @author rasmusdavidsson
+ * Contains all the methods for the objectives
+ * 
+ * @author Mosquito
+ * 
  */
 public interface Objectives {
     
