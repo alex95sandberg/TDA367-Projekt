@@ -8,7 +8,7 @@ import junit.framework.TestCase;
 
 /**
  *
- * @author Anton
+ * @author Mosquito
  */
 public class HighscoreTest extends TestCase {
     
