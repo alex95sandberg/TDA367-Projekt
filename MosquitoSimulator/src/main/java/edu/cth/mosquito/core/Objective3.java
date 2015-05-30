@@ -18,11 +18,6 @@ public class Objective3 implements Objectives {
     private static final int REWARD = 60;
     private static final String OBJECTIVETEXT = "Hold your energy at 100% for a total of 10 seconds\nReward 60 points";
     
-    
-    public Objective3(){
-
-    
-    }
     @Override
     public float getObjectiveReward() {
          return REWARD;

@@ -19,10 +19,6 @@ public class Objective1 implements Objectives {
     private static final int REWARD = 50;
     private static final String OBJECTIVETEXT = "Stay above 80% energy for 20 seconds\nReward 50 points";
     
-    public Objective1(){
-
-    
-    }
     @Override
     public float getObjectiveReward() {
          return REWARD;

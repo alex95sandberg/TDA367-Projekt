@@ -19,10 +19,6 @@ public class Objective2 implements Objectives {
     private static final int REWARD = 120;
     private static final String OBJECTIVETEXT = "Stay below 8% for 15 seconds\nReward 120 points";
     
-    public Objective2(){
-
-    
-    }
     @Override
     public float getObjectiveReward() {
          return REWARD;

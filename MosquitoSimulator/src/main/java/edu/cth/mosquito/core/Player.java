@@ -42,6 +42,7 @@ public class Player {
         float tempZ = pos.getZ();
         
         //Checks if the player collides with the edges of the world
+        //x och z
         if(pos.getX() < world.getWidth() && distance.getX() > 0)
             tempX += distance.getX();
         else if(pos.getX() > -world.getWidth() && distance.getX() < 0)
@@ -112,7 +113,7 @@ public class Player {
         
     }
     
-    public void generateNewObjective(){
+    private void generateNewObjective(){
         this.objectives = objGen.getnextObjective();
     }
     
