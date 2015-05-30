@@ -18,19 +18,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author Anton
+ * This class takes the player Node and all the object Nodes we want to detect collision with.
+ * Then does all of the necessary initiations to be able to detect collision between the player 
+ * and the objects.
+ * @author Mosquito
  */
 public class Collision {
     
-    private BulletAppState bulletAppState;
-    private List<Node> solidObjectNodes;
-    private List<RigidBodyControl> rbArray;
+    private final BulletAppState bulletAppState;
+    private final List<Node> solidObjectNodes;
+    private final Node mosquitoNode;
+    private final List<RigidBodyControl> rbArray;
     private GhostControl playerGhost;
-    private Node mosquitoNode;
     private RigidBodyControl rb;
     
-    public Collision(BulletAppState bulletAppState, Node mosquitoNode, List<Node> solidObjectNodes){
+    public Collision(final BulletAppState bulletAppState, final Node mosquitoNode, final List<Node> solidObjectNodes){
         
         this.bulletAppState = bulletAppState;
         this.solidObjectNodes = solidObjectNodes;
@@ -40,6 +42,8 @@ public class Collision {
         initCollision();
     }
     
+    //Adds a ghostControl to the player Node. It's this Control that we use 
+    //to detect collision between the player and the objects.
     private void addGhostControl(){
         
         playerGhost = new GhostControl(new BoxCollisionShape(new Vector3f(0.4f,0.4f,0.4f)));
@@ -47,6 +51,8 @@ public class Collision {
         
     }
     
+    //We take all of the object nodes and make collisionShapes, then we take those and make
+    //RigidBodyControls. It is these objects that playerGhost detect collision with. 
     private void addControls(){
         
         for(Node a : solidObjectNodes){
@@ -69,6 +75,8 @@ public class Collision {
         
     }
     
+    //Its in the physicsSpace we check for collision
+    //and its here where we add all of the objects to it.
     private void addObjectsToPhysicsSpace(){
         
         getPhysicsSpace().add(playerGhost);
@@ -81,14 +89,14 @@ public class Collision {
         
     }
     
+    //Here we take the objects initial position and set their PhysicsSpace
+    //position equal to it. 
     private void setPhysicsLocation(){
         
         playerGhost.setPhysicsLocation(mosquitoNode.getLocalTranslation());
         
-        for(int i = 0; i < rbArray.size(); i++){
-            
+        for(int i = 0; i < rbArray.size(); i++){   
             rbArray.get(i).setPhysicsLocation(solidObjectNodes.get(i).getLocalTranslation());
-            
         }
         
     }
@@ -99,20 +107,13 @@ public class Collision {
     
     public Node getCollidingNode(){
         
-        if(isColliding()){
-            
-            for(PhysicsCollisionObject a : playerGhost.getOverlappingObjects()){
-                
-                if(a.getClass().equals(RigidBodyControl.class)){
-                     
-                    return (Node)a.getUserObject();
-                    
-                }
-                
-            }
-            
-        }
- 
+        if(isColliding()){       
+            for(PhysicsCollisionObject a : playerGhost.getOverlappingObjects()){           
+                if(a.getClass().equals(RigidBodyControl.class)){                 
+                   return (Node)a.getUserObject();                 
+                }              
+            }          
+        } 
         return null;
         
     }
