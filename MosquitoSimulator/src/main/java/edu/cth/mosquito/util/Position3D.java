@@ -6,7 +6,7 @@ package edu.cth.mosquito.util;
 
 /**
  *
- * @author Alexander
+ * @author Mosquito
  */
 public class Position3D {
     private float x, y, z;

@@ -25,7 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Handles and generates all the objects in the world
+ * 
  * @author Mosquito
  */
 public class MosquitoSimulatorRenderer {

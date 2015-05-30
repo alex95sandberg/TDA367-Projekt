@@ -22,11 +22,10 @@ import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.List;
 
 /**
  *
- * @author Anton
+ * @author Mosquito
  */
 public class MenuController extends AbstractAppState implements ScreenController{
     
@@ -99,101 +98,12 @@ public class MenuController extends AbstractAppState implements ScreenController
         app.getGuiViewPort().addProcessor(ourScreen);
         
         app.getAssetManager().registerLocator(ASSETS, ZipLocator.class);
-        
-         nifty.addScreen("gameOverScreen", new ScreenBuilder("gameOverMenu"){{
-            controller(controller);
-            
-            layer(new LayerBuilder(BACKGROUND){{
-                childLayoutCenter();
-                
-                image(new ImageBuilder(){{    
-                    filename(IMAGEPATH);
-                    height(HEIGHT1);
-                    width(WIDTH1);
-                
-                }});
-            
-            }});
-            
-            layer(new LayerBuilder(FOREGROUND){{
-                childLayoutVertical();
-                
-                panel(new PanelBuilder("gameOverHeading"){{
-                    alignCenter();
-                    childLayoutCenter();
-                    width(WIDTH2);
-                    height("25%");
-                    
-                    text(new TextBuilder(){{
-                        valignCenter();
-                        alignCenter();
-                        text("Game Over");
-                        font(FONTPATH);
-                        
-                    }});
-                    
-                }});
-                
-                panel(new PanelBuilder("gameOverHeading2"){{
-                    alignCenter();
-                    childLayoutCenter();
-                    width(WIDTH2);
-                    height("25%");
-                    visibleToMouse(true);
-                    
-                    text(new TextBuilder(){{
-                        valignCenter();
-                        alignCenter();
-                        id("currentScore");
-                        font(FONTPATH);
-                        
-                    }});
-                    
-                }});
-                
-                panel(new PanelBuilder("gameOverHeading3"){{
-                    alignCenter();
-                    childLayoutCenter();
-                    width(WIDTH2);
-                    height("25%");
-                    interactOnClick("startGame()");
-                    visibleToMouse(true);
-                    
-                    text(new TextBuilder(){{
-                        valignCenter();
-                        alignCenter();
-                        text("Try Again");
-                        font(FONTPATH);
-                        
-                    }});
-                    
-                }});
-                
-                    panel(new PanelBuilder("gameOverHeading4"){{
-                    alignCenter();
-                    childLayoutCenter();
-                    width(WIDTH2);
-                    height("25%");
-                    interactOnClick("switchScreen(start)");
-                    visibleToMouse(true);
-                    
-                    text(new TextBuilder(){{
-                        valignCenter();
-                        alignCenter();
-                        text("Main Menu");
-                        font(FONTPATH);
-                        
-                    }});
-                    
-                }});
-            }});
-        
-        }}.build(nifty));
-        
+
         buildStartScreen();
         buildHighscoreScreen();
         buildPauseScreen();
         buildInGameScreen();
+        buildGameOverScreen();
         
         nifty.gotoScreen(START);
         
@@ -498,6 +408,100 @@ public class MenuController extends AbstractAppState implements ScreenController
         
         }}.build(nifty));
         
+    }
+    
+    private void buildGameOverScreen(){
+        nifty.addScreen("gameOverScreen", new ScreenBuilder("gameOverMenu"){{
+            controller(controller);
+            
+            layer(new LayerBuilder(BACKGROUND){{
+                childLayoutCenter();
+                
+                image(new ImageBuilder(){{    
+                    filename(IMAGEPATH);
+                    height(HEIGHT1);
+                    width(WIDTH1);
+                
+                }});
+            
+            }});
+            
+            layer(new LayerBuilder(FOREGROUND){{
+                childLayoutVertical();
+                
+                panel(new PanelBuilder("gameOverHeading"){{
+                    alignCenter();
+                    childLayoutCenter();
+                    width(WIDTH2);
+                    height("25%");
+                    
+                    text(new TextBuilder(){{
+                        valignCenter();
+                        alignCenter();
+                        text("Game Over");
+                        font(FONTPATH);
+                        
+                    }});
+                    
+                }});
+                
+                panel(new PanelBuilder("gameOverHeading2"){{
+                    alignCenter();
+                    childLayoutCenter();
+                    width(WIDTH2);
+                    height("25%");
+                    visibleToMouse(true);
+                    
+                    text(new TextBuilder(){{
+                        valignCenter();
+                        alignCenter();
+                        id("currentScore");
+                        font(FONTPATH);
+                        
+                    }});
+                    
+                }});
+                
+                panel(new PanelBuilder("gameOverHeading3"){{
+                    alignCenter();
+                    childLayoutCenter();
+                    width(WIDTH2);
+                    height("25%");
+                    interactOnClick("startGame()");
+                    visibleToMouse(true);
+                    
+                    text(new TextBuilder(){{
+                        valignCenter();
+                        alignCenter();
+                        text("Try Again");
+                        font(FONTPATH);
+                        
+                    }});
+                    
+                }});
+                
+                    panel(new PanelBuilder("gameOverHeading4"){{
+                    alignCenter();
+                    childLayoutCenter();
+                    width(WIDTH2);
+                    height("25%");
+                    interactOnClick("switchScreen(start)");
+                    visibleToMouse(true);
+                    
+                    text(new TextBuilder(){{
+                        valignCenter();
+                        alignCenter();
+                        text("Main Menu");
+                        font(FONTPATH);
+                        
+                    }});
+                    
+                }});
+            }});
+        
+        }}.build(nifty));
+    
+    
     }
     
     private void buildInGameScreen(){
