@@ -19,7 +19,6 @@ public class FileHandler implements IFileHandler{
     
     private static final String FILENAME = "highscore.txt";
     private PrintWriter ops;
-    private int[] highscoreList = new int[5];
     
      /**
      * Loads the highscore.txt with the scores found in the ArrayList containing the scores

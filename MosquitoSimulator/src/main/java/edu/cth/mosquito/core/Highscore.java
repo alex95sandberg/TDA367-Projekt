@@ -19,14 +19,13 @@ import javax.swing.JOptionPane;
  */
 public class Highscore {
     
-    private int[] highscores;
-    private FileController fileController;
+    private static int[] highscores;
+    private static final FileController fileController = new FileController();
     private final JOptionPane errorMsg = new JOptionPane("Error!" +  "\nHighscorefile not found!", JOptionPane.ERROR_MESSAGE);
     private final JDialog errorDialog = errorMsg.createDialog("Failure");
     
     public Highscore(){
         highscores = new int[5];
-        fileController = new FileController();
     }
     
     /**
