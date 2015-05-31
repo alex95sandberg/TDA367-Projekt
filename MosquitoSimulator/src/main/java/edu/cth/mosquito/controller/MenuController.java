@@ -624,7 +624,7 @@ public class MenuController extends AbstractAppState implements ScreenController
         if(nifty.getCurrentScreen().getScreenId().equals("highscoreScreen")){
             initElements();
             setHighscoreText();
-        } else if(nifty.getCurrentScreen().getScreenId().equals("gameOverScreen")){
+        } else if(nifty.getCurrentScreen().getScreenId().equals("gameOverMenu")){
             setScoreText();
         }       
   
