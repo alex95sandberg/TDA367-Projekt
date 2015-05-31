@@ -26,10 +26,8 @@ public class Highscore {
         highscores = new int[5];
     }
     
-    /**
-     * Adds a score to the score list
-     * @param newScore the score to be added
-     */
+    
+     
     public void sortNewScore(int newScore){
         
         if (newScore > highscores[4]){

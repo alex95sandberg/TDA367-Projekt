@@ -21,10 +21,8 @@ public class FileHandler implements IFileHandler{
     private static final String FILENAME = "highscore.txt";
     private PrintWriter ops;
     
-     /**
-     * Writes the highscores to highscore.txt
-     * @throws FileNotFoundException if the file which to write to is not found
-     */
+    //Writes the highscores to highscore.txt
+     
     @Override
     public void writeHighscore(int[] highscores) throws FileNotFoundException {
             
@@ -38,10 +36,8 @@ public class FileHandler implements IFileHandler{
         
     }
     
-   /**
-    * Loads and returns an ArrayList with the saved scores in the highscore file
-    * @throws IOException
-    */
+    //Loads and returns an ArrayList with the saved scores in the highscore file
+    
     @Override
     public int[] readHighscore() throws IOException {
         
@@ -56,11 +52,9 @@ public class FileHandler implements IFileHandler{
         
     }
     
-    /**
-     * A method thats prints a empty string to the highscore file 
-     * thus removing the previous highscore from the file
-     * @throws FileNotFoundException if the file which to write to is not found.
-     */
+    //A method thats prints a empty string to the highscore file 
+    //thus removing the previous highscore from the file
+     
     @Override
     public void deleteHighscores() throws FileNotFoundException {
         ops = new PrintWriter(FILENAME);

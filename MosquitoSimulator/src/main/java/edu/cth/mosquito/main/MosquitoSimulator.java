@@ -40,9 +40,9 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
     private World world;
     private MosquitoSimulatorRenderer msr;
     private GuiOverlay guiOverlay;
-    private Vector3f directionForward = new Vector3f();
-    private Vector3f directionLeft = new Vector3f();
-    private Vector3f directionUp = new Vector3f();
+    private final Vector3f directionForward = new Vector3f();
+    private final Vector3f directionLeft = new Vector3f();
+    private final Vector3f directionUp = new Vector3f();
     private BulletAppState bulletAppState;
     private Collision collision;
     private AudioNode audioMosquito;
