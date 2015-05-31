@@ -56,7 +56,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         // Disable the default flyby cam
         flyCam.setEnabled(false);
         
-        isRunning = true;
+        isRunning = false;
         
         msr = new MosquitoSimulatorRenderer(assetManager, cam);
         guiOverlay = new GuiOverlay(assetManager, cam, renderManager);
@@ -272,7 +272,6 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         //The keys that can't be pressed while game is paused
         //Is not if else so that you can move in 2 directions at the same time
         if(isRunning && menu.getCurrentScreen().equals("ingameScreen")){
-            audioMosquito.play();
             directionForward.set(cam.getDirection()).normalizeLocal();
             directionLeft.set(cam.getLeft()).normalizeLocal();
             directionUp.set(directionLeft).crossLocal(directionForward).normalizeLocal();
@@ -316,7 +315,6 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
                     player.increaseEnergy(15 * tpf);
                     guiOverlay.updateEnergybar(0.15f*tpf);
                     guiOverlay.updateBloodbar(-0.24f*tpf);
-                    audioMosquito.pause();
                 }
 
             }

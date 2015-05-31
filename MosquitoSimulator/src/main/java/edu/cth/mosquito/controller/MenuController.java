@@ -429,8 +429,7 @@ public class MenuController extends AbstractAppState implements ScreenController
                 }});
             }});
         
-        }}.build(nifty));
-        
+        }}.build(nifty)); 
     }
     
     private void buildGameOverScreen(){
