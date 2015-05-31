@@ -68,20 +68,17 @@ public class MosquitoSimulatorRenderer {
     private static final String WALL_TEXTURE = "assets/wall.jpg";
     private static final String ROOF_TEXTURE = "assets/roof.png";
     
-    
-    
-    
+
     //OKOMMENTERAD
     public MosquitoSimulatorRenderer(AssetManager assetManager, Camera cam){
         this.assetManager = assetManager;
-        
         assetManager.registerLocator(ASSET_MAP, ZipLocator.class);
         this.cam = cam;
         this.renderMosquito();
         cameraSetup();
     }
     
-    //OKOMMENTERAD
+    //Creates the camera
     private void cameraSetup(){
         camNode = new CameraNode("Camera Node", cam);
         camNode.setControlDir(CameraControl.ControlDirection.SpatialToCamera);
@@ -92,19 +89,24 @@ public class MosquitoSimulatorRenderer {
         mosquitoNode.setLocalTranslation(0, 0, 0);
     }
     
-    //OKOMMENTERAD
+    //Creates the mosquito and adds it to the mosquitoNode
     private void renderMosquito(){
+        //Loads the model
         assetManager.registerLocator(ASSET_MAP, ZipLocator.class);
         mosquito = assetManager.loadModel(MOSQUITO_MODEL);
+        
+        //Rotates the mosquito, scales it and gives it 
+        //a position compared to the camera
         mosquito.rotate(0f, (float)Math.PI/2, 0f);
         mosquito.scale(0.1f);
         mosquito.setLocalTranslation(0, -1, 0);
         
+        //Adds a material to the mosquito
         Material m = new Material(assetManager, LIGHTING_MATERIAL);
         Texture tf = assetManager.loadTexture(MOSQUITO_TEXTURE);
         m.setTexture("DiffuseMap", tf);
-        
         mosquito.setMaterial(m);
+        
         mosquitoNode.attachChild(mosquito);
     }
     
@@ -268,7 +270,7 @@ public class MosquitoSimulatorRenderer {
         roomNode.attachChild(roof);
     }
     
-    //OKOMMENTERAD
+    //Generates all SolidObjects and humans in the world
     public void renderWorldObjects(List<SolidObject> objects){
         assetManager.registerLocator(ASSET_MAP, ZipLocator.class);
         
@@ -278,7 +280,7 @@ public class MosquitoSimulatorRenderer {
             SolidObject object = objects.get(i);
             
             if(object instanceof Human){
-                
+                //Generates a human
                 Human instance = (Human)object;
                 
                 tempNode = new Node("Human");
@@ -289,11 +291,13 @@ public class MosquitoSimulatorRenderer {
                 tempNode.attachChild(renderHuman(instance));
                 
             }else{
+                //Generates a SolidObject
                 tempNode = new Node("Solid");
                 
                 tempNode.attachChild(renderSolidObject(object));
             }
             
+            //Set the position of the object
             tempNode.setLocalTranslation(object.getPosition().getX(), 
                                             object.getPosition().getY(), 
                                                object.getPosition().getZ());
@@ -302,6 +306,7 @@ public class MosquitoSimulatorRenderer {
         
     }
     
+    //Creates a human spatial of a Human instance
     private Spatial renderHuman(Human human){
         Spatial h;
         
@@ -313,6 +318,7 @@ public class MosquitoSimulatorRenderer {
         return h;
     }
     
+    //Creates a box of a SolidObject instance
     private Geometry renderSolidObject(SolidObject solidobject){
         Box b = new Box(solidobject.getWidth(), 
                             solidobject.getHeight(), 

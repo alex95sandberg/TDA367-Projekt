@@ -14,7 +14,7 @@ package edu.cth.mosquito.core;
 
 
 public class Objective1 implements Objectives {
-
+    //progress is shown in seconds.
     private float progress = 0;
     private static final int GOAL = 15;
     private static final int REWARD = 60;

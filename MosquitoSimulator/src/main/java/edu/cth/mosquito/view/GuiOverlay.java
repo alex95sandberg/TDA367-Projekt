@@ -30,7 +30,6 @@ public class GuiOverlay {
     private BitmapText scoreText;
     private BitmapText objectiveText;
     private BitmapText progressText;
-    private BitmapText rewardText;
     private BitmapText instructionText;
     private Geometry geom2;
     private Node barNode = new Node("energybar");
@@ -49,17 +48,16 @@ public class GuiOverlay {
         energyText = new BitmapText(font, false);
         scoreText = new BitmapText(font, false);
         objectiveText = new BitmapText(font, false);
-        rewardText = new BitmapText(font, false);
         instructionText = new BitmapText(font, false);
         progressText = new BitmapText(font, false);
 
         //energy init
-        energyText.setSize(font.getCharSet().getRenderedSize());      // font size
-        energyText.setColor(ColorRGBA.White);                             // font color
+        energyText.setSize(font.getCharSet().getRenderedSize());    
+        energyText.setColor(ColorRGBA.White);                            
         
         //score init
-        scoreText.setSize(font.getCharSet().getRenderedSize());      // font size
-        scoreText.setColor(ColorRGBA.White);                        // font color
+        scoreText.setSize(font.getCharSet().getRenderedSize());     
+        scoreText.setColor(ColorRGBA.White);                        
         
         //objective init
         objectiveText.setSize(font.getCharSet().getRenderedSize());
@@ -68,10 +66,6 @@ public class GuiOverlay {
         //progress init
         progressText.setSize(font.getCharSet().getRenderedSize());
         progressText.setColor(ColorRGBA.White);
-        
-        //reward init
-        rewardText.setSize(font.getCharSet().getRenderedSize());
-        rewardText.setColor(ColorRGBA.White);
         
         //intruction init
         instructionText.setSize(font.getCharSet().getRenderedSize());
@@ -143,7 +137,7 @@ public class GuiOverlay {
     }
 
     public void setEnergyTextPos(float x, float y, float z){
-         energyText.setLocalTranslation(x, y, z);   // position
+         energyText.setLocalTranslation(x, y, z);
     }
     //All Energy methods ends here.
     
@@ -161,14 +155,12 @@ public class GuiOverlay {
     }
     
      public void setScoreTextPos(float x, float y, float z){
-         scoreText.setLocalTranslation(x, y, z);   // position
+         scoreText.setLocalTranslation(x, y, z); 
      }
      
      //All score methods ends here.
     
-     //bloodbar
-     
-     
+     //bloodbar  
      public Node getBloodNode(){
      
          return bloodbarNode;
@@ -190,7 +182,7 @@ public class GuiOverlay {
          bloodgeom.setLocalTranslation(0,0,0);
      }
      
-     //
+     //bloodbar ends
 
      
      //Energybar methods
@@ -225,32 +217,6 @@ public class GuiOverlay {
          objectiveText.setLocalTranslation(x, y, z);   // position
     }
      
-     
-     public void setRewardText(String text){
-         rewardText.setText(text);
-         
-     }
-     
-     public void setRewardTextPos(float x, float y, float z){
-         rewardText.setLocalTranslation(x, y, z);   // position
-    }
-     
-     public BitmapText getRewardText(){
-     
-         return rewardText;
-     }
-     
-     
-     //objectives methods end
-     
-     public BitmapText getInstructionText(){
-         return instructionText;
-     }
-     
-     public void setInstructionTextPosition(float x, float y, float z){
-         instructionText.setLocalTranslation(x, y, z);
-     }
-     
      public BitmapText getProgressText(){
          return progressText;
      }
@@ -261,5 +227,17 @@ public class GuiOverlay {
      
      public void setProgressTextPosition(float x, float y, float z){
          progressText.setLocalTranslation(x, y, z);
+     }
+     
+     //objectives methods end
+     
+     
+     //how to play instructions    
+     public BitmapText getInstructionText(){
+         return instructionText;
+     }
+     
+     public void setInstructionTextPosition(float x, float y, float z){
+         instructionText.setLocalTranslation(x, y, z);
      }
 }

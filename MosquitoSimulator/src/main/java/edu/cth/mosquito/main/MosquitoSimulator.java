@@ -10,7 +10,6 @@ import com.jme3.input.controls.KeyTrigger;
 import com.jme3.light.PointLight;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
-import com.jme3.renderer.RenderManager;
 import edu.cth.mosquito.controller.MenuController;
 import edu.cth.mosquito.controller.Collision;
 import edu.cth.mosquito.core.Highscore;
@@ -189,16 +188,6 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             guiOverlay.getBloodNode().updateGeometricState();
             guiOverlay.getBloodNode().updateLogicalState(tpf);
     }
-
-   
-    
-   
-    @Override
-    public void simpleRender(RenderManager rm) {
-        //TODO: add render code
-       
-    }
-      
     public void initGUI(){
         
         inputManager.setCursorVisible(false);
@@ -206,14 +195,12 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         guiOverlay.setScoreTextPos(settings.getWidth()-guiOverlay.getScoreText().getLineWidth()-10f,settings.getHeight()-10f, 0f);
         guiOverlay.setEnergyTextPos(settings.getWidth()-guiOverlay.getEnergyText().getLineWidth()-10f,(settings.getHeight()*0.9f), 0f);
         guiOverlay.setObjectiveTextPos(10f, settings.getHeight()*0.5f, 0f);
-        guiOverlay.setRewardTextPos(settings.getWidth()/2f-guiOverlay.getRewardText().getLineWidth()/2f, settings.getHeight()/1.5f, 0f);
         guiOverlay.setInstructionTextPosition(10f, settings.getHeight() - 10f, 0f);
         guiOverlay.setProgressTextPosition(10f, settings.getHeight()*0.4f, 0f);
         
         guiNode.attachChild(guiOverlay.getObjectiveText());
         guiNode.attachChild(guiOverlay.getScoreText());
         guiNode.attachChild(guiOverlay.getEnergyText());
-        guiNode.attachChild(guiOverlay.getRewardText());
         guiNode.attachChild(guiOverlay.getInstructionText());
         guiNode.attachChild(guiOverlay.getProgressText());
     
@@ -250,7 +237,6 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         guiNode.detachChild(guiOverlay.getObjectiveText());
         guiNode.detachChild(guiOverlay.getScoreText());
         guiNode.detachChild(guiOverlay.getEnergyText());
-        guiNode.detachChild(guiOverlay.getRewardText());
         guiNode.detachChild(guiOverlay.getInstructionText());
         guiNode.detachChild(guiOverlay.getProgressText());
     }
