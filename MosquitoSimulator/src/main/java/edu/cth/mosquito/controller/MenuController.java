@@ -24,7 +24,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 /**
- *
+ * This class builds the different menu screens and handle 
+ * the data that is shown there.
  * @author Mosquito
  */
 public class MenuController extends AbstractAppState implements ScreenController{
@@ -85,6 +86,8 @@ public class MenuController extends AbstractAppState implements ScreenController
         
     }
     
+    //This method is called when we attach this class to
+    //the stateManager in MosquitoSimulator
     @Override
     public void initialize(AppStateManager asm, Application app){
         
@@ -540,6 +543,7 @@ public class MenuController extends AbstractAppState implements ScreenController
         
     }
     
+    //When the Nifty GUI is no longer used this method is called.
     @Override
     public void cleanup(){
         nifty.exit();
@@ -603,26 +607,6 @@ public class MenuController extends AbstractAppState implements ScreenController
     }
     
     public String getPlayerScore(int index){
-        /*
-        int size = highscore.size;
-        
-        if(this.highscore.isEmpty()){
-            return "-";
-        } else if (size == 1 && index == 1){
-            return String.valueOf(highscore.get(size-index));
-        } else if (size == 2 && index <= 2){
-            return String.valueOf(highscore.get(size-index));
-        } else if (size == 3 && index <= 3){
-            return String.valueOf(highscore.get(size-index));
-        } else if (size == 4 && index <= 4){
-            return String.valueOf(highscore.get(size-index));
-        } else if (size == 5){
-            return String.valueOf(highscore.get(size-index));
-        } else if (size > 5){
-            return String.valueOf(highscore.get(size-index));
-        }
-        */
-        
         return String.valueOf(highscore[index]);
     }
     
@@ -640,16 +624,15 @@ public class MenuController extends AbstractAppState implements ScreenController
         if(nifty.getCurrentScreen().getScreenId().equals("highscoreScreen")){
             initElements();
             setHighscoreText();
-        }
-        setScoreText();
+        } else if(nifty.getCurrentScreen().getScreenId().equals("gameOverScreen")){
+            setScoreText();
+        }       
   
     }
     
     private void setScoreText(){
-        if(nifty.getCurrentScreen().getScreenId().equals("gameOverMenu")){
-            currentScore = nifty.getCurrentScreen().findElementByName("currentScore");
-            currentScore.getRenderer(TextRenderer.class).setText("Your score "+getScore());
-        } 
+        currentScore = nifty.getCurrentScreen().findElementByName("currentScore");
+        currentScore.getRenderer(TextRenderer.class).setText("Your score "+getScore());
     }
     
     public void addObserver(PropertyChangeListener observer){

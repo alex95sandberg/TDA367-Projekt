@@ -8,7 +8,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
- * A observer class that checks if its okay to initaite graphics
+ * A observer class that checks for propertyChange. 
+ * We use this to handle mouse input in the menu.
  * @author Mosquito
  */
 public class MenuState implements PropertyChangeListener {
