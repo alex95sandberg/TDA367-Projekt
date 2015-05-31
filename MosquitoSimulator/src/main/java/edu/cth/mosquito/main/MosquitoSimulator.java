@@ -111,6 +111,12 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             initAudio();
             menuState.graphicsInitailized(true);
         }
+       
+        if(menuState.resetScore()){
+            highscore.resetHighscore();
+            menuState.scoreIsReset(true);
+        }
+        
         
         if(isRunning){
             
