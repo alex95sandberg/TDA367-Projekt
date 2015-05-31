@@ -9,7 +9,7 @@ import junit.framework.TestCase;
 
 /**
  *
- * @author Johan
+ * @author Mosquito
  */
 public class Objective4Test extends TestCase {
     

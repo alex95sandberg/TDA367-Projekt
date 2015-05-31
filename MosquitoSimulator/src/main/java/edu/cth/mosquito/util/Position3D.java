@@ -5,7 +5,8 @@
 package edu.cth.mosquito.util;
 
 /**
- *
+ * A class that handles a position in 3-dimensions
+ * 
  * @author Mosquito
  */
 public class Position3D {

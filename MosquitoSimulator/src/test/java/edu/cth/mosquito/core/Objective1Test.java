@@ -8,7 +8,7 @@ import junit.framework.TestCase;
 
 /**
  *
- * @author Johan
+ * @author Mosquito
  */
 public class Objective1Test extends TestCase {
     

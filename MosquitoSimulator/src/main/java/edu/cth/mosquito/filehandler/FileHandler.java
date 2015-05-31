@@ -12,7 +12,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 /**
- *
+ * Reads and writes in highscore.txt
+ * 
  * @author Mosquito
  */
 public class FileHandler implements IFileHandler{
@@ -21,7 +22,7 @@ public class FileHandler implements IFileHandler{
     private PrintWriter ops;
     
      /**
-     * Loads the highscore.txt with the scores found in the ArrayList containing the scores
+     * Writes the highscores to highscore.txt
      * @throws FileNotFoundException if the file which to write to is not found
      */
     @Override

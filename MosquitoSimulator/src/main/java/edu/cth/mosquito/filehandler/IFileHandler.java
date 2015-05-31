@@ -9,7 +9,8 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- *
+ * An interface for filehandlers
+ * 
  * @author Mosquito
  */
 public interface IFileHandler {

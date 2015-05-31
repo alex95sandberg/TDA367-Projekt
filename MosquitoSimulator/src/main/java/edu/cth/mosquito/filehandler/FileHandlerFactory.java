@@ -5,7 +5,8 @@
 package edu.cth.mosquito.filehandler;
 
 /**
- *
+ * A filehandler factory that returns a type of filehandler
+ * 
  * @author Mosquito
  */
 public class FileHandlerFactory {

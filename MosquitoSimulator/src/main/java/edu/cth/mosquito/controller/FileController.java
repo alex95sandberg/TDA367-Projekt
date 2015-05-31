@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
- * 
+ * This is the connection between the model and the filehandler
  * 
  * @author Mosquito
  */
