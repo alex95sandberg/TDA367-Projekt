@@ -22,6 +22,13 @@ import edu.cth.mosquito.core.World;
 import edu.cth.mosquito.view.GuiOverlay;
 import edu.cth.mosquito.view.MosquitoSimulatorRenderer;
 
+/**
+ * The main class of the project, connects the model(edu.cth.mosquito.core), 
+ * view and controller.
+ * 
+ * @author Mosquito
+ */
+
 public class MosquitoSimulator extends SimpleApplication implements AnalogListener {
     
     public static void main(String[] args) {
@@ -324,16 +331,15 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
                 }
 
             }
+            
+            if(binding.equals("Pause")){
+                showMenu("pauseMenu");
+                isRunning = false;
+            }
         }
         
         //The keys that can still be pressed while game is paused
-        switch(binding){
-            case "Pause":
-                showMenu("pauseMenu");
-                if(isRunning = true)
-                    isRunning = false;
-                break;
-                
+        switch(binding){              
             case "Escape":
                 highscore.addHighscore(Math.round(player.getScore()));
                 showMenu("start");
