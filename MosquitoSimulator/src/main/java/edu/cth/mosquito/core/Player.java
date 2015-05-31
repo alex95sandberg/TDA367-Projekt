@@ -117,7 +117,8 @@ public class Player {
         score += amount;
     }
     
-    //OBJ!!---------//
+    
+    //Objective related methods
     
     public Objectives getObjective(){
         return this.objectives;
@@ -127,12 +128,15 @@ public class Player {
     public void generateNewObjective(){
         this.objectives = objGen.getnextObjective();
     }
-    
-    //Handles the logic behind each objective
+
+    //Checks if the current objective is objective 1,2,3 or 4.
+    //And then handles the logic behind each objective
     public void updateObjective(float tpf){
+        
         if(getObjective() instanceof Objective1){
                 if(getEnergy() >= 80){
                     getObjective().increaseProgress(tpf);
+                    //checks if the progress has reached its goal.
                     if(getObjective().getProgress() >= getObjective().getObjectiveGoal()){
                         increaseScore(getObjective().getObjectiveReward());
                         getObjective().setProgress(0);
@@ -167,12 +171,12 @@ public class Player {
                     }
                        
                 }
-            }else if(getObjective() instanceof Objective4){          
+            }else if(getObjective() instanceof Objective4){ 
+                //Checks if the mosquito collides with one of the walls.
                  setTrueIfColliding();
                  if(ifCollidedWithWalls(isCollidingWithWalls, false)){
                     getObjective().increaseProgress(tpf);     
                     if(getObjective().getProgress() < getObjective().getObjectiveGoal()){
-                        
                         if(ifCollidedWithWalls(isCollidingWithWalls,true)){
                             increaseScore(getObjective().getObjectiveReward());
                             Collections.fill(isCollidingWithWalls, false);
