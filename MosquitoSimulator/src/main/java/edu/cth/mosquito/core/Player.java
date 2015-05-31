@@ -64,7 +64,7 @@ public class Player {
         return pos;
     }
     
-    public void reset(){
+    public void resetStats(){
         energy = maxEnergy;
         score = 0;
         pos = new Position3D();
@@ -116,6 +116,7 @@ public class Player {
         this.objectives = objGen.getnextObjective();
     }
     
+    //Handles the logic behind each objective
     public void updateObjective(float tpf){
         if(getObjective() instanceof Objective1){
                 if(getEnergy() >= 80){

@@ -91,7 +91,7 @@ public class PlayerTest extends TestCase {
         p5.getObjective().setProgress(1);
         p5.generateNewObjective();
         
-        p5.reset();
+        p5.resetStats();
         assertTrue(p5.getEnergy() == p5.getMaxEnergy() &&
                     p5.getPosition().getX() == 0 &&
                      p5.getPosition().getY() == 0 &&
