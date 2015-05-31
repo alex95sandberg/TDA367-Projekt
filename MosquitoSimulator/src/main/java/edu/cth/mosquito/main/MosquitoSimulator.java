@@ -78,7 +78,8 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         
         menuState = new MenuState();
         menu.addObserver(menuState);
-                
+        
+        //Creates the room
         msr.renderRoom(world.getWidth(), world.getHeight(), world.getLength());
               
         rootNode.attachChild(msr.getRoomNode());
@@ -86,6 +87,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         
         msr.createLights(world.getWidth(), world.getHeight(), world.getLength());
         
+        //Adds all lights to the room
         for (int i = 0; i < msr.getPointLights().size(); i++){
             rootNode.addLight((PointLight)msr.getPointLights().get(i));
         }

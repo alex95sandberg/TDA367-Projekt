@@ -12,7 +12,7 @@ import edu.cth.mosquito.util.Position3D;
  * @author Mosquito
  */
 public class SolidObject {
-    private Position3D position;
+    private final Position3D position;
     private float width, height, length;
     
     public SolidObject(){

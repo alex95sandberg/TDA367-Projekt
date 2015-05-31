@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class ObjectiveGenerator {
     private int objIndex = -1;
-    private ArrayList<Objectives> objList = new ArrayList<Objectives>();
+    private final ArrayList<Objectives> objList = new ArrayList<Objectives>();
     private Objectives obj;
     
     public ObjectiveGenerator(){      

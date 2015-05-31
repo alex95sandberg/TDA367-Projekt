@@ -17,14 +17,14 @@ import java.util.List;
  * @author Mosquito
  */
 public class Player {
-    private World world;
+    private final World world;
     private Position3D pos;
     private float energy;
     private static final float MAX_ENERGY = 100;
     private float score;
     private Objectives objectives;
-    private ObjectiveGenerator objGen = new ObjectiveGenerator();
-    private List<Boolean> isCollidingWithWalls=new ArrayList<Boolean>(Arrays.asList(new Boolean[4]));
+    private final ObjectiveGenerator objGen = new ObjectiveGenerator();
+    private final List<Boolean> isCollidingWithWalls=new ArrayList<Boolean>(Arrays.asList(new Boolean[4]));
 
     
     public Player(World world){

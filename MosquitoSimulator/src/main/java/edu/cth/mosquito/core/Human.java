@@ -13,7 +13,7 @@ import edu.cth.mosquito.util.Position3D;
  */
 public class Human extends SolidObject{
     private float blood;
-    private float maxBlood = 100;
+    private static final float maxBlood = 100;
     
     public Human(){
         super();

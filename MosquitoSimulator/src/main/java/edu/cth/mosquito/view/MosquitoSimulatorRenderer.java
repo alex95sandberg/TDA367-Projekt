@@ -31,8 +31,8 @@ import java.util.List;
  */
 public class MosquitoSimulatorRenderer {
     
-    private AssetManager assetManager;
-    private Camera cam;
+    private final AssetManager assetManager;
+    private final Camera cam;
     private CameraNode camNode;
     private static final Node mosquitoNode = new Node();
     private static final Node roomNode = new Node();
@@ -69,7 +69,7 @@ public class MosquitoSimulatorRenderer {
     private static final String ROOF_TEXTURE = "assets/roof.png";
     
 
-    //OKOMMENTERAD
+    //Constructor, sets the camera and mosquito
     public MosquitoSimulatorRenderer(AssetManager assetManager, Camera cam){
         this.assetManager = assetManager;
         assetManager.registerLocator(ASSET_MAP, ZipLocator.class);
@@ -171,7 +171,7 @@ public class MosquitoSimulatorRenderer {
         Texture th = assetManager.loadTexture(HUMAN_TEXTURE);
         humanMaterial.setTexture("DiffuseMap", th);
         
-        //TEMP
+        //Sets the color of the material for SolidObjects
         solidobjectMaterial.setColor("Color", ColorRGBA.Blue);
     }   
     

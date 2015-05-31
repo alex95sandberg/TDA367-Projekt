@@ -16,8 +16,8 @@ import java.util.List;
 
 public class World {
     
-    private List<SolidObject> objects = new ArrayList<>();
-    private float width, height, length;
+    private final List<SolidObject> objects = new ArrayList<>();
+    private final float width, height, length;
     private SolidObject collidingObject;
     
     public World(float width, float height, float length){

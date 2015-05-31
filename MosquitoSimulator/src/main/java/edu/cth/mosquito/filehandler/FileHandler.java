@@ -36,8 +36,7 @@ public class FileHandler implements IFileHandler{
         
     }
     
-    //Loads and returns an ArrayList with the saved scores in the highscore file
-    
+    //returns the content of highscore.txt
     @Override
     public int[] readHighscore() throws IOException {
         
@@ -52,8 +51,8 @@ public class FileHandler implements IFileHandler{
         
     }
     
-    //A method thats prints a empty string to the highscore file 
-    //thus removing the previous highscore from the file
+    //A method thats prints five "0" to the highscore file 
+    //this removing the previous highscore from the file
      
     @Override
     public void deleteHighscores() throws FileNotFoundException {
