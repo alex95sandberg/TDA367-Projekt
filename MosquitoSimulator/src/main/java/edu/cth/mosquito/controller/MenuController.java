@@ -312,20 +312,43 @@ public class MenuController extends AbstractAppState implements ScreenController
                     }});
                 }});
                 
-                panel(new PanelBuilder("exiGame"){{
+                panel(new PanelBuilder("twoChoice"){{
                     alignCenter();
-                    childLayoutCenter();
+                    childLayoutHorizontal();
                     width(WIDTH2);
                     height("14%");
-                    visibleToMouse(true);
                     interactOnClick("switchScreen(start)");
                     
-                    text(new TextBuilder(){{
-                        valignCenter();
-                        alignCenter();
-                        text(BACKTOMENUTEXT);
-                        font(FONTPATH);
+                    panel(new PanelBuilder("reset"){{
+                        childLayoutCenter();
+                        width("50%");
+                        height("100%");
+                        visibleToMouse(true);
+                        interactOnClick("resetScore()");
                         
+                        text(new TextBuilder(){{
+                            valignCenter();
+                            alignCenter();
+                            text("Reset score  |");
+                            font(FONTPATH);
+                        
+                        }});
+                    }});
+                    
+                    panel(new PanelBuilder(){{
+                        childLayoutCenter();
+                        width("50%");
+                        height("100%");
+                        visibleToMouse(true);
+                        interactOnClick("switchScreen(start)");
+                    
+                        text(new TextBuilder(){{
+                            valignCenter();
+                            alignCenter();
+                            text("     " + BACKTOMENUTEXT);
+                            font(FONTPATH);
+                        
+                        }});
                     }});
                 }});
             }});
@@ -553,6 +576,10 @@ public class MenuController extends AbstractAppState implements ScreenController
         
     }
     
+    public void resetScore(){
+        pcs.firePropertyChange("resetScore", 0, 1);
+    }
+    
     public void switchScreen(String id){
         
         nifty.gotoScreen(id);
@@ -560,9 +587,7 @@ public class MenuController extends AbstractAppState implements ScreenController
     }
     
     public void exitGame(){
-        
         rootApp.stop();
-        
     }
     
     public void setHighscore(int[] highscore){
