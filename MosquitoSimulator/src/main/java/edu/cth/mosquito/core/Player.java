@@ -5,9 +5,14 @@
 package edu.cth.mosquito.core;
 
 import edu.cth.mosquito.util.Position3D;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Handles all the logic and data for the player
+ * Handles objective executions
  * 
  * @author Mosquito
  */
@@ -19,6 +24,7 @@ public class Player {
     private float score;
     private Objectives objectives;
     private ObjectiveGenerator objGen = new ObjectiveGenerator();
+    private List<Boolean> isCollidingWithWalls=new ArrayList<Boolean>(Arrays.asList(new Boolean[4]));
 
     
     public Player(World world){
@@ -26,6 +32,7 @@ public class Player {
         this.pos = new Position3D();
         this.world  = world;
         generateNewObjective();
+        Collections.fill(isCollidingWithWalls, Boolean.FALSE);
         
     }
     
@@ -34,6 +41,8 @@ public class Player {
         this.pos = new Position3D(position);
         this.world = world;
         generateNewObjective();
+        Collections.fill(isCollidingWithWalls, Boolean.FALSE);
+        
     }
     
     public void move(Position3D distance){
@@ -42,9 +51,10 @@ public class Player {
         float tempZ = pos.getZ();
         
         //Checks if the player collides with the edges of the world
+        
         if(pos.getX() < world.getWidth() && distance.getX() > 0)
             tempX += distance.getX();
-        else if(pos.getX() > -world.getWidth() && distance.getX() < 0)
+        else if(pos.getX() > -world.getWidth() && distance.getX() < 0)         
             tempX += distance.getX();
         
         if(pos.getY() < world.getHeight() && distance.getY() > 0)
@@ -69,8 +79,10 @@ public class Player {
         score = 0;
         pos = new Position3D();
         //reset objectives
+        Collections.fill(isCollidingWithWalls, false);
         objGen.resetObjectives();
         generateNewObjective();
+        
         
     }
     
@@ -112,7 +124,7 @@ public class Player {
         
     }
     
-    public void generateNewObjective(){
+    private void generateNewObjective(){
         this.objectives = objGen.getnextObjective();
     }
     
@@ -155,17 +167,53 @@ public class Player {
                     }
                        
                 }
-            }else if(getObjective() instanceof Objective4){
-                if(Math.round(getEnergy()) >= 70){
-                    getObjective().increaseProgress(tpf);
-                    if(getObjective().getProgress() >= getObjective().getObjectiveGoal()){
+            }else if(getObjective() instanceof Objective4){          
+                 setTrueIfColliding();
+                 if(ifCollidedWithWalls(isCollidingWithWalls, false)){
+                    getObjective().increaseProgress(tpf);     
+                    if(getObjective().getProgress() < getObjective().getObjectiveGoal()){
                         
-                        increaseScore(getObjective().getObjectiveReward());
+                        if(ifCollidedWithWalls(isCollidingWithWalls,true)){
+                            increaseScore(getObjective().getObjectiveReward());
+                            Collections.fill(isCollidingWithWalls, false);
+                            getObjective().setProgress(0);
+                            generateNewObjective();
+                        }
+                    }else{
                         getObjective().setProgress(0);
-                        generateNewObjective();
-                    }
-                       
+                        Collections.fill(isCollidingWithWalls, false);
+                    }     
                 }
             }
-    } 
+    }
+    
+    private void setTrueIfColliding(){
+    
+        if(getPosition().getX() > world.getWidth())
+            isCollidingWithWalls.set(0, true);
+        else if(getPosition().getX() < -world.getWidth())
+            isCollidingWithWalls.set(1, true);
+        else if(getPosition().getZ() > world.getLength())
+            isCollidingWithWalls.set(2, true);
+        else if(getPosition().getZ() < -world.getLength())
+            isCollidingWithWalls.set(3, true);
+    }
+   //check if the walls have been in contact with the mosquito. 
+   //checkIfAll variable determine if all booleans in the list have to be true, or only one.
+    public boolean ifCollidedWithWalls(List<Boolean> booArray, boolean checkAllTrue){
+            if(checkAllTrue){        
+                for(boolean b : booArray){
+                    if(!b)   
+                        return false;    
+                }
+                return true;
+            }else{
+                for(boolean b : booArray){
+                    if(b){
+                        return true; 
+                    }
+                }
+                return false;
+            }
+    }
 }

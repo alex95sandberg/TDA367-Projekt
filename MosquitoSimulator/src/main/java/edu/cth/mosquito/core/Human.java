@@ -7,8 +7,9 @@ package edu.cth.mosquito.core;
 import edu.cth.mosquito.util.Position3D;
 
 /**
- *
- * @author Alexander
+ * A human object that can be placed in the world.
+ * 
+ * @author Mosquito
  */
 public class Human extends SolidObject{
     private float blood;

@@ -25,7 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Handles and generates all the objects in the world
+ * 
  * @author Mosquito
  */
 public class MosquitoSimulatorRenderer {
@@ -33,14 +34,15 @@ public class MosquitoSimulatorRenderer {
     private AssetManager assetManager;
     private Camera cam;
     private CameraNode camNode;
-    private Node mosquitoNode;
-    private Node roomNode;
-    private List<Node> objectNodes;
-    private List<PointLight> lights;
+    private static final Node mosquitoNode = new Node();
+    private static final Node roomNode = new Node();
+    private static final List<Node> objectNodes = new ArrayList<>();
+    private static final List<PointLight> lights = new ArrayList<>();
     
     private Spatial mosquito;
     private Spatial floor, wallN, wallS, wallW, wallE, roof;
     private Material floorMaterial, wallMaterial, roofMaterial;
+    private Material humanMaterial, solidobjectMaterial;
     private PointLight lamp;
     private AmbientLight al;
     
@@ -75,9 +77,6 @@ public class MosquitoSimulatorRenderer {
         
         assetManager.registerLocator(ASSET_MAP, ZipLocator.class);
         this.cam = cam;
-        mosquitoNode = new Node();
-        roomNode = new Node();
-        lights = new ArrayList<>();
         this.renderMosquito();
         cameraSetup();
     }
@@ -154,6 +153,8 @@ public class MosquitoSimulatorRenderer {
         floorMaterial = new Material(assetManager, LIGHTING_MATERIAL);
         wallMaterial = new Material(assetManager, LIGHTING_MATERIAL);
         roofMaterial = new Material(assetManager, LIGHTING_MATERIAL);
+        humanMaterial = new Material(assetManager, LIGHTING_MATERIAL);
+        solidobjectMaterial = new Material(assetManager, UNSHADED_MATERIAL);
         
         //Adds a texture to the materials
         Texture tf = assetManager.loadTexture(FLOOR_TEXTURE);
@@ -164,6 +165,12 @@ public class MosquitoSimulatorRenderer {
         
         Texture tr = assetManager.loadTexture(ROOF_TEXTURE);
         roofMaterial.setTexture("DiffuseMap", tr);
+        
+        Texture th = assetManager.loadTexture(HUMAN_TEXTURE);
+        humanMaterial.setTexture("DiffuseMap", th);
+        
+        //TEMP
+        solidobjectMaterial.setColor("Color", ColorRGBA.Blue);
     }   
     
     //Creates the floor
@@ -263,14 +270,10 @@ public class MosquitoSimulatorRenderer {
     
     //OKOMMENTERAD
     public void renderWorldObjects(List<SolidObject> objects){
-        Box b;
-        Material m;       
-        Geometry g;
-        objectNodes = new ArrayList<>();
-        Node tempNode;
-        Spatial h;
-        
         assetManager.registerLocator(ASSET_MAP, ZipLocator.class);
+        
+        Node tempNode;
+        
         for(int i = 0; i < objects.size(); i++){
             SolidObject object = objects.get(i);
             
@@ -278,36 +281,46 @@ public class MosquitoSimulatorRenderer {
                 
                 Human instance = (Human)object;
                 
-                h = getRandomGenderHuman();
-                h.scale(instance.getWidth(), instance.getHeight(), instance.getLength());
-
-                m = new Material(assetManager,LIGHTING_MATERIAL);
-                Texture t = assetManager.loadTexture(HUMAN_TEXTURE);
+                tempNode = new Node("Human");
                 
-                m.setTexture("DiffuseMap", t);
-                h.setMaterial(m);
-                tempNode = new Node("Human");               
                 final float rotation = (float)Math.random()*(float)Math.PI*2f;
                 tempNode.rotate(0f, rotation, 0f);
-                tempNode.attachChild(h);
+                
+                tempNode.attachChild(renderHuman(instance));
                 
             }else{
-                m = new Material(assetManager,
-                UNSHADED_MATERIAL);
-                m.setColor("Color", ColorRGBA.Blue);
-                
                 tempNode = new Node("Solid");
                 
-                b = new Box(object.getWidth(), object.getHeight(), object.getLength());
-                g = new Geometry("Box", b);
-                g.setMaterial(m);
-                tempNode.attachChild(g);
+                tempNode.attachChild(renderSolidObject(object));
             }
             
-            tempNode.setLocalTranslation(object.getPosition().getX(), object.getPosition().getY(), object.getPosition().getZ());
+            tempNode.setLocalTranslation(object.getPosition().getX(), 
+                                            object.getPosition().getY(), 
+                                               object.getPosition().getZ());
             objectNodes.add(tempNode);
         }
         
+    }
+    
+    private Spatial renderHuman(Human human){
+        Spatial h;
+        
+        h = getRandomGenderHuman();
+        h.scale(human.getWidth(), human.getHeight(), human.getLength());
+        
+        h.setMaterial(humanMaterial);
+        
+        return h;
+    }
+    
+    private Geometry renderSolidObject(SolidObject solidobject){
+        Box b = new Box(solidobject.getWidth(), 
+                            solidobject.getHeight(), 
+                                solidobject.getLength());
+        Geometry g = new Geometry("Box", b);
+        g.setMaterial(solidobjectMaterial);
+        
+        return g;
     }
     
     //Returns a male or female human spatial by random

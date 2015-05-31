@@ -6,8 +6,9 @@ package edu.cth.mosquito.core;
 
 
 /**
- *
- * @author rasmusdavidsson
+ * Handles the code for objective 2
+ * 
+ * @author Mosquito
  */
 
 
@@ -15,14 +16,10 @@ package edu.cth.mosquito.core;
 public class Objective2 implements Objectives {
 
     private float progress = 0;
-    private static final int GOAL = 15;
+    private static final int GOAL = 10;
     private static final int REWARD = 120;
-    private static final String OBJECTIVETEXT = "Stay below 8% for 15 seconds\nReward 120 points";
+    private static final String OBJECTIVETEXT = "Stay below 8% for 10 seconds\nReward 120 points";
     
-    public Objective2(){
-
-    
-    }
     @Override
     public float getObjectiveReward() {
          return REWARD;

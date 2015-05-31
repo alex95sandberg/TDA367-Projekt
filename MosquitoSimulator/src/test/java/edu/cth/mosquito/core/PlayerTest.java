@@ -11,7 +11,7 @@ import junit.framework.TestCase;
 
 /**
  *
- * @author Johan
+ * @author Mosquito
  */
 public class PlayerTest extends TestCase {
     

@@ -7,26 +7,23 @@ package edu.cth.mosquito.core;
 import edu.cth.mosquito.controller.FileController;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Anton
+ * Handles the highscore data
+ * 
+ * @author Mosquito
  */
 public class Highscore {
     
-    private int[] highscores;
-    private FileController fileController;
+    private static int[] highscores;
+    private static final FileController fileController = new FileController();
     private final JOptionPane errorMsg = new JOptionPane("Error!" +  "\nHighscorefile not found!", JOptionPane.ERROR_MESSAGE);
     private final JDialog errorDialog = errorMsg.createDialog("Failure");
     
     public Highscore(){
         highscores = new int[5];
-        fileController = new FileController();
     }
     
     /**
@@ -103,6 +100,10 @@ public class Highscore {
         } catch(FileNotFoundException e){
             errorDialog.setAlwaysOnTop(true);
             errorDialog.setVisible(true);
+        }
+        
+        for (int i = 0; i < highscores.length; i++){
+            highscores[i] = 0;
         }
     }
     

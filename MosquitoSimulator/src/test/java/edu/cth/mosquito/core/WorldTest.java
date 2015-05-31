@@ -10,7 +10,7 @@ import junit.framework.TestCase;
 
 /**
  *
- * @author Alexander
+ * @author Mosquito
  */
 public class WorldTest extends TestCase {
     

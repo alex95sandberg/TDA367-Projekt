@@ -19,8 +19,9 @@ import com.jme3.scene.control.BillboardControl;
 import com.jme3.scene.shape.Box;
 
 /**
- *
- * @author rasmusdavidsson
+ * Handles and generates all the graphical objects you can see on the screen
+ * 
+ * @author Mosquito
  */
 public class GuiOverlay {
     

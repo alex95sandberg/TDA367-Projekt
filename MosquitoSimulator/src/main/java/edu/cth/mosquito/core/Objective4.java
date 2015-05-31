@@ -5,8 +5,9 @@
 package edu.cth.mosquito.core;
 
 /**
- *
- * @author rasmusdavidsson
+ * Handles the code for objective 4
+ * 
+ * @author Mosquito
  */
 
 
@@ -14,15 +15,11 @@ package edu.cth.mosquito.core;
 public class Objective4 implements Objectives {
 
     private float progress = 0;
-    private static final int GOAL = 10;
-    private static final int REWARD = 60;
-    private static final String OBJECTIVETEXT = "Hold your energy at 100% for a total of 10 seconds\nReward 60 points";
-    
-    
-    public Objective4(){
+    private static final int GOAL = 50;
+    private static final int REWARD = 100;
+    private static final String OBJECTIVETEXT = "Collide with all four walls within 50 seconds\nReward 100 points";
 
     
-    }
     @Override
     public float getObjectiveReward() {
          return REWARD;

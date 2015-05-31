@@ -22,11 +22,10 @@ import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.List;
 
 /**
  *
- * @author Anton
+ * @author Mosquito
  */
 public class MenuController extends AbstractAppState implements ScreenController{
     
@@ -99,6 +98,19 @@ public class MenuController extends AbstractAppState implements ScreenController
         app.getGuiViewPort().addProcessor(ourScreen);
         
         app.getAssetManager().registerLocator(ASSETS, ZipLocator.class);
+
+        buildStartScreen();
+        buildHighscoreScreen();
+        buildPauseScreen();
+        buildInGameScreen();
+        buildGameOverScreen();
+        
+        nifty.gotoScreen(START);
+        
+    }
+    
+    private void buildStartScreen(){
+        
         nifty.addScreen(START, new ScreenBuilder("startScreen"){{
             controller(controller);
             
@@ -183,6 +195,10 @@ public class MenuController extends AbstractAppState implements ScreenController
                 }});
             }});
         }}.build(nifty));
+        
+    }
+    
+    private void buildHighscoreScreen(){
         
         nifty.addScreen(HIGHSCORE, new ScreenBuilder("highscoreScreen"){{
             controller(controller);
@@ -296,24 +312,51 @@ public class MenuController extends AbstractAppState implements ScreenController
                     }});
                 }});
                 
-                panel(new PanelBuilder("exiGame"){{
+                panel(new PanelBuilder("twoChoice"){{
                     alignCenter();
-                    childLayoutCenter();
+                    childLayoutHorizontal();
                     width(WIDTH2);
                     height("14%");
-                    visibleToMouse(true);
                     interactOnClick("switchScreen(start)");
                     
-                    text(new TextBuilder(){{
-                        valignCenter();
-                        alignCenter();
-                        text(BACKTOMENUTEXT);
-                        font(FONTPATH);
+                    panel(new PanelBuilder("reset"){{
+                        childLayoutCenter();
+                        width("50%");
+                        height("100%");
+                        visibleToMouse(true);
+                        interactOnClick("resetScore()");
                         
+                        text(new TextBuilder(){{
+                            valignCenter();
+                            alignCenter();
+                            text("Reset score  |");
+                            font(FONTPATH);
+                        
+                        }});
+                    }});
+                    
+                    panel(new PanelBuilder(){{
+                        childLayoutCenter();
+                        width("50%");
+                        height("100%");
+                        visibleToMouse(true);
+                        interactOnClick("switchScreen(start)");
+                    
+                        text(new TextBuilder(){{
+                            valignCenter();
+                            alignCenter();
+                            text("     " + BACKTOMENUTEXT);
+                            font(FONTPATH);
+                        
+                        }});
                     }});
                 }});
             }});
         }}.build(nifty));
+        
+    }
+    
+    private void buildPauseScreen(){
         
         nifty.addScreen("pauseMenu", new ScreenBuilder("pauseMenu"){{
             controller(controller);
@@ -386,9 +429,11 @@ public class MenuController extends AbstractAppState implements ScreenController
                 }});
             }});
         
-        }}.build(nifty));
-        
-         nifty.addScreen("gameOverScreen", new ScreenBuilder("gameOverMenu"){{
+        }}.build(nifty)); 
+    }
+    
+    private void buildGameOverScreen(){
+        nifty.addScreen("gameOverScreen", new ScreenBuilder("gameOverMenu"){{
             controller(controller);
             
             layer(new LayerBuilder(BACKGROUND){{
@@ -477,8 +522,13 @@ public class MenuController extends AbstractAppState implements ScreenController
             }});
         
         }}.build(nifty));
+    
+    
+    }
+    
+    private void buildInGameScreen(){
         
-        nifty.addScreen(HUD, new ScreenBuilder("ingameScreen"){{
+                nifty.addScreen(HUD, new ScreenBuilder("ingameScreen"){{
             controller(controller);
         
             layer(new LayerBuilder(HUD){{
@@ -488,13 +538,8 @@ public class MenuController extends AbstractAppState implements ScreenController
             
         }}.build(nifty));
         
-        nifty.gotoScreen(START);
-        
     }
     
-    
-    
-
     @Override
     public void cleanup(){
         nifty.exit();
@@ -530,6 +575,10 @@ public class MenuController extends AbstractAppState implements ScreenController
         
     }
     
+    public void resetScore(){
+        pcs.firePropertyChange("resetScore", 0, 1);
+    }
+    
     public void switchScreen(String id){
         
         nifty.gotoScreen(id);
@@ -537,9 +586,7 @@ public class MenuController extends AbstractAppState implements ScreenController
     }
     
     public void exitGame(){
-        
         rootApp.stop();
-        
     }
     
     public void setHighscore(int[] highscore){
