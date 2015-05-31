@@ -82,7 +82,7 @@ public class MenuController extends AbstractAppState implements ScreenController
     
     public MenuController(int[] highscore){
         
-        this.highscore = highscore;
+        this.highscore = highscore.clone();
         
     }
     
@@ -595,7 +595,7 @@ public class MenuController extends AbstractAppState implements ScreenController
     
     public void setHighscore(int[] highscore){
         
-        this.highscore = highscore;
+        this.highscore = highscore.clone();
         
     }
     

@@ -203,10 +203,10 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
         
         inputManager.setCursorVisible(false);
         
-        guiOverlay.setScoreTextPos(settings.getWidth()-guiOverlay.getScoreText().getLineWidth()-10,settings.getHeight()-10, 0f);
-        guiOverlay.setEnergyTextPos(settings.getWidth()-guiOverlay.getEnergyText().getLineWidth()-10,(settings.getHeight()*0.9f), 0f);
+        guiOverlay.setScoreTextPos(settings.getWidth()-guiOverlay.getScoreText().getLineWidth()-10f,settings.getHeight()-10f, 0f);
+        guiOverlay.setEnergyTextPos(settings.getWidth()-guiOverlay.getEnergyText().getLineWidth()-10f,(settings.getHeight()*0.9f), 0f);
         guiOverlay.setObjectiveTextPos(10f, settings.getHeight()*0.5f, 0f);
-        guiOverlay.setRewardTextPos(settings.getWidth()/2-guiOverlay.getRewardText().getLineWidth()/2, settings.getHeight()/1.5f, 0f);
+        guiOverlay.setRewardTextPos(settings.getWidth()/2f-guiOverlay.getRewardText().getLineWidth()/2f, settings.getHeight()/1.5f, 0f);
         guiOverlay.setInstructionTextPosition(10f, settings.getHeight() - 10f, 0f);
         guiOverlay.setProgressTextPosition(10f, settings.getHeight()*0.4f, 0f);
         
@@ -347,6 +347,9 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
                 
             case "Reset":
                 reset();
+                break;
+                
+            default:
                 break;
         }
     }   

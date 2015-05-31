@@ -25,8 +25,6 @@ import com.jme3.scene.shape.Box;
  */
 public class GuiOverlay {
     
-    private AssetManager assetManager;
-    private RenderManager renderManager;
     private BitmapFont font;
     private BitmapText energyText;
     private BitmapText scoreText;
@@ -34,8 +32,7 @@ public class GuiOverlay {
     private BitmapText progressText;
     private BitmapText rewardText;
     private BitmapText instructionText;
-    private BillboardControl billboard;
-    private Geometry geom, geom2;
+    private Geometry geom2;
     private Node barNode = new Node("energybar");
     private Geometry energygeom;
     private Geometry bloodgeom;
@@ -48,8 +45,6 @@ public class GuiOverlay {
      
      
     public GuiOverlay(AssetManager assetManager, Camera cam, RenderManager renderManager) {
-        this.assetManager = assetManager;
-        this.renderManager = renderManager;
         font = assetManager.loadFont("Interface/Fonts/Console.fnt");
         energyText = new BitmapText(font, false);
         scoreText = new BitmapText(font, false);

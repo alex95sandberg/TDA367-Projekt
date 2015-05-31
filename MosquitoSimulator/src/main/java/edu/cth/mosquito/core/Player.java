@@ -20,7 +20,7 @@ public class Player {
     private World world;
     private Position3D pos;
     private float energy;
-    private final float maxEnergy = 100;
+    private static final float MAX_ENERGY = 100;
     private float score;
     private Objectives objectives;
     private ObjectiveGenerator objGen = new ObjectiveGenerator();
@@ -28,7 +28,7 @@ public class Player {
 
     
     public Player(World world){
-        this.energy = maxEnergy;
+        this.energy = MAX_ENERGY;
         this.pos = new Position3D();
         this.world  = world;
         generateNewObjective();
@@ -37,7 +37,7 @@ public class Player {
     }
     
     public Player(Position3D position, World world){
-        this.energy = maxEnergy;
+        this.energy = MAX_ENERGY;
         this.pos = new Position3D(position);
         this.world = world;
         generateNewObjective();
@@ -75,7 +75,7 @@ public class Player {
     }
     
     public void resetStats(){
-        energy = maxEnergy;
+        energy = MAX_ENERGY;
         score = 0;
         pos = new Position3D();
         //reset objectives
@@ -91,7 +91,7 @@ public class Player {
     }
     
     public float getMaxEnergy(){
-        return maxEnergy;
+        return MAX_ENERGY;
     }
     
     public void decreaseEnergy(float amount){
