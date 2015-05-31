@@ -39,8 +39,6 @@ public class World {
         addHuman(new Position3D(-28, -10, -37));
         addHuman(new Position3D(10, -10, 0));
         addHuman(new Position3D(14, -10, 34));
-        
-        addSolidObject(1, 2, 3);
     }
     
     public void resetHumans(){
