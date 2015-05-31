@@ -224,7 +224,7 @@ public class MenuController extends AbstractAppState implements ScreenController
                     alignCenter();
                     childLayoutCenter();
                     width(WIDTH2);
-                    height("14%");
+                    height("12%");
                     
                     text(new TextBuilder(){{
                         valignCenter();
@@ -239,7 +239,7 @@ public class MenuController extends AbstractAppState implements ScreenController
                     alignCenter();
                     childLayoutCenter();
                     width(WIDTH2);
-                    height("14%");
+                    height("12%");
                     
                     text(new TextBuilder(){{
                         id(NBRONE);
@@ -255,7 +255,7 @@ public class MenuController extends AbstractAppState implements ScreenController
                     alignCenter();
                     childLayoutCenter();
                     width(WIDTH2);
-                    height("14%");
+                    height("12%");
                     
                     text(new TextBuilder(){{
                         id(NBRTWO);
@@ -271,7 +271,7 @@ public class MenuController extends AbstractAppState implements ScreenController
                     alignCenter();
                     childLayoutCenter();
                     width(WIDTH2);
-                    height("14%");
+                    height("12%");
                     
                     text(new TextBuilder(){{
                         id(NBRTHREE);
@@ -287,7 +287,7 @@ public class MenuController extends AbstractAppState implements ScreenController
                     alignCenter();
                     childLayoutCenter();
                     width(WIDTH2);
-                    height("14%");
+                    height("12%");
                     
                     text(new TextBuilder(){{
                         id(NBRFOUR);
@@ -303,7 +303,7 @@ public class MenuController extends AbstractAppState implements ScreenController
                     alignCenter();
                     childLayoutCenter();
                     width(WIDTH2);
-                    height("14%");
+                    height("12%");
                     
                     text(new TextBuilder(){{
                         id(NBRFIVE);
@@ -315,43 +315,36 @@ public class MenuController extends AbstractAppState implements ScreenController
                     }});
                 }});
                 
-                panel(new PanelBuilder("twoChoice"){{
+                panel(new PanelBuilder("reset"){{
                     alignCenter();
-                    childLayoutHorizontal();
+                    childLayoutCenter();
                     width(WIDTH2);
-                    height("14%");
-                    interactOnClick("switchScreen(start)");
+                    height("12%");
+                    visibleToMouse(true);
+                    interactOnClick("resetScore()");
                     
-                    panel(new PanelBuilder("reset"){{
-                        childLayoutCenter();
-                        width("50%");
-                        height("100%");
-                        visibleToMouse(true);
-                        interactOnClick("resetScore()");
+                    text(new TextBuilder(){{
+                        valignCenter();
+                        alignCenter();
+                        text("Reset score");
+                        font(FONTPATH);
                         
-                        text(new TextBuilder(){{
-                            valignCenter();
-                            alignCenter();
-                            text("Reset score  |");
-                            font(FONTPATH);
-                        
-                        }});
                     }});
-                    
-                    panel(new PanelBuilder(){{
-                        childLayoutCenter();
-                        width("50%");
-                        height("100%");
-                        visibleToMouse(true);
-                        interactOnClick("switchScreen(start)");
-                    
-                        text(new TextBuilder(){{
-                            valignCenter();
-                            alignCenter();
-                            text("     " + BACKTOMENUTEXT);
-                            font(FONTPATH);
+                }});
+                
+                panel(new PanelBuilder("start"){{
+                    alignCenter();
+                    childLayoutCenter();
+                    width(WIDTH2);
+                    height("12%");
+                    visibleToMouse(true);
+                    interactOnClick("switchScreen(start)");
                         
-                        }});
+                    text(new TextBuilder(){{
+                        valignCenter();
+                        alignCenter();
+                        text("Main menu");
+                        font(FONTPATH);
                     }});
                 }});
             }});

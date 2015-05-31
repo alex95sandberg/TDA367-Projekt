@@ -137,6 +137,7 @@ public class MosquitoSimulator extends SimpleApplication implements AnalogListen
             if(player.getEnergy() <= 0){
                 highscore.addHighscore(Math.round(player.getScore()));
                 menu.setScore((int)player.getScore());
+                menu.setHighscore(highscore.getHighscore()); 
                 showMenu("gameOverScreen");
                 reset();
             }
