@@ -124,7 +124,7 @@ public class Player {
         
     }
     
-    private void generateNewObjective(){
+    public void generateNewObjective(){
         this.objectives = objGen.getnextObjective();
     }
     
